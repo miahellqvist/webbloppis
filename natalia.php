@@ -1,3 +1,5 @@
 <?php
 
-echo "hej!";
+echo "hej då!";
+
+echo "Hej";
