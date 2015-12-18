@@ -1,4 +1,3 @@
 <?php
 
-
-echo "Hej";
+echo "hej code_cats! Ha en bra dag! Hej då :)";
