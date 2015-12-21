@@ -2,10 +2,8 @@
 include_once('Html.php');
 include_once('User.php');
 
-if(isset($_POST['login'])){
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+$user = new User();
 
-	$object = new User();
-	$object->login($username, $password);
+if (isset($_POST['username'])) {
+	$user->login();
 }

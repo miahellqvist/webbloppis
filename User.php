@@ -1,32 +1,31 @@
 <?php
-
 include_once('Connection.php');
 
 class User {
 
-	private $db;
+	private $id, $username, $password;
 
-	function __construct() 
-	{
-		$this->db = new connection();
-		$this->db = $this->db->dbConnect();
-	}
+	function login() {
+		$dbCon = Connection::getInstance();
+		$this->username = $dbCon->real_escape_string($_POST['username']);
+		$this->password = $dbCon->real_escape_string($_POST['password']);
+		$query = "
+			SELECT * 
+			FROM user 
+			WHERE username = '$this->username' 
+			AND password = '$this->password'
+		";
+		$result = $dbCon->query($query);
 
-	function login($username, $password)
-	{
-		if(!empty($username) && !empty($password)){
-			$query = $this->db->prepare("select * from user where username=? and password=?");
-			$query->bindParam(1, $username);
-			$query->bindParam(2, $password);
-			$query->execute();
-
-			if($query->rowCount() == 1){
-				echo "User verified, Acces granted.";
-			}else{
-				echo "Incorrect username or password";
+		if ($result->num_rows == 1) {
+			while ($row = $result->fetch_assoc()){
+				$_SESSION['username'] = $this->username;
+				echo "Welcome ".$row['name'];
 			}
-		}else {
-			echo "Please enter username and password";
+		} 
+		else{
+			echo "Wrong username or password";
 		}
+
 	}
 }
