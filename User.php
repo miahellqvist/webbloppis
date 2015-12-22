@@ -1,12 +1,11 @@
 <?php
-include_once('Connection.php');
 
 class User {
 
-	private $id, $username, $password;
+	private $username, $password;
 
-	function login() {
-		$dbCon = Connection::getInstance();
+	function login($dbCon) {
+	
 		$this->username = $dbCon->real_escape_string($_POST['username']);
 		$this->password = $dbCon->real_escape_string($_POST['password']);
 		$query = "
@@ -20,12 +19,18 @@ class User {
 		if ($result->num_rows == 1) {
 			while ($row = $result->fetch_assoc()){
 				$_SESSION['username'] = $this->username;
-				echo "Welcome ".$row['name'];
+				$object = new PrintPage();
+				$object->printName($dbCon);
 			}
 		} 
-		else{
+		else {
 			echo "Wrong username or password";
 		}
 
+	}
+
+	function logout() {
+		session_unset();
+		echo "You are logged out";
 	}
 }
