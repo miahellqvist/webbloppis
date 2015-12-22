@@ -34,6 +34,18 @@ else {
 	);
 }
 
+//OM MAN HAR TRYCKT PÅ CREATE NEW ACCOUNT KNAPP VISAS DET ETT FORMULÄR FÖR ATT SKAPA ETT KONTO
+if (isset($_POST['newAccount'])) {
+	$data = array(
+		'createAccountForm' =>$print->createAccountForm()
+	);
+}
+
+//SKAPA ETT KONTO
+if (isset($_POST['createAccount'])){
+	$user->createAccount($dbCon);
+}
+
 //OM MAN HAR TRYCKT PÅ LOGOUT KNAPP VISAS DET TITLE, LOGOUT MEDDELANDE OCH LOGIN FORMULÄR
 if (isset($_POST['logout'])) {
 	$data = array(

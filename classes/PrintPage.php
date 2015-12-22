@@ -9,6 +9,7 @@ class PrintPage {
 				Username:<input type='text' name='username' /> <br>
 				Password:<input type='password' name='password' /> <br>
 				<input type='submit' name='login' value='Login'>
+				<input type='submit' name='newAccount' value='Create new account'>
 			</form>";
 	}
 
@@ -32,8 +33,24 @@ class PrintPage {
 	//DET SKRIVER UT LOGOUT FORMULÄR
 	function printLogoutForm() {
 		return 
-		"<form action='' method='post'>
-			<input type='submit' name='logout' value='Logout'>
-		</form>";
+			"<form action='' method='post'>
+				<input type='submit' name='logout' value='Logout'>
+			</form>";
+	}
+
+	function createAccountForm() {
+		return
+			"<form action='' method='post'>
+				Name:<input type='text' name='name' required/> <br>
+				Username:<input type='text' name='username' required/> <br>
+				Password:<input type='password' name='password' required/> <br>
+				Membership: 
+				<select name='membership'>
+					<option value='1'>Bronze</option>
+					<option value='2'>Silver</option>
+					<option value='3'>Gold</option>
+				</select> <br>
+				<input type='submit' name='createAccount' value='Create'>
+			</form>";
 	}
 }

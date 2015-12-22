@@ -2,23 +2,40 @@
 
 class User {
 
-	private $username, $password;
+	function createAccount($dbCon) {
+		$name = $dbCon->real_escape_string($_POST['name']);
+		$username = $dbCon->real_escape_string($_POST['username']);
+		$password = $dbCon->real_escape_string($_POST['password']);
+		$date = date("Y-m-d h:i:s");
+		$membership = $dbCon->real_escape_string($_POST['membership']);
+
+		//$salt = $username;
+		$salt = '123';
+		$password= hash('sha256', $salt.$password);
+
+		$query = "INSERT INTO user
+				(name, username, password, date, type_membership_id)
+				VALUES ('$name','$username', '$password', '$date', '$membership')";	
+
+		$dbCon->query($query);
+		echo "Account Created!";
+	}
 
 	function login($dbCon) {
 	
-		$this->username = $dbCon->real_escape_string($_POST['username']);
-		$this->password = $dbCon->real_escape_string($_POST['password']);
+		$username = $dbCon->real_escape_string($_POST['username']);
+		$password = $dbCon->real_escape_string($_POST['password']);
 		$query = "
 			SELECT * 
 			FROM user 
-			WHERE username = '$this->username' 
-			AND password = '$this->password'
+			WHERE username = '$username' 
+			AND password = '$password'
 		";
 		$result = $dbCon->query($query);
 
 		//OM USERNAME OCH PASSWORD STÄMMER SKAPAS EN SESSION OCH ETT NYTT OBJEKT FÖR ATT VISA USERS NAMN
 		if ($row = $result->fetch_assoc()) {
-			$_SESSION['username'] = $this->username;
+			$_SESSION['username'] = $username;
 			$object = new PrintPage();
 			$object->printName($dbCon);
 		} 
