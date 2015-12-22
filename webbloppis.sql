@@ -37,4 +37,4 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `name`, `username`, `password`, `salt`, `date`, `type_membership_id`) VALUES
 (1,	'Natalia',	'nat',	'1234',	'',	'0000-00-00 00:00:00',	0);
 
--- 2015-12-22 15:42:51
+-- 2015-12-22 15:53:27
