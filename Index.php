@@ -7,7 +7,7 @@ function __autoload($class_name) {
 }
 
 //DATABASKOPPLINGEN
-$dbCon = Connection::getInstance();
+$dbCon = Connection::connect();
 
 //NYA OBJEKT
 $user = new User();

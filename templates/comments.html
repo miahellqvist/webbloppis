@@ -1,0 +1,72 @@
+
+<div class="container">
+
+	<div class="row">
+
+		<div class="col-xs-12 col-xs-8 col-xs-offset-2">
+			
+
+<h3>Kommentarer</h3>
+
+<form role="form" id="save-form" method="post" action="">
+
+	<div class="row">
+
+		<div class="col-xs-12">
+	
+			<div class="form-group">
+				
+				<label for="name">Namn</label>
+				<input type="text" aria-describedby="sizing-addon2" class="form-control no-border-radius" id="" name="name" value="" />
+									
+			</div>
+	
+		</div>
+		
+	</div>
+
+	<div class="row">
+
+		<div class="col-xs-12">
+
+			<div class="form-group">
+
+			<label for="text">Kommentar</label>
+			<textarea class="form-control no-border-radius" rows="5" name="text"></textarea>
+
+			</div>
+
+		</div>
+
+	</div>	
+
+	<div class="row">
+				
+		<div class="col-xs-12">
+			
+			<div class="form-group">
+			
+				<button type="submit" name="add_comment_to_post" class="btn myBtn btn-lg">Spara</button>
+			
+			</div>
+			
+		</div>
+		
+	</div>
+	
+</form>
+
+{% for key,comment in blog.post.comments %}
+	
+	<ul class="list-unstyled">
+		<li class=""><h4>{{comment.text}}</h4>
+		<p><small>{{comment.datetime}}, <strong>{{comment.name}}<strong></small></p></li>
+	</ul>
+
+{% endfor %}
+
+		</div>
+		
+	</div>
+	
+</div>

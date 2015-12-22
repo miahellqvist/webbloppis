@@ -1,0 +1,68 @@
+<h2>Skriv blogginlägg</h2>
+
+<form role="form" method="post" action="./">
+			
+	<div class="row">
+
+		<div class="col-xs-12">
+	
+			<div class="form-group">
+				
+				<label for="headline">Rubrik</label>
+				<input type="text" aria-describedby="sizing-addon2" class="form-control req" id="" name="headline" value="" />
+									
+			</div>
+	
+		</div>
+		
+	</div>
+
+	<div class="row">
+
+		<div class="col-xs-12">
+
+			<div class="form-group">
+
+			<label for="text">Text</label>
+			<textarea class="form-control" rows="5" name="text"></textarea>
+
+			</div>
+
+		</div>
+
+	</div>	
+
+	<div class="row">
+
+		<div class="col-xs-12">
+
+			<select class="form-control" name="category">
+
+			{% for key,category in blog.categories %}
+  			
+  				<option value="{{key}}">{{category}}</option>
+
+  			{% endfor %}
+
+			</select>
+
+		</div>
+
+	</div>
+	
+	<div class="row">
+				
+		<div class="col-xs-12">
+			
+			<div class="form-group">
+			
+				<button type="submit" name="save_blog_post" class="btn btn-primary btn-lg">Spara</button>
+				<a href="./" class="btn btn-warning btn-lg back">Avbryt</a>
+			
+			</div>
+			
+		</div>
+		
+	</div>
+	
+</form>

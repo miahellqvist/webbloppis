@@ -1,0 +1,19 @@
+<div class="container">
+
+	<div class="row">
+
+		<div class="col-xs-12 col-xs-8 col-xs-offset-2">
+
+			<h2>{{blog.post.headline}}</h2>
+			<p>{{blog.post.text}}</p>
+			<p><small>{{blog.post.datetime}} av {{blog.post.username}}</small></p>
+
+			<a href="./">Tillbaka</a>
+
+		</div>
+
+	</div>
+
+</div>
+
+{% include "comments.html" %}
