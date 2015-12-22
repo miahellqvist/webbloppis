@@ -16,6 +16,7 @@ class User {
 		";
 		$result = $dbCon->query($query);
 
+		//OM USERNAME OCH PASSWORD STÄMMER SKAPAS EN SESSION OCH ETT NYTT OBJEKT FÖR ATT VISA USERS NAMN
 		if ($result->num_rows == 1) {
 			while ($row = $result->fetch_assoc()){
 				$_SESSION['username'] = $this->username;
@@ -29,6 +30,7 @@ class User {
 
 	}
 
+	//OM MAN HAR TRYCKT PÅ LOGOUT KNAPP UNSET SESSION OCH VISAS "YOU ARE LOGGED OUT"
 	function logout() {
 		session_unset();
 		echo "You are logged out";
