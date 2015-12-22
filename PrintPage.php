@@ -2,6 +2,7 @@
 
 class PrintPage {
 
+	//DET SKRIVER UT LOGIN FORMULÄR
 	function printLoginForm() {
 		echo 
 			'<form action="" method="post">
@@ -12,8 +13,9 @@ class PrintPage {
 			</form>';
 	}
 
+	//DET SKRIVER UT USERS NAMN OCH LOG OUT KNAPP
 	function printName($dbCon) {
-
+		
 		if (isset($_SESSION['username'])) {
 			$username = $dbCon->real_escape_string($_POST['username']);
 			$query = "
