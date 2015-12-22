@@ -33,6 +33,6 @@ class User {
 	//OM MAN HAR TRYCKT PÅ LOGOUT KNAPP UNSET SESSION OCH VISAS "YOU ARE LOGGED OUT"
 	function logout() {
 		session_unset();
-		echo "You are logged out";
+		return "You are logged out";
 	}
 }
