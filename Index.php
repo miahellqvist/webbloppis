@@ -13,12 +13,12 @@ $dbCon = Connection::getInstance();
 $user = new User();
 $print = new PrintPage();
 
-//OM MAN HAR TRYCKT PÅ LOGIN KNAPP VISAS DET LOGIN FORMULÄR
+//OM MAN HAR TRYCKT PÅ LOGIN KNAPPEN VISAS DET ETT LOGIN FORMULÄR
 if (isset($_POST['login'])) {
 	$user->login($dbCon);
 }
 
-//OM SESSION HAR SATT VISAS DET TITLE, USERS NAMN OCH LOGOUT FORMULÄR
+//OM SESSION ÄR SATT VISAS DET TITLE, USERS NAMN OCH LOGOUT FORMULÄR
 if (isset($_SESSION['username'])) {
 	$data = array(
 		'title' => 'Webbloppis',
@@ -34,7 +34,7 @@ else {
 	);
 }
 
-//OM MAN HAR TRYCKT PÅ LOGOUT KNAPP VISAS DET TITLE, LOGOUT MEDDELANDE OCH LOGIN FORMULÄR
+//OM MAN HAR TRYCKT PÅ LOGOUT KNAPPEN VISAS DET TITLE, LOGOUT MEDDELANDE OCH LOGIN FORMULÄR
 if (isset($_POST['logout'])) {
 	$data = array(
 		'title' => 'Webbloppis',
