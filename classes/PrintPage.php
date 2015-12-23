@@ -53,4 +53,32 @@ class PrintPage {
 				<input type='submit' name='createAccount' value='Create'>
 			</form>";
 	}
+
+
+	static function newProduct($row){
+		return "
+			<form action='product.php' method='post' enctype='multipart/form-data'>
+				Önskad titel:<input type='text' name='titel'><br>
+				Beskrivande text:<textarea name='text' cols='45' rows='6'></textarea><br>
+				Önskat pris:<input type='number' name='pris'><br>
+				Lägg till en bild:<input type='file' name='file'><br>
+				<label for='select'>Välj kategori:</label>
+				<select name='kategori'>
+				<?php foreach ($row as $option);?>
+				<option value='<?php echo $option->id;?>''>
+				<?php echo $option->Kategori; ?></option>
+				<?php endforeach;?>
+				</select>
+				Välj underkategori:
+				<select name='Underkategori'>
+				<?php foreach ($result as $option);?>
+				<option value='<?php echo $option->id;?>''>
+				<?php echo $option->Underkategori; ?></option>
+				<?php endforeach;?>
+				</select>
+				<input type='hidden' name='user_id'>
+				<input type='submit'  name='submit' value='Publicera annonsen'>
+			</form>";		
+
+	}
 }
