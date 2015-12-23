@@ -23,7 +23,8 @@ if (isset($_SESSION['username'])) {
 	$data = array(
 		'title' => 'Webbloppis',
 		'name' =>$print->printName($dbCon),
-		'logoutForm' =>$print->printLogoutForm()
+		'logoutForm' =>$print->printLogoutForm(),
+		'newProduct' =>$print -> newProduct($row)
 	);
 }
 //ANNARS VISAS DET TITLE OCH LOGIN FORMULÄR

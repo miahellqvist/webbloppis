@@ -2,7 +2,7 @@
 
 class PrintPage {
 
-	//DET SKRIVER UT LOGIN FORMULÄR
+	//SKRIVER UT LOGIN FORMULÄR
 	function printLoginForm() {
 		return 
 			"<form action='' method='post'>
@@ -13,7 +13,7 @@ class PrintPage {
 			</form>";
 	}
 
-	//DET SKRIVER UT USERS NAMN
+	//SKRIVER UT ANVÄNDARENS NAMN
 	function printName($dbCon) {
 		
 		if (isset($_SESSION['username'])) {
@@ -30,7 +30,7 @@ class PrintPage {
 		}
 	}
 
-	//DET SKRIVER UT LOGOUT FORMULÄR
+	//SKRIVER UT LOGOUT-FORMULÄR
 	function printLogoutForm() {
 		return 
 			"<form action='' method='post'>
@@ -41,17 +41,21 @@ class PrintPage {
 	function createAccountForm() {
 		return
 			"<form action='' method='post'>
-				Name:<input type='text' name='name' required/> <br>
-				Username:<input type='text' name='username' required/> <br>
-				Password:<input type='password' name='password' required/> <br>
+				Name:<input type='text' name='name' required> <br>
+				Username:<input type='text' name='username' required> <br>
+				Password:<input type='password' name='password' required> <br>
 				Membership: 
 				<select name='membership'>
-					<option value='1'>Bronze</option>
+					<option value='1'>Brons</option>
 					<option value='2'>Silver</option>
-					<option value='3'>Gold</option>
+					<option value='3'>Guld</option>
 				</select> <br>
+				Adress:<input type='text' name='adress' required> <br>
+				Län:<input type='text' name='county' required> <br>
+				E-post:<input type='text' name='email' required> <br>
+				Telefon:<input type='text' name='telephone'> <br>
 				<input type='submit' name='createAccount' value='Create'>
-			</form>";
+			</form>";;
 	}
 
 
