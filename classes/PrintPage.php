@@ -6,10 +6,10 @@ class PrintPage {
 	function printLoginForm() {
 		return 
 			"<form action='' method='post'>
-				Username:<input type='text' name='username' /> <br>
-				Password:<input type='password' name='password' /> <br>
-				<input type='submit' name='login' value='Login'>
-				<input type='submit' name='newAccount' value='Create new account'>
+				Användarnamn: <input type='text' name='username' /> <br>
+				Lösenord: <input type='password' name='password' /> <br>
+				<input type='submit' name='login' value='Logga in'>
+				<input type='submit' name='newAccount' value='Skapa nytt konto'>
 			</form>";
 	}
 
@@ -34,30 +34,55 @@ class PrintPage {
 	function printLogoutForm() {
 		return 
 			"<form action='' method='post'>
-				<input type='submit' name='logout' value='Logout'>
+				<input type='submit' name='logout' value='Logga ut'>
 			</form>";
 	}
 
 	function createAccountForm() {
 		return
 			"<form action='' method='post'>
-				Name:<input type='text' name='name' required> <br>
-				Username:<input type='text' name='username' required> <br>
-				Password:<input type='password' name='password' required> <br>
-				Membership: 
+				Namn: <input type='text' name='name' required> <br>
+				Användarnamn: <input type='text' name='username' required> <br>
+				Lösenord: <input type='password' name='password' required> <br>
+				Medlemskap: 
 				<select name='membership'>
 					<option value='1'>Brons</option>
 					<option value='2'>Silver</option>
 					<option value='3'>Guld</option>
 				</select> <br>
-				Adress:<input type='text' name='adress' required> <br>
-				Län:<input type='text' name='county' required> <br>
-				E-post:<input type='text' name='email' required> <br>
-				Telefon:<input type='text' name='telephone'> <br>
-				<input type='submit' name='createAccount' value='Create'>
-			</form>";;
+				Adress: <input type='text' name='adress' required> <br>
+				Postnummer: <input type='text' name='zip_code' required> 
+				Stad: <input type='text' name='city' required> <br>
+				Län: 
+				<select name='state' required>
+					<option disabled selected>Välj län</option>
+					<option value='Blekinge län'>Blekinge län</option>
+					<option value='Dalarnas län'>Dalarnas län</option>
+					<option value='Gotlands län'>Gotlands län</option>
+					<option value='Gävleborgs län'>Gävleborgs län</option>
+					<option value='Hallands län'>Hallands län</option>
+					<option value='Jämtlands län'>Jämtlands län</option>
+					<option value='Jönköpings län'>Jönköpings län</option>
+					<option value='Kalmar län'>Kalmar län</option>
+					<option value='Kronobergs län'>Kronobergs län</option>
+					<option value='Norrbottens län'>Norrbottens län</option>
+					<option value='Skåne län'>Skåne län</option>
+					<option value='Stockholms län'>Stockholms län</option>
+					<option value='Södermanlands län'>Södermanlands län</option>
+					<option value='Uppsala län'>Uppsala län</option>
+					<option value='Värmlands län'>Värmlands län</option>
+					<option value='Västerbottens län'>Västerbottens län</option>
+					<option value='Västernorrlands län'>Västernorrlands län</option>
+					<option value='Västmanlands län'>Västmanlands län</option>
+					<option value='Västra Götalands län'>Västra Götalands län</option>
+					<option value='Örebro län'>Örebro län</option>
+					<option value='Östergötlands län'>Östergötlands län</option>
+				</select> <br>
+				E-post: <input type='text' name='email' required> <br>
+				Telefon: <input type='text' name='phone'> <br>
+				<input type='submit' name='createAccount' value='Skapa konto'>
+			</form>";
 	}
-
 
 	static function newProduct($row){
 		return "
