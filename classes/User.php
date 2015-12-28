@@ -8,14 +8,18 @@ class User {
 		$password = $dbCon->real_escape_string($_POST['password']);
 		$date = date("Y-m-d h:i:s");
 		$membership = $dbCon->real_escape_string($_POST['membership']);
+		$adress = $dbCon->real_escape_string($_POST['adress']);
+		$county = $dbCon->real_escape_string($_POST['county']);
+		$email = $dbCon->real_escape_string($_POST['email']);
+		$phone = $dbCon->real_escape_string($_POST['telephone']);
 
 		//$salt = $username;
 		$salt = '123';
 		$password= hash('sha256', $salt.$password);
 
 		$query = "INSERT INTO user
-				(name, username, password, date, type_membership_id)
-				VALUES ('$name','$username', '$password', '$date', '$membership')";	
+				(name, username, password, date, type_membership_id, adress, county, email, telephone)
+				VALUES ('$name','$username', '$password', '$date', '$membership', '$adress', '$county', '$email', '$phone')";	
 
 		$dbCon->query($query);
 		echo "Account Created!";
