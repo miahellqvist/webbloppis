@@ -2,7 +2,7 @@
 
 class PrintPage {
 
-	//SKRIVER UT LOGIN FORMULÄR
+	//SKRIVER UT LOGIN-FORMULÄR
 	function printLoginForm() {
 		return 
 			"<form action='' method='post'>
@@ -26,7 +26,7 @@ class PrintPage {
 			$result = $dbCon->query($query);
 
 			$row = $result->fetch_assoc();
-			return "Välommen ".$row['name'];
+			return "Välkommen ".$row['name'];
 		}
 	}
 
@@ -38,6 +38,7 @@ class PrintPage {
 			</form>";
 	}
 
+	//SKRIVER UT REGISTRERINGS-FORMULÄR
 	function createAccountForm() {
   		return
   			"<form action='' method='post'>
@@ -121,6 +122,7 @@ class PrintPage {
 			</form>";		
 	}*/
 
+	//SKRIVER UT ANNONS-INLÄGGNING-FORMULÄR
 	function newProduct($dbCon){
 		$query1 = "SELECT * FROM category";
 		$result1 = $dbCon->query($query1);
@@ -130,10 +132,10 @@ class PrintPage {
 		
 		echo 
 		"<form action='product.php' method='post' enctype='multipart/form-data'>
-			Önskad titel:<input type='text' name='title'><br>
-			Beskrivande text:<textarea name='text' cols='45' rows='6'></textarea><br>
-			Önskat pris:<input type='number' name='price'><br>
-			Lägg till en bild:<input type='file' name='file'><br>
+			Önskad titel: <input type='text' name='title'><br>
+			Beskrivande text: <textarea name='text' cols='45' rows='6'></textarea><br>
+			Önskat pris: <input type='number' name='price'><br>
+			Lägg till en bild: <input type='file' name='file'><br>
 			Välj kategori:
 			<select name='category'>
 				<option value='0'>-- Välj en kategori --</option>";

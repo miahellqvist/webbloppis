@@ -12,6 +12,8 @@ $dbCon = Connection::connect();
 $user = new User();
 $upload = New UploadProduct();
 
+//UPPLADDNING AV TEXT, BILD OCH KATEGORI FÖR ANNONSER
 $upload->upload($dbCon);
 
+//SKRIVER UT ANNONS-INLÄGGNING-FORMULÄR
 echo PrintPage::newProduct(isset($row));
