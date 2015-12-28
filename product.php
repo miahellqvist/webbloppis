@@ -12,6 +12,6 @@ $dbCon = Connection::connect();
 $user = new User();
 $upload = New UploadProduct();
 
-$upload->upload();
+$upload->upload($dbCon);
 
-echo PrintPage::newProduct($row);
+echo PrintPage::newProduct(isset($row));

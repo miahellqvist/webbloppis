@@ -6,10 +6,10 @@ class PrintPage {
 	function printLoginForm() {
 		return 
 			"<form action='' method='post'>
-				Username:<input type='text' name='username' /> <br>
-				Password:<input type='password' name='password' /> <br>
-				<input type='submit' name='login' value='Login'>
-				<input type='submit' name='newAccount' value='Create new account'>
+				Användarnamn: <input type='text' name='username' /> <br>
+				Lösenord: <input type='password' name='password' /> <br>
+				<input type='submit' name='login' value='Logga in'>
+				<input type='submit' name='newAccount' value='Skapa nytt konto'>
 			</form>";
 	}
 
@@ -26,7 +26,7 @@ class PrintPage {
 			$result = $dbCon->query($query);
 
 			$row = $result->fetch_assoc();
-			return "Welcome ".$row['name'];
+			return "Välommen ".$row['name'];
 		}
 	}
 
@@ -34,7 +34,7 @@ class PrintPage {
 	function printLogoutForm() {
 		return 
 			"<form action='' method='post'>
-				<input type='submit' name='logout' value='Logout'>
+				<input type='submit' name='logout' value='Logga ut'>
 			</form>";
 	}
 
@@ -88,7 +88,7 @@ class PrintPage {
 	 				<option value='Östergötlands län'>Östergötlands län</option>
   				</select> <br>
 
- 			E-post: <input type='text' name='email' required> <br>
+ 			E-mail: <input type='text' name='email' required> <br>
  			Telefon: <input type='text' name='phone'> <br>
  			<input type='submit' name='createAccount' value='Skapa konto'>
  		</form>";
@@ -132,10 +132,10 @@ class PrintPage {
 		"<form action='product.php' method='post' enctype='multipart/form-data'>
 			Önskad titel:<input type='text' name='title'><br>
 			Beskrivande text:<textarea name='text' cols='45' rows='6'></textarea><br>
-			Önskat pris:<input type='number' name='pris'><br>
+			Önskat pris:<input type='number' name='price'><br>
 			Lägg till en bild:<input type='file' name='file'><br>
 			Välj kategori:
-			<select name='kategori'>
+			<select name='category'>
 				<option value='0'>-- Välj en kategori --</option>";
 
 				while ($row1 = mysqli_fetch_assoc($result1)) {
@@ -144,7 +144,7 @@ class PrintPage {
 
 		echo"</select><br>
 			Välj underkategori:
-			<select name='Underkategori'>
+			<select name='subcategory'>
 				<option value='0'>-- Välj en underkategori --</option>";
 
 				while ($row2 = mysqli_fetch_assoc($result2)) {

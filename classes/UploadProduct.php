@@ -34,15 +34,19 @@ class UploadProduct {
 
 				$product_title = $dbCon->real_escape_string($_POST['title']);
 				$product_text = $dbCon->real_escape_string($_POST['text']);
+				$product_price = $dbCon->real_escape_string($_POST['price']);
 				$image_name = $_FILES['file']['name'];
 				$image_type = $_FILES['file']['type'];
 				$image_size = $_FILES['file']['size'];
+				$product_category = $dbCon->real_escape_string($_POST['category']);
+				$product_subcategory = $dbCon->real_escape_string($_POST['subcategory']);
+				$user_id = "SELECT id FROM user"; //Funkar inte...
 			   	
 			   	//Lägger in i databasen
 				$query = ("INSERT INTO product
-							(headline, product_text, image_name, image_type, image_size, date)
+							(title, text, price, image_name, image_type, image_size, category, subcategory, date, user_id)
 							VALUES 
-							('$product_title', '$product_text', '$image_name', '$image_type', '$image_size', CURRENT_TIMESTAMP)");
+							('$product_title', '$product_text', '$product_price', '$image_name', '$image_type', '$image_size', '$product_category', '$product_subcategory', CURRENT_TIMESTAMP, '$user_id')");
 				$dbCon->query($query);
 
 				// Uppladdning av fil
