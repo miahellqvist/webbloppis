@@ -7,23 +7,21 @@ class User {
 		$name = $dbCon->real_escape_string($_POST['name']);
 		$username = $dbCon->real_escape_string($_POST['username']);
 		$password = $dbCon->real_escape_string($_POST['password']);
-		$adress = $dbCon->real_escape_string($_POST['adress']);
-		$zip_code = $dbCon->real_escape_string($_POST['zip_code']);
-		$city = $dbCon->real_escape_string($_POST['city']);
-		$state = $dbCon->real_escape_string($_POST['state']);
-		$email = $dbCon->real_escape_string($_POST['email']);
-		$phone = $dbCon->real_escape_string($_POST['phone']);
 		$date = date("Y-m-d h:i:s");
 		$membership = $dbCon->real_escape_string($_POST['membership']);
+		$adress = $dbCon->real_escape_string($_POST['adress']);
+		$county = $dbCon->real_escape_string($_POST['county']);
+		$email = $dbCon->real_escape_string($_POST['email']);
+		$telephone = $dbCon->real_escape_string($_POST['telephone']);
 
 		//$salt = $username;
 		$salt = '123';
 		$password_db = hash('sha256', $salt.$password);
 
 		$query = "INSERT INTO user
-				(name, username, password, adress, zip_code, city, state, email, phone, date, type_membership_id)
-				VALUES ('$name','$username', '$password_db', '$adress', '$zip_code', '$city', '$state', '$email', '$phone', '$date', '$membership')";	
-	
+				(name, username, password, date, type_membership_id, adress, county, email, telephone)
+				VALUES ('$name','$username', '$password_db', '$date', '$membership', '$adress', '$county', '$email', '$telephone')";	
+
 		$dbCon->query($query);
 		echo "Account Created!";
 
@@ -50,7 +48,7 @@ class User {
 			$_SESSION['username'] = $username;
 		} 
 		else {
-			echo "Fel användarnamn eller lösenord";
+			echo "Wrong username or password";
 		}
 
 	}
@@ -58,6 +56,6 @@ class User {
 	//OM MAN HAR TRYCKT PÅ LOGOUT KNAPP UNSET SESSION OCH VISAS "YOU ARE LOGGED OUT"
 	function logout() {
 		session_unset();
-		return "Du är utloggad";
+		return "You are logged out";
 	}
 }
