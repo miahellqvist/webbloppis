@@ -2,7 +2,7 @@
 
 class PrintPage {
 
-	//DET SKRIVER UT LOGIN FORMULÄR
+	//SKRIVER UT LOGIN FORMULÄR
 	function printLoginForm() {
 		return 
 			"<form action='' method='post'>
@@ -13,23 +13,24 @@ class PrintPage {
 			</form>";
 	}
 
-	//DET SKRIVER UT USERS NAMN
+	//SKRIVER UT ANVÄNDARENS NAMN
 	function printName($dbCon) {
 		
-		$username = $_SESSION['username'];
-		$query = "
-			SELECT * 
-			FROM user 
-			WHERE username = '$username'
-		";
-		$result = $dbCon->query($query);
+		if (isset($_SESSION['username'])) {
+			$username = $_SESSION['username'];
+			$query = "
+				SELECT * 
+				FROM user 
+				WHERE username = '$username'
+			";
+			$result = $dbCon->query($query);
 
-		$row = $result->fetch_assoc();
-		return "Welcome ".$row['name'];
-
+			$row = $result->fetch_assoc();
+			return "Welcome ".$row['name'];
+		}
 	}
 
-	//DET SKRIVER UT LOGOUT FORMULÄR
+	//SKRIVER UT LOGOUT-FORMULÄR
 	function printLogoutForm() {
 		return 
 			"<form action='' method='post'>
@@ -45,41 +46,43 @@ class PrintPage {
 				Password:<input type='password' name='password' required> <br>
 				Membership: 
 				<select name='membership'>
-					<option value='1'>Bronze</option>
+					<option value='1'>Brons</option>
 					<option value='2'>Silver</option>
-					<option value='3'>Gold</option>
+					<option value='3'>Guld</option>
 				</select> <br>
 				Adress:<input type='text' name='adress' required> <br>
 				Län:<input type='text' name='county' required> <br>
 				E-post:<input type='text' name='email' required> <br>
 				Telefon:<input type='text' name='telephone'> <br>
 				<input type='submit' name='createAccount' value='Create'>
-			</form>"; //TELEFON SKA INTE VARA TVINGANDE SÅ JAG TOG BORT REQUIRED FÖR DEN.
+			</form>";
 	}
 
-	function newProduct($dbCon){
-		$query = "SELECT * FROM category";
-		$result = $dbCon->query($query);
-		
-		echo 
-		"<form action='' method='post' enctype='multipart/form-data'>
-			Önskad titel:<input type='text' name='titel'><br>
-			Beskrivande text:<textarea name='text' cols='45' rows='6'></textarea><br>
-			Önskat pris:<input type='number' name='pris'><br>
-			Lägg till en bild:<input type='file' name='file'><br>
-			Välj kategori:
-			<select name='kategori'>
-				<option value='0'>-- Select a category --</option>";
-				while ($row = mysqli_fetch_assoc($result)) {
-					echo "<option value='".$row['id']."'>".$row['category_name']."</option>";
-				}
-		echo"</select><br>
-			Välj underkategori:
-			<select name='Underkategori'>
-				<option value='0'>-- Select an undercategory --</option>
-			</select><br>
-			<input type='hidden' name='user_id'>
-			<input type='submit'  name='publicera' value='Publicera annonsen'>
-		</form>";
+
+	static function newProduct($row){
+		return "
+			<form action='product.php' method='post' enctype='multipart/form-data'>
+				Önskad titel:<input type='text' name='titel'><br>
+				Beskrivande text:<textarea name='text' cols='45' rows='6'></textarea><br>
+				Önskat pris:<input type='number' name='pris'><br>
+				Lägg till en bild:<input type='file' name='file'><br>
+				<label for='select'>Välj kategori:</label>
+				<select name='kategori'>
+				<?php foreach ($row as $option);?>
+				<option value='<?php echo $option->id;?>''>
+				<?php echo $option->Kategori; ?></option>
+				<?php endforeach;?>
+				</select>
+				Välj underkategori:
+				<select name='Underkategori'>
+				<?php foreach ($result as $option);?>
+				<option value='<?php echo $option->id;?>''>
+				<?php echo $option->Underkategori; ?></option>
+				<?php endforeach;?>
+				</select>
+				<input type='hidden' name='user_id'>
+				<input type='submit'  name='submit' value='Publicera annonsen'>
+			</form>";		
+
 	}
 }

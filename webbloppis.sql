@@ -19,8 +19,7 @@ INSERT INTO `category` (`id`, `category_name`) VALUES
 (4,	'Leksaker'),
 (5,	'Heminredning'),
 (6,	'Verktyg'),
-(7,	'Trädgård'),
-(8,	'Böcker');
+(7,	'Trädgård');
 
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
@@ -121,18 +120,12 @@ CREATE TABLE `user` (
   `name` varchar(100) COLLATE utf8_bin NOT NULL,
   `username` varchar(100) COLLATE utf8_bin NOT NULL,
   `password` varchar(100) COLLATE utf8_bin NOT NULL,
-  `address` varchar(100) COLLATE utf8_bin NOT NULL,
-  `zip_code` varchar(100) COLLATE utf8_bin NOT NULL,
-  `city` varchar(100) COLLATE utf8_bin NOT NULL,
-  `state` enum('Blekinge län,','Dalarnas län,','Gotlands län,','Gävleborgs län,','Hallands län,','Jämtlands län,','Jönköpings län,','Kalmar län,','Kronobergs län,','Norrbottens län,','Skåne län,','Stockholms län,','Södermanlands län,','Uppsala län,','Värmlands län,','Västerbottens län,','Västernorrlands län,','Västmanlands län,','Västra Götalands län,','Örebro län,','Östergötlands län') COLLATE utf8_bin NOT NULL,
-  `email` varchar(100) COLLATE utf8_bin NOT NULL,
-  `phone` varchar(100) COLLATE utf8_bin NOT NULL,
   `date` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `type_membership_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `user` (`id`, `name`, `username`, `password`, `address`, `zip_code`, `city`, `state`, `email`, `phone`, `date`, `type_membership_id`) VALUES
-(1,	'Natalia',	'nat',	'1234',	'Vägen 1',	'123 45',	'Stockholm',	'',	'',	'',	'2015-12-27 22:18:11',	3);
+INSERT INTO `user` (`id`, `name`, `username`, `password`, `date`, `type_membership_id`) VALUES
+(1,	'Natalia',	'nat',	'1234',	'0000-00-00 00:00:00',	0);
 
--- 2015-12-27 21:50:35
+-- 2015-12-23 11:53:52

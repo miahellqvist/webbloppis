@@ -12,10 +12,6 @@ $dbCon = Connection::connect();
 //NYA OBJEKT
 $user = new User();
 $print = new PrintPage();
-$upload = new UploadProduct();
-$query = new Query();
-
-$upload->upload();
 
 //OM MAN HAR TRYCKT PÅ LOGIN KNAPP VISAS DET LOGIN FORMULÄR
 if (isset($_POST['login'])) {
@@ -28,7 +24,7 @@ if (isset($_SESSION['username'])) {
 		'title' => 'Webbloppis',
 		'name' =>$print->printName($dbCon),
 		'logoutForm' =>$print->printLogoutForm(),
-		'newProductForm' =>$print->newProduct($dbCon)
+		'newProduct' =>$print -> newProduct($row)
 	);
 }
 //ANNARS VISAS DET TITLE OCH LOGIN FORMULÄR
@@ -59,8 +55,6 @@ if (isset($_POST['logout'])) {
 		'loginForm' =>$print->printLoginForm()
 	);
 }
-
-
 
 //Läser in Twig
 require_once 'Twig/lib/Twig/Autoloader.php';
