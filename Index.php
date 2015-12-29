@@ -17,6 +17,20 @@ $query = new Query();
 
 $upload->upload($dbCon);
 
+
+
+//OM MAN INTE ÄR INLOGGAD VISAS ALLA ANNONSER
+if (!isset($_SESSION['username'])) {
+	echo $upload->viewAddImage($dbCon, $query); //Ta bort denna echo när viewAddImage funkar i twig
+
+	$data = array(
+		'viewAddImage' => $upload->viewAddImage($dbCon, $query)
+	);
+}
+elseif(isset($_GET['id'])){
+	echo $upload->viewProductAdd($dbCon, $query);
+}
+
 //OM MAN HAR TRYCKT PÅ LOGIN KNAPP VISAS DET LOGIN FORMULÄR
 if (isset($_POST['login'])) {
 	$user->login($dbCon);
@@ -59,6 +73,7 @@ if (isset($_POST['newAccount'])) {
 if (isset($_POST['createAccount'])){
 	$user->createAccount($dbCon);
 }
+
 
 
 //Läser in Twig

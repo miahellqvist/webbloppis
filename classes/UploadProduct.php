@@ -2,6 +2,7 @@
 
 class UploadProduct {
 
+
 	function upload($dbCon){
 
 		if(isset($_POST['submit'])){
@@ -40,7 +41,7 @@ class UploadProduct {
 				$image_size = $_FILES['file']['size'];
 				$product_category = $dbCon->real_escape_string($_POST['category']);
 				$product_subcategory = $dbCon->real_escape_string($_POST['subcategory']);
-				$user_id = "SELECT id FROM user"; //Funkar inte...
+				$user_id = ("SELECT id FROM user"); //Funkar inte...
 			   	
 			   	//Lägger in i databasen
 				$query = ("INSERT INTO product
@@ -58,6 +59,48 @@ class UploadProduct {
 					echo "Bilden är inte sparad";
 				}
 			}
+		}
+	}
+
+	//Visar hela annonsen
+	function viewProductAdd($dbCon, $query){
+		$html="";
+
+		if ($result = $dbCon->query($query->showProduct()))
+		{
+			while ($row = $result->fetch_assoc())
+			{
+				$html = "
+				<img src='upload/".$row['image_name']."' width='200' alt=''><br>".
+				$row['title']." Pris: ".$row['price']." kr<br>".
+				$row['category']." ".$row['subcategory']."<br>".
+				$row['date']."<br>".
+				$row['text']."<br>
+				";
+			}
+			return $this->html = $html;
+		}
+		else
+		{
+			return "Inga annonser";
+		}
+	}
+
+	//Visar annonsens bild, rubrik och pris – till startsidan
+	function viewAddImage($dbCon, $query){
+		$html="";	
+
+		if ($result = $dbCon->query($query->showProduct()))
+		{
+			while ($row = $result->fetch_assoc())
+			{
+				$id=$row['image_name'];
+				$html .= "".
+				$row['title']." Pris: ".$row['price']." kr<br>
+				<a href='?id=$id' onclick=''><img src='upload/".$row['image_name']."' width='200' alt=''></a><br>
+				";
+			}
+			return $this->html = $html;
 		}
 	}
 }
