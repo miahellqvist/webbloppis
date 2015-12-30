@@ -18,19 +18,6 @@ $query = new Query();
 $upload->upload($dbCon);
 
 
-
-//OM MAN INTE ÄR INLOGGAD VISAS ALLA ANNONSER
-if (!isset($_SESSION['username'])) {
-	echo $upload->viewAddImage($dbCon, $query); //Ta bort denna echo när viewAddImage funkar i twig
-
-	$data = array(
-		'viewAddImage' => $upload->viewAddImage($dbCon, $query)
-	);
-}
-elseif(isset($_GET['id'])){
-	echo $upload->viewProductAdd($dbCon, $query);
-}
-
 //OM MAN HAR TRYCKT PÅ LOGIN KNAPP VISAS DET LOGIN FORMULÄR
 if (isset($_POST['login'])) {
 	$user->login($dbCon);
@@ -54,11 +41,21 @@ if (isset($_SESSION['username'])) {
 		'newProductForm' =>$print -> newProduct($dbCon)
 	);
 }
+
+//
+elseif(isset($_GET['id'])){
+	$data = array(
+		'title' => 'Webbloppis',
+		'viewProductAdd' => $upload->viewProductAdd($dbCon, $query)
+	);
+}
+
 //ANNARS VISAS DET TITLE OCH LOGIN FORMULÄR
 else {
 	$data = array(
 		'title' => 'Webbloppis',
-		'loginForm' =>$print->printLoginForm()
+		'loginForm' =>$print->printLoginForm(),
+		'viewAddImage' => $upload->viewAddImage($dbCon, $query)
 	);
 }
 
@@ -74,11 +71,11 @@ if (isset($_POST['createAccount'])){
 	$user->createAccount($dbCon);
 }
 
-
-
 //Läser in Twig
 require_once 'Twig/lib/Twig/Autoloader.php';
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem('templates/');
 $twig = new Twig_Environment($loader);
 echo $twig->render('index.html', $data);
+
+
