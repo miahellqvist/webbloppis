@@ -1,7 +1,7 @@
 <?php
 
 class User {
-
+	
 	function createAccount($dbCon) {
 		$name = $dbCon->real_escape_string($_POST['name']);
 		$username = $dbCon->real_escape_string($_POST['username']);
@@ -15,21 +15,18 @@ class User {
  		$phone = $dbCon->real_escape_string($_POST['phone']);
 		$date = date("Y-m-d h:i:s");
 		
-
 		$options = [
 		    'cost' => 11
 		];
-
 		$hash = password_hash($password, PASSWORD_BCRYPT, $options);
-
 		$query = "INSERT INTO user
 				(name, username, password, adress, zip_code, city, state, email, phone, date, type_membership_id)
  				VALUES ('$name','$username', '$hash', '$adress', '$zip_code', '$city', '$state', '$email', '$phone', '$date', '$membership')";
-
 		$dbCon->query($query);
+
+		mkdir('upload/'.$_POST['username']);
 		echo "Account Created!";
 	}
-
 	function login($dbCon) {
 	
 		$username = $dbCon->real_escape_string($_POST['username']);
@@ -39,12 +36,10 @@ class User {
 			FROM user 
 			WHERE username = '$username' 
 		";
-
 		//hämtar ut användarinfo
 		$result = $dbCon->query($query);
 		$row = $result->fetch_assoc();
 		$getpassword= $row['password'];
-
 		//Kollar om det hashade lösenordet stämmer överenst med det användaren skrivit in
 		if (password_verify($password, $getpassword)) {
 			$_SESSION['username'] = $username;
@@ -52,7 +47,6 @@ class User {
 		    echo 'Fel användarnamn eller lösenord.';
 		}
 	}
-
 	//OM MAN HAR TRYCKT PÅ LOGOUT KNAPP UNSET SESSION OCH VISAS "YOU ARE LOGGED OUT"
 	function logout() {
 		session_unset();

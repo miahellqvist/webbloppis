@@ -30,13 +30,16 @@ class UploadProduct {
 			// Kollar att det är rätt filtyp (png, jpg, jpeg eller gif)
 			if($_FILES['file']['type'] == 'image/png' || 'image/jpg' || 'image/jpeg' || 'image/gif'){
 
+				
+				$username = $dbCon->real_escape_string($_SESSION['username']);
+				
 				//Den uppladdade bilden placeras i mappen upload
-				$uploadfile = move_uploaded_file($_FILES['file']['tmp_name'], 'upload/' . $_FILES['file']['name']);
+				$uploadfile = move_uploaded_file($_FILES['file']['tmp_name'], 'upload/'.$username.'/'.$_FILES['file']['name']);
 
 				$product_title = $dbCon->real_escape_string($_POST['title']);
 				$product_text = $dbCon->real_escape_string($_POST['text']);
 				$product_price = $dbCon->real_escape_string($_POST['price']);
-				$image_name = $_FILES['file']['name'];
+				$image_name = $username.'/'.$_FILES['file']['name'];
 				$image_type = $_FILES['file']['type'];
 				$image_size = $_FILES['file']['size'];
 				$product_category = $dbCon->real_escape_string($_POST['category']);

@@ -85,7 +85,8 @@ class PrintPage {
   	}
 
 
-		//SKRIVER UT ANNONS-INLÄGGNING-FORMULÄR
+//SKRIVER UT ANNONS-INLÄGGNING-FORMULÄR
+
 	function newProduct($dbCon){
 
 		echo 
