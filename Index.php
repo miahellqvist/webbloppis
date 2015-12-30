@@ -65,7 +65,7 @@ else {
 //OM MAN HAR TRYCKT PÅ CREATE NEW ACCOUNT KNAPP VISAS DET ETT FORMULÄR FÖR ATT SKAPA ETT KONTO
 if (isset($_POST['newAccount'])) {
 	$data = array(
-		'createAccountForm' =>$print->createAccountForm()
+		'createAccountForm' =>$print->createAccountForm($dbCon)
 	);
 }
 
