@@ -85,14 +85,9 @@ class PrintPage {
   	}
 
 
-	//SKRIVER UT ANNONS-INLÄGGNING-FORMULÄR
+//SKRIVER UT ANNONS-INLÄGGNING-FORMULÄR
 	function newProduct($dbCon){
-		$query1 = "SELECT * FROM category";
-		$result1 = $dbCon->query($query1);
 
-		$query2 = "SELECT * FROM subcategory";
-		$result2 = $dbCon->query($query2);
-		
 		echo 
 		"<form action='product.php' method='post' enctype='multipart/form-data'>
 			Önskad titel: <input type='text' name='title'><br>
@@ -103,6 +98,9 @@ class PrintPage {
 			<select name='category'>
 				<option value='0'>-- Välj en kategori --</option>";
 
+				$query1 = "SELECT * FROM category";
+				$result1 = $dbCon->query($query1);
+
 				while ($row1 = mysqli_fetch_assoc($result1)) {
 					echo "<option value='".$row1['id']."'>".$row1['category_name']."</option>";
 				}
@@ -111,6 +109,9 @@ class PrintPage {
 			Välj underkategori:
 			<select name='subcategory'>
 				<option value='0'>-- Välj en underkategori --</option>";
+
+				$query2 = "SELECT * FROM subcategory";
+				$result2 = $dbCon->query($query2);
 
 				while ($row2 = mysqli_fetch_assoc($result2)) {
 					echo "<option value='".$row2['id']."'>".$row2['subcategory_name']."</option>";

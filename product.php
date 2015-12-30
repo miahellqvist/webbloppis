@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 //LÄSER IN KLASSER
 function __autoload($class_name) {
