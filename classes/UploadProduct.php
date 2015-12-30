@@ -44,7 +44,13 @@ class UploadProduct {
 				$image_size = $_FILES['file']['size'];
 				$product_category = $dbCon->real_escape_string($_POST['category']);
 				$product_subcategory = $dbCon->real_escape_string($_POST['subcategory']);
-				$user_id = ("SELECT id FROM user"); //Funkar inte...
+
+				$username=$_SESSION['username'];
+
+				$query1="SELECT id FROM user WHERE username='$username'";
+				$result = $dbCon->query($query1);
+				$row = $result->fetch_assoc();
+				$user_id = $row['id']; //Funkar inte...
 			   	
 			   	//Lägger in i databasen
 				$query = ("INSERT INTO product
