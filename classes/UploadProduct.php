@@ -61,11 +61,11 @@ class UploadProduct {
 
 				// Uppladdning av fil
 				if($uploadfile && $query){
-					echo "Uppladdningen lyckades!";
+					return "Uppladdningen lyckades!";
 				}else if(!$uploadfile){
-					echo "Uppladdningen misslyckades";
+					return "Uppladdningen misslyckades";
 				}else if(!$query){
-					echo "Bilden är inte sparad";
+					return "Bilden är inte sparad";
 				}
 			}
 		}

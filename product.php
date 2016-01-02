@@ -12,9 +12,10 @@ $dbCon = Connection::connect();
 //NYA OBJEKT
 $user = new User();
 $upload = New UploadProduct();
+$print = new PrintPage();
 
 //UPPLADDNING AV TEXT, BILD OCH KATEGORI FÖR ANNONSER
 $upload->upload($dbCon);
 
 //SKRIVER UT ANNONS-INLÄGGNING-FORMULÄR
-echo PrintPage::newProduct(isset($row));
+//echo PrintPage::newProduct(isset($row));

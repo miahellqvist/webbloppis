@@ -38,7 +38,12 @@ if (isset($_SESSION['username'])) {
 		'title' => 'Webbloppis',
 		'name' =>$print->printName($dbCon),
 		'logoutForm' =>$print->printLogoutForm(),
-		'newProductForm' =>$print -> newProduct($dbCon)
+		'newProductForm' =>$print -> newProductForm($dbCon),
+		'newProductForm2' =>$print -> newProductForm2($dbCon),
+		'addProduct' =>$upload->upload($dbCon),
+		'categoryMenu' =>$print ->categoryMenu($dbCon),
+		'subcategoryMenu' =>$print ->subcategoryMenu($dbCon),
+		'uploadProduct' =>$upload->upload($dbCon)
 	);
 }
 
@@ -62,7 +67,9 @@ else {
 //OM MAN HAR TRYCKT PÅ CREATE NEW ACCOUNT KNAPP VISAS DET ETT FORMULÄR FÖR ATT SKAPA ETT KONTO
 if (isset($_POST['newAccount'])) {
 	$data = array(
-		'createAccountForm' =>$print->createAccountForm($dbCon)
+		'createAccountForm' =>$print->createAccountForm($dbCon),
+		'stateMenu' =>$print ->stateMenu($dbCon),
+		'createAccountForm2' =>$print->createAccountForm2($dbCon)
 	);
 }
 
