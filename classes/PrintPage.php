@@ -66,7 +66,7 @@ class PrintPage {
 
 	function createAccountForm2($dbCon) {
 	 		return
-	 			"E-mail: <input type='text' name='email' required> <br>
+	 			"E-mail: <input type='email' name='email' required> <br>
 
 	 			Telefon: <input type='text' name='phone'> <br>
 
@@ -154,5 +154,30 @@ class PrintPage {
 
 		return $html2;
 	}
+
+	//Knapp som öppnar mailformuläret.
+	function openMailform(){
+		return "<form action='' method='post'
+				<input type ='submit' name='sendmail' value='Skicka meddelande'>
+				</form>";
+	}
+
+	//Mailformulär för att kontakta säljaren.
+	function printMailform(){
+
+		if (isset($_POST['sendmail'])) {
+				return "<form action='' method='post'>
+				Ditt namn: 
+				<input type='text' name='sendername' required autofocus><br>
+				Din e-post: 
+				<input type='email name='emailsender' required><br>
+				Ärende: 
+				<input type='text' name='subject' required><br>
+				Meddelande: 
+				<textarea name='message' cols='45' rows='6'></textarea><br>
+				<input type='submit' name='submit' value='Skicka'>
+				</form>";
+			}
+		}
 
 }

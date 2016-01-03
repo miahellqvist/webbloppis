@@ -25,7 +25,7 @@ class User {
 		$dbCon->query($query);
 
 		mkdir('upload/'.$_POST['username']);
-		echo "Account Created!";
+		echo "Ditt konto har skapats!";
 	}
 	function login($dbCon) {
 	

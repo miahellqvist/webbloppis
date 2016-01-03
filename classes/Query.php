@@ -42,4 +42,12 @@ class Query{
 				return $this->query = $query;
 			}
 		}
+
+		//Hämtar ut säljarens e-post.
+		function getUsermail($dbcon)
+		{
+			$id=$_GET['id'];
+			$query =("SELECT user.email FROM user WHERE user.id = '$id'");
+			return $this->query = $query;
+		}
 }
