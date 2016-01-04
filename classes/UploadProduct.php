@@ -61,11 +61,11 @@ class UploadProduct {
 
 				// Uppladdning av fil
 				if($uploadfile && $query){
-					return "Uppladdningen lyckades!";
+					echo "Uppladdningen lyckades!";
 				}else if(!$uploadfile){
-					return "Uppladdningen misslyckades";
+					echo "Uppladdningen misslyckades";
 				}else if(!$query){
-					return "Bilden är inte sparad";
+					echo "Bilden är inte sparad";
 				}
 			}
 		}
@@ -75,7 +75,7 @@ class UploadProduct {
 	function viewProductAdd($dbCon, $query){
 		$html="";
 
-		if ($result = $dbCon->query($query->showProduct()))
+		if ($result = $dbCon->query($query->showFullProductAd()))
 		{
 			while ($row = $result->fetch_assoc())
 			{
@@ -99,14 +99,14 @@ class UploadProduct {
 	function viewAddImage($dbCon, $query){
 		$html="";	
 
-		if ($result = $dbCon->query($query->showProduct()))
+		if ($result = $dbCon->query($query->showMinimizedProductAd()))
 		{
 			while ($row = $result->fetch_assoc())
 			{
-				$id=$row['image_name'];
+				$id=$row['product_id'];
 				$html .= "".
 				$row['title']." Pris: ".$row['price']." kr<br>
-				<a href='?id=$id' onclick=''><img src='upload/".$row['image_name']."' width='200' alt=''></a><br>
+				<a href='?id=$id'><img src='upload/".$row['image_name']."' width='200' alt=''></a><br>
 				";
 			}
 			return $this->html = $html;

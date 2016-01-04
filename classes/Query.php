@@ -5,11 +5,18 @@ class Query{
 	{
 		$query = ("SELECT * FROM category");
 		 return $this->query = $query;
+<<<<<<< HEAD
 	}
+=======
+
+	}
+
+>>>>>>> 316c3b7b2313e5ac965e02d8913c2bdaaa1fc679
 	function chooseSubCategory()
 	{
 		$query = ("SELECT * FROM subcategory");
 		 return $this->query = $query;
+<<<<<<< HEAD
 		}
 	function getUserid()
 	{
@@ -22,14 +29,42 @@ class Query{
 		$query = ("SELECT * FROM product ORDER BY date DESC");
 		return $this->query = $query;
 	}
+=======
+
+		}
+
+	function getUserid()
+	{
+
+		$query = ("SELECT user_id FROM user WHERE username = $username LIMIT 1");
+		 return $this->query = $query;
+
+	}	
+
+	//Hämtar all data i product-tabellen (annonsen)
+	function showMinimizedProductAd()
+	{
+		$query = ("SELECT * FROM product");
+		return $this->query = $query;
+	}
+
+>>>>>>> 316c3b7b2313e5ac965e02d8913c2bdaaa1fc679
 	//Hämtar all data i product-tabellen (annonsen) samt deklarerar bildens namn som GET-id
 	function showFullProductAd()
 	{
 		$id=$_GET['id'];
 		$query = ("SELECT * FROM product
+<<<<<<< HEAD
 					WHERE product.product_id='$id'");
 		return $this->query = $query;
 	}
+=======
+					WHERE product.product_id='$id'
+					ORDER BY date DESC");
+		return $this->query = $query;
+	}
+
+>>>>>>> 316c3b7b2313e5ac965e02d8913c2bdaaa1fc679
 	//Hämtar ut säljarens e-post.
 	function getUsermail($dbcon)
 	{
