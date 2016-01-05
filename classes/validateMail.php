@@ -1,10 +1,10 @@
 <?php
 
-class validateMail {
+class ValidateMail {
 
 		//Kontroll och validering av formuläret med htmlentities för säkerhet.
 
-	/*function valSendername(){
+	function valSendername(){
 		if (isset($_POST['sendername'])) {
 			if (empty($_POST['sendername'])) {
 				$errors[] = 'Var vänlig fyll i ditt namn.';
@@ -13,7 +13,7 @@ class validateMail {
 			}
 			return $sendername;
 		}	
-	}*/
+	}
 
 	function valSubject(){
 		if (isset($_POST['subject'])){
@@ -22,8 +22,8 @@ class validateMail {
 			}else{
 				$subject = htmlentities($_POST['subject']);
 			}
+			return $subject;
 		}
-		return $subject;
 	}
 
 	function valMessage(){
@@ -33,8 +33,8 @@ class validateMail {
 			}else{
 				$message = htmlentities($_POST['message']);
 			}
+			return $message;
 		}
-		return $message;
 	}
 	
 	//validering och filtrering av mailadressen för att minska risken att personer använder
@@ -50,8 +50,8 @@ class validateMail {
 			}else{
 				$senderemail = "<" . htmlentities($_POST['senderemail']) . ">";
 			}
+			return $senderemail;
 		}
-		return $senderemail;
 	}
 	function valReceiveremail(){
 		if (isset($_POST['receiveremail'])) {
@@ -64,8 +64,8 @@ class validateMail {
 			}else{
 				$receiveremail = "<" . htmlentities($_POST['receiveremail']) . ">";
 			}
+			return $receiveremail;
 		}
-		return $receiveremail;
 	}
 	function sendMail(){
 		if (empty($errors) === false) {

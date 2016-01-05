@@ -14,6 +14,13 @@ $user = new User();
 $print = new PrintPage();
 $upload = new UploadProduct();
 $query = new Query();
+$mail = new ValidateMail();
+
+$sender = $mail->valSendername();
+$subject = $mail->valSubject();
+$message = $mail->valMessage();
+$senderemail = $mail->valSenderemail();
+$receiveremail = $mail->valReceiveremail();
 
 $upload->upload($dbCon);
 
@@ -44,17 +51,70 @@ if (isset($_SESSION['username'])) {
 		'categoryMenu' =>$print ->categoryMenu($dbCon),
 		'subcategoryMenu' =>$print ->subcategoryMenu($dbCon),
 		'uploadProduct' =>$upload->upload($dbCon)
+
 	);
 }
 
-//
+//DET VISAS HELA ANNONSEN
 elseif(isset($_GET['id'])){
 	$data = array(
 		'title' => 'Webbloppis',
-		'viewProductAdd' => $upload->viewProductAdd($dbCon, $query)
+		'viewProductAdd' => $upload->viewProductAdd($dbCon, $query),
+		'openMailform' =>$print->openMailform()
+	);
+	//DET VISAS MEJLFORMULÄRET
+	if (isset($_POST['sendmail'])) {
+		$data = array(
+			'title' => 'Webbloppis',
+			'printMailform'=>$print->printMailform()
+		);
+	}
+	//DET SKICKAR ETT MEJL TILL SÄLJAREN
+	if (isset($_POST['send'])) {
+		mail($receiveremail, $subject, $message, 'From: ' . $senderemail);
+	}
+	
+}
+//DET VISAS ALLA ANNONSER SOM TILLHÖR EN KATEGORI
+elseif (isset($_GET['category'])) {
+	$data = array(
+		'title' => 'Webbloppis',
+		'viewCategory' =>$upload->viewCategory($dbCon, $query)
 	);
 }
-
+//DET VISAS ALLA ANNONSER SOM TILLHÖR EN SUBKATEGORI
+elseif (isset($_GET['subcategory'])) {
+	$data = array(
+		'title' => 'Webbloppis',
+		'viewSubcategory' =>$upload->viewSubcategory($dbCon, $query)
+	);
+}
+//DET VISAS ALLA ANNONSER SOM TILLHÖR EN LÄN
+elseif (isset($_GET['state'])) {
+	$data = array(
+		'title' => 'Webbloppis',
+		'viewState' =>$upload->viewState($dbCon, $query)
+	);
+}
+//DET VISAS ALLA ANNONSER SOM TILLHÖR EN SÄLJARE
+elseif (isset($_GET['user_id'])) {
+	$data = array(
+		'title' => 'Webbloppis',
+		'viewProfile' =>$upload->viewProfile($dbCon, $query),
+		'openMailform' =>$print->openMailform()
+	);
+	//DET VISAS MEJLFORMULÄRET
+	if (isset($_POST['sendmail'])) {
+		$data = array(
+			'title' => 'Webbloppis',
+			'printMailform'=>$print->printMailform()
+		);
+	}
+	//DET SKICKAR ETT MEJL TILL SÄLJAREN
+	if (isset($_POST['send'])) {
+		
+	}
+}
 //ANNARS VISAS DET TITLE OCH LOGIN FORMULÄR
 else {
 	$data = array(

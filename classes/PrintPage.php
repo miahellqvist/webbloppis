@@ -82,7 +82,7 @@ class PrintPage {
 		$result = $dbCon->query($query);
 
 		while ($row1 = mysqli_fetch_assoc($result)) {
-			$html.="". "<option value='".$row1['id']."'>".$row1['state']."</option>";
+			$html.="". "<option value='".$row1['state_id']."'>".$row1['state_name']."</option>";
 		}
 		
 		$html2.="".
@@ -122,7 +122,7 @@ class PrintPage {
 		$result1 = $dbCon->query($query1);
 
 		while ($row1 = mysqli_fetch_assoc($result1)) {
-					$html.="". "<option value='".$row1['id']."'>".$row1['category_name']."</option>";
+					$html.="". "<option value='".$row1['category_id']."'>".$row1['category_name']."</option>";
 				}
 		
 		$html2.="".
@@ -142,7 +142,7 @@ class PrintPage {
 		$result2 = $dbCon->query($query2);
 
 		while ($row2 = mysqli_fetch_assoc($result2)) {
-					$html.="". "<option value='".$row2['id']."'>".$row2['subcategory_name']."</option>";
+					$html.="". "<option value='".$row2['subcategory_id']."'>".$row2['subcategory_name']."</option>";
 				}
 		
 		$html2.="".
@@ -157,27 +157,25 @@ class PrintPage {
 
 	//Knapp som öppnar mailformuläret.
 	function openMailform(){
-		return "<form action='' method='post'
-				<input type ='submit' name='sendmail' value='Skicka meddelande'>
+		return "<form action='' method='post'>
+					<input type='submit' name='sendmail' value='Skicka meddelande'>
 				</form>";
 	}
 
 	//Mailformulär för att kontakta säljaren.
 	function printMailform(){
-
-		if (isset($_POST['sendmail'])) {
-				return "<form action='' method='post'>
+		return "<form action='' method='post'>
 				Ditt namn: 
 				<input type='text' name='sendername' required autofocus><br>
 				Din e-post: 
-				<input type='email name='emailsender' required><br>
+				<input type='email' name='senderemail' required><br>
 				Ärende: 
 				<input type='text' name='subject' required><br>
 				Meddelande: 
 				<textarea name='message' cols='45' rows='6'></textarea><br>
-				<input type='submit' name='submit' value='Skicka'>
+				<input type='hidden' name='receiveremail'>
+				<input type='submit' name='send' value='Skicka'>
 				</form>";
-			}
 		}
 
 }
