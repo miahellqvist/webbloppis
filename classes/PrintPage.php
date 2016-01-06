@@ -16,17 +16,15 @@ class PrintPage {
 	//SKRIVER UT ANVÄNDARENS NAMN
 	function printName($dbCon) {
 		
-			$username = $_SESSION['username'];
+			$username = $dbCon->real_escape_string($_SESSION['username']);
 			$query = "
-				SELECT * 
+				SELECT *
 				FROM user 
 				WHERE username = '$username'
 			";
 			$result = $dbCon->query($query);
-
 			$row = $result->fetch_assoc();
 			return "Välkommen ".$row['name'];
-		
 	}
 
 	//SKRIVER UT LOGOUT-FORMULÄR
@@ -37,18 +35,29 @@ class PrintPage {
 			</form>";
 	}
 
+	//Knapp som visar Visa-alla-dina-annonser-formuläret när man är inloggad
+	function printShowProductsForm() {
+		return 
+			"<form action='' method='post'>
+				<input type='submit' name='showProducts' value='Visa alla dina annonser'>
+			</form>";
+	}
+
+	//Skriver ut Tillbaka-knapp när användaren tittar på alla sina annonser
+	function printGoBackFromShowProductsForm() {
+		return 
+			"<form action='' method='post'>
+				<input type='submit' name='goBack' value='<< Tillbaka'>
+			</form>";
+	}
+
 	//SKRIVER UT REGISTRERINGS-FORMULÄR
 	function createAccountForm($dbCon) {
-
 	  		return
 	  			"<form action='' method='post'>
-
 	 			Namn: <input type='text' name='name' required> <br>
-
 	 			Användarnamn: <input type='text' name='username' required> <br>
-
 	 			Lösenord: <input type='password' name='password' required> <br>
-
 	 			Medlemskap: 
 		  			<select name='membership' required>
 		  				<option disabled selected>Välj medlemskap</option>
@@ -56,26 +65,20 @@ class PrintPage {
 		  				<option value='Silver'>Silver</option>
 		 				<option value='Guld'>Guld</option>
 		 			</select> <br>
-
 	 			Adress: <input type='text' name='adress' required> <br>
-
 	 			Postnummer: <input type='text' name='zip_code' required> <br>
-	 			
 	 			Stad: <input type='text' name='city' required> <br>";
 	}
 
 	function createAccountForm2($dbCon) {
 	 		return
 	 			"E-mail: <input type='email' name='email' required> <br>
-
 	 			Telefon: <input type='text' name='phone'> <br>
-
 	 			<input type='submit' name='createAccount' value='Skapa konto'>
 	 		</form>";
   	}
 
   	function stateMenu($dbCon){
-
 		$html="";
 		$html2="";
 		$query = "SELECT * FROM state";
@@ -94,9 +97,7 @@ class PrintPage {
 		return $html2;
 	}
 
-
-//SKRIVER UT ANNONS-INLÄGGNING-FORMULÄR
-
+	//SKRIVER UT ANNONS-INLÄGGNING-FORMULÄR
 	function newProductForm($dbCon){
 
 		return 
@@ -176,6 +177,23 @@ class PrintPage {
 				<input type='hidden' name='receiveremail'>
 				<input type='submit' name='send' value='Skicka'>
 				</form>";
-		}
+	}
 
+	//Visar säljarens egna annonser med bild, rubrik och pris på den personliga sidan
+	function viewPersonalAds($dbCon, $query){
+
+		$html="";	
+		if ($result = $dbCon->query($query->showPersonalProduct($dbCon)))
+		{
+			while ($row = $result->fetch_assoc())
+			{
+				$id=$row['image_name'];
+				$html .= "".
+				$row['title']." Pris: ".$row['price']." kr<br>
+				<img src='upload/".$row['image_name']."' width='200' alt=''><br>
+				";
+			}
+			return $this->html = $html;
+		}
+	}
 }

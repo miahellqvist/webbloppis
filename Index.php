@@ -35,7 +35,7 @@ if (isset($_POST['logout'])) {
 	$data = array(
 		'title' => 'Webbloppis',
 		'logoutMsg' =>$user->logout(),
-		'loginForm' =>$print->printLoginForm()
+		'loginForm' =>$print->printLoginForm(),
 	);
 }
 
@@ -50,17 +50,26 @@ if (isset($_SESSION['username'])) {
 		'addProduct' =>$upload->upload($dbCon),
 		'categoryMenu' =>$print ->categoryMenu($dbCon),
 		'subcategoryMenu' =>$print ->subcategoryMenu($dbCon),
-		'uploadProduct' =>$upload->upload($dbCon)
-
+		'uploadProduct' =>$upload->upload($dbCon),
+		'showProductsForm' =>$print->printShowProductsForm(),
 	);
+
+	//Visar en viss säljares annonser
+	if(isset($_POST['showProducts'])){
+		$data = array(
+		'title' => 'Webbloppis',
+		'viewPersonalAds' => $print->viewPersonalAds($dbCon,$query),
+		'goBackToFirstLoggedInPage' => $print->printGoBackFromShowProductsForm()
+		);
+	}
 }
 
 //DET VISAS HELA ANNONSEN
 elseif(isset($_GET['id'])){
 	$data = array(
 		'title' => 'Webbloppis',
-		'viewProductAdd' => $upload->viewProductAdd($dbCon, $query),
-		'openMailform' =>$print->openMailform()
+		'viewProductAd' => $upload->viewProductAdd($dbCon, $query),
+		'openMailform' =>$print->openMailform(),
 	);
 	//DET VISAS MEJLFORMULÄRET
 	if (isset($_POST['sendmail'])) {
@@ -101,7 +110,7 @@ elseif (isset($_GET['user_id'])) {
 	$data = array(
 		'title' => 'Webbloppis',
 		'viewProfile' =>$upload->viewProfile($dbCon, $query),
-		'openMailform' =>$print->openMailform()
+		'openMailform' =>$print->openMailform(),
 	);
 	//DET VISAS MEJLFORMULÄRET
 	if (isset($_POST['sendmail'])) {
@@ -137,6 +146,7 @@ if (isset($_POST['newAccount'])) {
 if (isset($_POST['createAccount'])){
 	$user->createAccount($dbCon);
 }
+
 
 //Läser in Twig
 require_once 'Twig/lib/Twig/Autoloader.php';

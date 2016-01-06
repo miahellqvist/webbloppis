@@ -3,6 +3,8 @@
 class UploadProduct {
 	function upload($dbCon){
 		if(isset($_POST['submit'])){
+
+			$username = $dbCon->real_escape_string($_SESSION['username']);
 			// Kollar efter fel
 			if($_FILES['file']['error'] > 0){
 			   die('Fel vid uppladdning.');
@@ -16,13 +18,11 @@ class UploadProduct {
 			    die('Bilden överskrider maxstorleken.');
 			}
 			// Kollar om bilden redan finns
-			if(file_exists('upload/' . $_FILES['file']['name'])){
+			if(file_exists('upload/' .$username.'/'. $_FILES['file']['name'])){
 			    die('Bilden är redan uppladdad.');
 			}
 			// Kollar att det är rätt filtyp (png, jpg, jpeg eller gif)
 			if($_FILES['file']['type'] == 'image/png' || 'image/jpg' || 'image/jpeg' || 'image/gif'){
-				
-				$username = $dbCon->real_escape_string($_SESSION['username']);
 				
 				//Den uppladdade bilden placeras i mappen upload
 				$uploadfile = move_uploaded_file($_FILES['file']['tmp_name'], 'upload/'.$username.'/'.$_FILES['file']['name']);
@@ -38,7 +38,7 @@ class UploadProduct {
 				$query1="SELECT user_id FROM user WHERE username='$username'";
 				$result = $dbCon->query($query1);
 				$row = $result->fetch_assoc();
-				$user_id = $row['user_id']; //Funkar inte...
+				$user_id = $row['user_id'];
 			   	
 			   	//Lägger in i databasen
 				$query = ("INSERT INTO product
@@ -60,7 +60,7 @@ class UploadProduct {
 	//Visar hela annonsen
 	function viewProductAdd($dbCon, $query){
 		$html="";
-		if ($result = $dbCon->query($query->showFullProductAd()))
+		if ($result = $dbCon->query($query->showFullProductAd($dbCon)))
 		{
 			while ($row = $result->fetch_assoc())
 			{
@@ -88,7 +88,7 @@ class UploadProduct {
 	//visar alla annonser som tillhör kategorien
 	function viewCategory($dbCon, $query){
 		$html="";
-		if ($result = $dbCon->query($query->showProductsByCategory()))
+		if ($result = $dbCon->query($query->showProductsByCategory($dbCon)))
 		{
 			while ($row = $result->fetch_assoc())
 			{
@@ -104,7 +104,7 @@ class UploadProduct {
 	//visar alla annonser som tillhör subkategorien
 	function viewSubcategory($dbCon, $query){
 		$html="";
-		if ($result = $dbCon->query($query->showProductsBySubcategory()))
+		if ($result = $dbCon->query($query->showProductsBySubcategory($dbCon)))
 		{
 			while ($row = $result->fetch_assoc())
 			{
@@ -120,7 +120,7 @@ class UploadProduct {
 	//visar alla annonser som tillhör län
 	function viewState($dbCon, $query){
 		$html="";
-		if ($result = $dbCon->query($query->showProductsByState()))
+		if ($result = $dbCon->query($query->showProductsByState($dbCon)))
 		{
 			while ($row = $result->fetch_assoc())
 			{
@@ -135,7 +135,7 @@ class UploadProduct {
 	}
 	function viewProfile($dbCon, $query){
 		$html="";
-		if ($result = $dbCon->query($query->showProfile()))
+		if ($result = $dbCon->query($query->showProfile($dbCon)))
 		{
 			while ($row = $result->fetch_assoc())
 			{
