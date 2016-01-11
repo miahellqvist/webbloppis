@@ -44,23 +44,35 @@ if (isset($_POST['logout'])) {
 
 //OM SESSION HAR SATT VISAS DET TITLE, USERS NAMN OCH LOGOUT FORMULÄR
 if (isset($_SESSION['username'])) {
-	$data = array(
+	
+	if($upload -> countProducts($dbCon)==true)
+	{
+		$data = array(
 		'title' => 'Webbloppis',
 		'name' =>$print->printName($dbCon),
 		'logoutForm' =>$print->printLogoutForm(),
 		'newProductForm' =>$print -> newProductForm($dbCon),
-		'addProduct' =>$upload->upload($dbCon),
 		'uploadProduct' =>$upload->upload($dbCon),
-		'showProductsForm' =>$print->printShowProductsForm(),
-		'countProducts' => $upload -> countProducts($dbCon)
+		'showProductsForm' =>$print->ShowProductsButton()
 	);
+	}
+	else 
+	{
+		$data = array(
+		'title' => 'Webbloppis',
+		'name' =>$print->printName($dbCon),
+		'logoutForm' =>$print->printLogoutForm(),
+		'countProducts' =>$upload ->countProducts($dbCon),
+		'showProductsForm' =>$print->ShowProductsButton()
+	);
+	}
 
 	//Visar en viss säljares annonser
 	if(isset($_POST['showProducts'])){
 		$data = array(
 		'title' => 'Webbloppis',
 		'viewPersonalAds' => $print->viewPersonalAds($dbCon,$query),
-		'goBackToFirstLoggedInPage' => $print->printGoBackFromShowProductsForm()
+		'goBackToFirstLoggedInPage' => $print->GoBackFromShowProductsButton()
 		);
 	}
 }

@@ -42,18 +42,13 @@ class UploadProduct {
 
 	function upload($dbCon){
 		if(isset($_POST['submit'])){
-
 			$username = $dbCon->real_escape_string($_SESSION['username']);
 			// Kollar efter fel
 			if($_FILES['file']['error'] > 0){
 			   die('Fel vid uppladdning.');
 			}
-			//Kollar att det är en bild som laddas upp
-			if(!getimagesize($_FILES['file']['tmp_name'])){
-			   die('Se till att det är en bild som laddas upp.');
-			}
-			// Kollar filstorlek (dock verkar det inte gå att ladda upp bilder över 2 mb oavsett vilken gräns man skriver)
-			if($_FILES['file']['size'] > 4096000){
+			// Kollar filstorlek – maxstorlek 6 mb
+			if($_FILES['file']['size'] > 6291456){
 			    die('Bilden överskrider maxstorleken.');
 			}
 			// Kollar om bilden redan finns
@@ -61,14 +56,13 @@ class UploadProduct {
 			    die('Bilden är redan uppladdad.');
 			}
 			// Kollar att det är rätt filtyp (png, jpg, jpeg eller gif)
-			if($_FILES['file']['type'] == 'image/png' || 'image/jpg' || 'image/jpeg' || 'image/gif'){
+			if(!$_FILES['file']['type'] == 'image/png' || $_FILES['file']['type'] == 'image/jpg' || $_FILES['file']['type'] == 'image/jpeg' || $_FILES['file']['type'] == 'image/gif'){
 				
-				//Den uppladdade bilden placeras i mappen upload
+				//Den uppladdade bilden placeras i mappen användarens mapp i upload
 				$uploadfile = move_uploaded_file($_FILES['file']['tmp_name'], 'upload/'.$username.'/'.$_FILES['file']['name']);
 				$product_title = $dbCon->real_escape_string($_POST['title']);
 				$product_text = $dbCon->real_escape_string($_POST['text']);
 				$product_price = $dbCon->real_escape_string($_POST['price']);
-				$product_state = $dbCon->real_escape_string($_POST['state']);
 				$image_name = $username.'/'.$_FILES['file']['name'];
 				$image_type = $_FILES['file']['type'];
 				$image_size = $_FILES['file']['size'];
@@ -79,21 +73,26 @@ class UploadProduct {
 				$result = $dbCon->query($query1);
 				$row = $result->fetch_assoc();
 				$user_id = $row['user_id'];
+				$state = $dbCon->real_escape_string($_POST['state']);
 			   	
 			   	//Lägger in i databasen
 				$query = ("INSERT INTO product
 							(title, text, price, image_name, image_type, image_size, category, subcategory, date, user_id, state_id)
 							VALUES 
-							('$product_title', '$product_text', '$product_price', '$image_name', '$image_type', '$image_size', '$product_category', '$product_subcategory', CURRENT_TIMESTAMP, '$user_id', '$product_state')");
+							('$product_title', '$product_text', '$product_price', '$image_name', '$image_type', '$image_size', '$product_category', '$product_subcategory', CURRENT_TIMESTAMP, '$user_id', $state)");
 				$dbCon->query($query);
 				// Uppladdning av fil
 				if($uploadfile && $query){
-					return "Uppladdningen lyckades!";
+					die('Uppladdningen lyckades!');
 				}else if(!$uploadfile){
-					return "Uppladdningen misslyckades";
+					die('Uppladdningen misslyckades');
 				}else if(!$query){
-					return "Bilden är inte sparad";
+					die('Bilden är inte sparad');
 				}
+			}
+			else
+			{
+				die('Se till att det är en bild som laddas upp. Godkända filtyper är jpg, jpeg, gif och png.');
 			}
 		}
 	}

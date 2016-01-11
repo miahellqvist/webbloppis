@@ -36,7 +36,7 @@ class PrintPage {
 	}
 
 	//Knapp som visar Visa-alla-dina-annonser-formuläret när man är inloggad
-	function printShowProductsForm() {
+	function ShowProductsButton() {
 		return 
 			"<form action='' method='post'>
 				<input type='submit' name='showProducts' value='Visa alla dina annonser'>
@@ -44,7 +44,7 @@ class PrintPage {
 	}
 
 	//Skriver ut Tillbaka-knapp när användaren tittar på alla sina annonser
-	function printGoBackFromShowProductsForm() {
+	function GoBackFromShowProductsButton() {
 		return 
 			"<form action='' method='post'>
 				<input type='submit' name='goBack' value='<< Tillbaka'>
