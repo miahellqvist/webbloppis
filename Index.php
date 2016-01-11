@@ -52,6 +52,7 @@ if (isset($_SESSION['username'])) {
 		'addProduct' =>$upload->upload($dbCon),
 		'uploadProduct' =>$upload->upload($dbCon),
 		'showProductsForm' =>$print->printShowProductsForm(),
+		'countProducts' => $upload -> countProducts($dbCon)
 	);
 
 	//Visar en viss säljares annonser

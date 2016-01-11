@@ -22,44 +22,29 @@ INSERT INTO `category` (`category_id`, `category_name`) VALUES
 (7,	'Trädgård'),
 (8,	'Böcker');
 
-DROP TABLE IF EXISTS `membership`;
-CREATE TABLE `membership` (
-  `membership_name` varchar(10) COLLATE utf8_bin NOT NULL,
-  `membership_limit` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
-INSERT INTO `membership` (`membership_name`, `membership_limit`) VALUES
-('Guld',	500),
-('Silver',	50),
-('Brons',	10);
-
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `product_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(50) NOT NULL,
-  `text` text NOT NULL,
+  `title` varchar(50) COLLATE utf8_bin NOT NULL,
+  `text` text COLLATE utf8_bin NOT NULL,
   `price` int(4) unsigned NOT NULL,
-  `image_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `image_type` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `image_name` varchar(100) COLLATE utf8_bin NOT NULL,
+  `image_type` varchar(100) COLLATE utf8_bin NOT NULL,
   `image_size` int(10) unsigned NOT NULL,
-  `category` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `subcategory` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `category` text COLLATE utf8_bin NOT NULL,
+  `subcategory` text COLLATE utf8_bin NOT NULL,
   `date` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `user_id` int(10) unsigned NOT NULL,
-  `state_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `product` (`product_id`, `title`, `text`, `price`, `image_name`, `image_type`, `image_size`, `category`, `subcategory`, `date`, `user_id`, `state_id`) VALUES
-(5,	'BÃ¶cker i bokhylla',	'SÃ¤ljer alla mina bÃ¶cker och tillhÃ¶rande bokhylla.',	1000,	'colinthompson.jpg',	'image/jpeg',	329238,	'8',	'17',	'2016-01-05 16:21:43',	5,	0),
-(6,	'Kattunge',	'SÃ¶t kattunge sÃ¤ljes till kÃ¤rleksfullt hem.',	500,	'Foto 2012-08-19 16 52 48.jpg',	'image/jpeg',	1705844,	'4',	'7',	'2016-01-11 09:49:40',	5,	12),
-(7,	'Tre glada pingviner',	'SÃ¤ljer mina tre pratglada och matglada pingviner. \r\n\r\nDe Ã¤ter 30 sillar om dagen/pingvin.',	7500,	'Penguins.jpg',	'image/jpeg',	777835,	'4',	'8',	'2016-01-05 16:21:52',	6,	0),
-(17,	't-shirt',	'snygg t-shirt',	50,	'nat/tshirt.jpg',	'image/jpeg',	631951,	'5',	'3',	'2016-01-05 15:33:17',	5,	0),
-(18,	'TrÃ¶t hund',	'jÃ¤ttecharmig och gullig hund',	1000,	'annaco/hund.jpg',	'image/jpeg',	113844,	'4',	'7',	'2016-01-05 15:40:01',	6,	0),
-(22,	'Monopply spel',	'fun!',	100,	'mia/monopoly.jpg',	'image/jpeg',	119249,	'4',	'11',	'2016-01-11 10:33:50',	7,	3),
-(23,	'Sko',	'Höga skor med klack',	400,	'mia/2516001035_orginal_3-96e32806.jpg',	'image/jpeg',	340576,	'1',	'3',	'2016-01-11 10:33:03',	7,	3),
-(24,	'Blå väska',	'En snygg blå väska',	456,	'mia/bbvaskalindex.jpg',	'image/jpeg',	73411,	'1',	'5',	'2016-01-11 10:24:25',	7,	1),
-(25,	'Plastblomma leksak',	'Hopp',	40,	'mia/Chrysanthemum.jpg',	'image/jpeg',	879394,	'4',	'5',	'2016-01-11 10:58:53',	7,	12);
+INSERT INTO `product` (`product_id`, `title`, `text`, `price`, `image_name`, `image_type`, `image_size`, `category`, `subcategory`, `date`, `user_id`) VALUES
+(5,	'BÃ¶cker i bokhylla',	'SÃ¤ljer alla mina bÃ¶cker och tillhÃ¶rande bokhylla.',	1000,	'colinthompson.jpg',	'image/jpeg',	329238,	'8',	'17',	'2016-01-05 16:21:43',	5),
+(6,	'Kattunge',	'SÃ¶t kattunge sÃ¤ljes till kÃ¤rleksfullt hem.',	500,	'Foto 2012-08-19 16 52 48.jpg',	'image/jpeg',	1705844,	'4',	'7',	'2016-01-05 16:21:47',	5),
+(7,	'Tre glada pingviner',	'SÃ¤ljer mina tre pratglada och matglada pingviner. \r\n\r\nDe Ã¤ter 30 sillar om dagen/pingvin.',	7500,	'Penguins.jpg',	'image/jpeg',	777835,	'4',	'8',	'2016-01-05 16:21:52',	6),
+(17,	't-shirt',	'snygg t-shirt',	50,	'nat/tshirt.jpg',	'image/jpeg',	631951,	'5',	'3',	'2016-01-05 15:33:17',	5),
+(18,	'TrÃ¶t hund',	'jÃ¤ttecharmig och gullig hund',	1000,	'annaco/hund.jpg',	'image/jpeg',	113844,	'4',	'7',	'2016-01-05 15:40:01',	6),
+(22,	'Monopply spel',	'fun!',	100,	'mia/monopoly.jpg',	'image/jpeg',	119249,	'4',	'11',	'2016-01-05 17:34:32',	7);
 
 DROP TABLE IF EXISTS `select_category`;
 CREATE TABLE `select_category` (
@@ -175,8 +160,6 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`user_id`, `name`, `username`, `password`, `adress`, `zip_code`, `city`, `state`, `email`, `phone`, `date`, `type_membership_id`) VALUES
 (5,	'Natalia',	'nat',	'$2y$11$e.KXqNPo.cyOajF6KF/i/.IaGnmktdoWcj1lT/ZBPv60fxGxErUzu',	'SveavÃ¤gen 41',	77788,	'Stockholm',	'12',	'natalianakagawa@gmail.com',	0,	'2016-01-04 17:04:00',	'Brons'),
 (6,	'Anna',	'annaco',	'$2y$11$m04JBtZetrgFrb6hlp6oLOxyFaxUsTV1YD0GHxIVCh6VE5.uRLJqe',	'VÃ¤gen 10',	222,	'Stockholm',	'12',	'anna@exempel.se',	0,	'2016-01-04 01:45:43',	'Brons'),
-(7,	'Maria',	'mia',	'$2y$11$D/paABdgp7PotP3Jcmrdaes7.fhjU71iC9Omijk.vybZ6kL142vr2',	'VÃ¤gen 9',	11144,	'Stockholm',	'3',	'mia@exempel.se',	0,	'2016-01-05 05:28:59',	'Silver'),
-(8,	'olle',	'olle',	'$2y$11$.dxfmne5/36Y9cbF9OXqeOiV6FCZS2oft.zy67rSsc6rPYNii5X1O',	'Gata vägen 4',	19287,	'Karlstad',	'5',	'hsafk@sdkl.se',	932042043,	'2016-01-11 11:09:25',	'Brons'),
-(9,	'stina',	'stina',	'$2y$11$zDeeWCRL2cU5Or05NZzI5.sKjFewUHPdwxoh85OCzc0I.nNgf4ObG',	'Karlaägaen',	48930,	'fjalfha',	'7',	'sfakl@dsf.se',	438902,	'2016-01-11 11:10:48',	'Brons');
+(7,	'Maria',	'mia',	'$2y$11$D/paABdgp7PotP3Jcmrdaes7.fhjU71iC9Omijk.vybZ6kL142vr2',	'VÃ¤gen 9',	11144,	'Stockholm',	'3',	'mia@exempel.se',	0,	'2016-01-05 05:28:59',	'Silver');
 
--- 2016-01-11 12:29:06
+-- 2016-01-05 17:35:09
