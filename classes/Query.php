@@ -26,7 +26,7 @@ class Query{
 	//Hämtar all data i product-tabellen (annonsen)
 	function showMinimizedProductAd()
 	{
-		$query = ("SELECT * FROM product ORDER BY date_added DESC");
+		$query = ("SELECT * FROM product ORDER BY date_added_added DESC");
 		return $this->query = $query;
 	}
 
@@ -49,7 +49,7 @@ class Query{
 		$query = ("SELECT * FROM category, product
 					WHERE product.category=category.category_id
 					AND category.category_id='$category_id'
-					ORDER BY date DESC");
+					ORDER BY date_added DESC");
 		return $this->query = $query;
 	}
 	
@@ -59,7 +59,7 @@ class Query{
 		$query = ("SELECT * FROM subcategory, product
 					WHERE product.subcategory=subcategory.subcategory_id
 					AND subcategory.subcategory_id='$subcategory_id'
-					ORDER BY date DESC");
+					ORDER BY date_added DESC");
 		return $this->query = $query;
 	}
 	
@@ -71,7 +71,7 @@ class Query{
 					WHERE user.state=state.state_id
 					AND state.state_id='$state_id'
 					AND product.user_id=user.user_id
-					ORDER BY product.date DESC");
+					ORDER BY product.date_added DESC");
 		return $this->query = $query;
 	}
 	
@@ -82,7 +82,7 @@ class Query{
 		$query = ("SELECT * FROM user, product
 					WHERE user.user_id='$user_id'
 					AND product.user_id=user.user_id
-					ORDER BY product.date DESC");
+					ORDER BY product.date_added DESC");
 		return $this->query = $query;
 	}
 
@@ -101,7 +101,7 @@ class Query{
 		$query = ("SELECT *  FROM product, user 
 				WHERE product.user_id=user.user_id 
 				AND username = '$username'
-				ORDER BY product.date DESC");
+				ORDER BY product.date_added DESC");
 		return $this->query = $query;
 	}
 
