@@ -26,7 +26,7 @@ class Query{
 	//Hämtar all data i product-tabellen (annonsen)
 	function showMinimizedProductAd()
 	{
-		$query = ("SELECT * FROM product ORDER BY date DESC");
+		$query = ("SELECT * FROM product ORDER BY date_added DESC");
 		return $this->query = $query;
 	}
 

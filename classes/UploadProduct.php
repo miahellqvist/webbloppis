@@ -111,7 +111,7 @@ class UploadProduct {
 				<img src='upload/".$row['image_name']."' width='200' alt=''><br>".
 				$row['title']." Pris: ".$row['price']." kr<br>".
 				"<a href='?category=$category_id'>".$row['category_name']."</a> <a href='?subcategory=$subcategory_id'>".$row['subcategory_name']."</a><br>".
-				$row['date']." ".
+				$row['date_added']." ".
 				"<a href='?state=$state_id'>".$row['state_name']."</a><br>".
 				"<a href='?user_id=$user_id'>".$row['username']."</a><br>".
 				$row['text']."<br>
