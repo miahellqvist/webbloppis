@@ -104,5 +104,38 @@ class Query{
 				ORDER BY product.date DESC");
 		return $this->query = $query;
 	}
+
+	function searchProduct($dbCon)
+	{
 		
+		$query="SELECT * FROM product "; 
+		$query .="JOIN category AS cat ON cat.category_id=product.category ";
+		$query .="JOIN state AS state ON state.state_id=product.state_id "; 
+		$operator= "WHERE ";
+
+		if(isset($_POST['searchField']) && $_POST['searchField'] !="")
+		{
+			$search=$dbCon->real_escape_string($_POST['searchField']);
+			$query .= "$operator product.title LIKE '%$search%' OR product.text LIKE '%$search%' ";
+			$operator= 'AND';
+		}
+
+		if(isset($_POST['category']) && $_POST['category'] != 0)
+		{
+			$category_id=$dbCon->real_escape_string($_POST['category']);
+			$query .= "$operator product.category='$category_id' ";
+			$operator= 'AND ';
+		}
+
+		if(isset($_POST['state']) && $_POST['state'] != 0)
+		{
+			$state_id=$dbCon->real_escape_string($_POST['state']);
+			$query .= "$operator product.state_id='$state_id' ";
+			$operator= 'AND ';
+		}
+
+		$query .="GROUP BY product.product_id "; 
+		return $this->query = $query;
+	}		
 }
+

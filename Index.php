@@ -16,6 +16,9 @@ $upload = new UploadProduct();
 $query = new Query();
 $mail = new ValidateMail();
 
+mysqli_query($dbCon, "SET NAMES 'utf8'") or die(mysql_error());
+mysqli_query($dbCon, "SET CHARACTER SET 'utf8'") or die(mysql_error()); 
+
 $sender = $mail->valSendername();
 $subject = $mail->valSubject();
 $message = $mail->valMessage();
@@ -46,10 +49,7 @@ if (isset($_SESSION['username'])) {
 		'name' =>$print->printName($dbCon),
 		'logoutForm' =>$print->printLogoutForm(),
 		'newProductForm' =>$print -> newProductForm($dbCon),
-		'newProductForm2' =>$print -> newProductForm2($dbCon),
 		'addProduct' =>$upload->upload($dbCon),
-		'categoryMenu' =>$print ->categoryMenu($dbCon),
-		'subcategoryMenu' =>$print ->subcategoryMenu($dbCon),
 		'uploadProduct' =>$upload->upload($dbCon),
 		'showProductsForm' =>$print->printShowProductsForm(),
 	);
@@ -124,27 +124,35 @@ elseif (isset($_GET['user_id'])) {
 		
 	}
 }
+
 //ANNARS VISAS DET TITLE OCH LOGIN FORMULÄR
 else {
 	$data = array(
 		'title' => 'Webbloppis',
 		'loginForm' =>$print->printLoginForm(),
-		'viewAddImage' => $upload->viewAddImage($dbCon, $query)
+		'viewAddImage' => $upload->viewAddImage($dbCon, $query),
+		'searchForm' => $print->searchProductForm($dbCon)
 	);
 }
 
 //OM MAN HAR TRYCKT PÅ CREATE NEW ACCOUNT KNAPP VISAS DET ETT FORMULÄR FÖR ATT SKAPA ETT KONTO
 if (isset($_POST['newAccount'])) {
 	$data = array(
-		'createAccountForm' =>$print->createAccountForm($dbCon),
-		'stateMenu' =>$print ->stateMenu($dbCon),
-		'createAccountForm2' =>$print->createAccountForm2($dbCon)
+		'createAccountForm' =>$print->createAccountForm($dbCon)
 	);
 }
 
 //SKAPA ETT KONTO
 if (isset($_POST['createAccount'])){
 	$user->createAccount($dbCon);
+}
+
+//Om man har klickat på sök-knappen visas sökresultatet
+if (isset($_POST['searchProduct'])){
+	$data = array(
+		'title' => 'Webbloppis',
+		'searchResult' => $print->searchResult($dbCon, $query),
+	);
 }
 
 
@@ -154,5 +162,4 @@ Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem('templates/');
 $twig = new Twig_Environment($loader);
 echo $twig->render('index.html', $data);
-
 
