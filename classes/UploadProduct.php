@@ -77,7 +77,7 @@ class UploadProduct {
 			   	
 			   	//Lägger in i databasen
 				$query = ("INSERT INTO product
-							(title, text, price, image_name, image_type, image_size, category, subcategory, date, user_id, state_id)
+							(title, text, price, image_name, image_type, image_size, category, subcategory, date, user_id, state)
 							VALUES 
 							('$product_title', '$product_text', '$product_price', '$image_name', '$image_type', '$image_size', '$product_category', '$product_subcategory', CURRENT_TIMESTAMP, '$user_id', $state)");
 				$dbCon->query($query);

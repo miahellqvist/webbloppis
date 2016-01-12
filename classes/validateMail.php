@@ -48,12 +48,12 @@ class ValidateMail {
 			}else if (filter_var($_POST['senderemail'], FILTER_VALIDATE_EMAIL) === false) {
 				$errors[] = 'Var vänlig ange en giltig e-postadress.';
 			}else{
-				$senderemail = "<" . htmlentities($_POST['senderemail']) . ">";
+				$senderemail = htmlentities($_POST['senderemail']);
 			}
 			return $senderemail;
 		}
 	}
-	function valReceiveremail(){
+	/*function valReceiveremail(){
 		if (isset($_POST['receiveremail'])) {
 			if (empty($_POST['receiveremail'])) {
 				$errors[] = 'Var vänlig skriv in mottagarens e-postadress.';
@@ -62,18 +62,18 @@ class ValidateMail {
 			}else if (filter_var($_POST['receiveremail'], FILTER_VALIDATE_EMAIL) === false) {
 				$errors[] = 'Var vänlig ange en giltig e-postadress.';
 			}else{
-				$receiveremail = "<" . htmlentities($_POST['receiveremail']) . ">";
+				$receiveremail = htmlentities($_POST['receiveremail']);
 			}
 			return $receiveremail;
 		}
-	}
+	}*/
 	function sendMail(){
 		if (empty($errors) === false) {
 			foreach ($errors as $error) {
 				echo "<li>", $error, "</li>";
 			}
 		}else{
-			if (isset($receivermail, $subject, $message, $sendermail)) {
+			if (isset($receivermail, $subject, $message, $senderemail)) {
 				mail($receiveremail, $subject, $message, "From: {$senderemail}");
 			}
 		}
