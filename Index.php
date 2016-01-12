@@ -23,12 +23,12 @@ $sender = $mail->valSendername();
 $subject = $mail->valSubject();
 $message = $mail->valMessage();
 $senderemail = $mail->valSenderemail();
-//$receiveremail = $mail->valReceiveremail();
+$receiveremail = $mail->valReceiveremail();
 
 $upload->upload($dbCon);
 
 
-//OM MAN HAR TRYCKT PÅ LOGIN KNAPPEN LOGGAS MAN IN
+//OM MAN HAR TRYCKT PÅ LOGIN KNAPP VISAS DET LOGIN FORMULÄR
 if (isset($_POST['login'])) {
 	$user->login($dbCon);
 }
@@ -42,7 +42,7 @@ if (isset($_POST['logout'])) {
 	);
 }
 
-//OM SESSION HAR SATTS VISAS DET TITLE, USERS NAMN OCH LOGOUTKNAPP
+//OM SESSION HAR SATT VISAS DET TITLE, USERS NAMN OCH LOGOUT FORMULÄR
 if (isset($_SESSION['username'])) {
 	
 	if($upload -> countProducts($dbCon)==true)
@@ -67,7 +67,7 @@ if (isset($_SESSION['username'])) {
 	);
 	}
 
-	//SKRIVER UT ANVÄNDARENS ANNONSER PÅ PROFILSIDAN
+	//Visar en viss säljares annonser
 	if(isset($_POST['showProducts'])){
 		$data = array(
 		'title' => 'Webbloppis',
@@ -77,54 +77,65 @@ if (isset($_SESSION['username'])) {
 	}
 }
 
-//SKRIVER UT HELA ANNONSEN
+//DET VISAS HELA ANNONSEN
 elseif(isset($_GET['id'])){
 	$data = array(
 		'title' => 'Webbloppis',
 		'viewProductAd' => $upload->viewProductAdd($dbCon, $query),
 		'openMailform' =>$print->openMailform(),
 	);
-	//SKRIVER UT MEJLFORMULÄRET
+	//DET VISAS MEJLFORMULÄRET
 	if (isset($_POST['sendmail'])) {
 		$data = array(
 			'title' => 'Webbloppis',
 			'printMailform'=>$print->printMailform()
 		);
 	}
-	//SKICKAR ETT MEJL TILL SÄLJAREN
+	//DET SKICKAR ETT MEJL TILL SÄLJAREN
 	if (isset($_POST['send'])) {
 		mail($receiveremail, $subject, $message, 'From: ' . $senderemail);
 	}
 	
 }
-//SKRIVER UT ALLA ANNONSER SOM TILLHÖR EN KATEGORI
+//DET VISAS ALLA ANNONSER SOM TILLHÖR EN KATEGORI
 elseif (isset($_GET['category'])) {
 	$data = array(
 		'title' => 'Webbloppis',
 		'viewCategory' =>$upload->viewCategory($dbCon, $query)
 	);
 }
-//SKRIVER UT ALLA ANNONSER SOM TILLHÖR EN SUBKATEGORI
+//DET VISAS ALLA ANNONSER SOM TILLHÖR EN SUBKATEGORI
 elseif (isset($_GET['subcategory'])) {
 	$data = array(
 		'title' => 'Webbloppis',
 		'viewSubcategory' =>$upload->viewSubcategory($dbCon, $query)
 	);
 }
-//SKRIVER UT ALLA ANNONSER SOM TILLHÖR EN LÄN
+//DET VISAS ALLA ANNONSER SOM TILLHÖR EN LÄN
 elseif (isset($_GET['state'])) {
 	$data = array(
 		'title' => 'Webbloppis',
 		'viewState' =>$upload->viewState($dbCon, $query)
 	);
 }
-//SKRIVER UT ALLA ANNONSER SOM TILLHÖR EN SÄLJARE NÄR MAN KLICKAR PÅ SÄLJARENS NAMN
+//DET VISAS ALLA ANNONSER SOM TILLHÖR EN SÄLJARE
 elseif (isset($_GET['user_id'])) {
 	$data = array(
 		'title' => 'Webbloppis',
 		'viewProfile' =>$upload->viewProfile($dbCon, $query),
 		'openMailform' =>$print->openMailform(),
 	);
+	//DET VISAS MEJLFORMULÄRET
+	if (isset($_POST['sendmail'])) {
+		$data = array(
+			'title' => 'Webbloppis',
+			'printMailform'=>$print->printMailform()
+		);
+	}
+	//DET SKICKAR ETT MEJL TILL SÄLJAREN
+	if (isset($_POST['send'])) {
+		
+	}
 }
 
 //ANNARS VISAS DET TITLE OCH LOGIN FORMULÄR
