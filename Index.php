@@ -14,7 +14,6 @@ $user = new User();
 $print = new PrintPage();
 $upload = new UploadProduct();
 $query = new Query();
-$mail = new ValidateMail();
 $contact = new Contact();
 $personalData = new UpdatePersonal();
 $updateAnnons = new UpdateAnnons();
