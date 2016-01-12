@@ -212,19 +212,19 @@ class PrintPage {
 		$state="";
 
 		//Sök kategori
-		$query1 = "SELECT * FROM category";
-		$result = $dbCon->query($query1);
+		$query = "SELECT * FROM category";
+		$result = $dbCon->query($query);
 
 		while ($row = mysqli_fetch_assoc($result)) {
 			$category.="<option value='".$row['category_id']."'>".$row['category_name']."</option>";
 		}
 
 		//Sök Län		
-		$query = "SELECT * FROM state";
-		$result2 = $dbCon->query($query);
+		$query1 = "SELECT * FROM state";
+		$result1 = $dbCon->query($query1);
 
-		while ($row2 = mysqli_fetch_assoc($result2)) {
-			$state.="<option value='".$row2['state_id']."'>".$row2['state_name']."</option>";
+		while ($row1 = mysqli_fetch_assoc($result1)) {
+			$state.="<option value='".$row1['state_id']."'>".$row1['state_name']."</option>";
 		}
 		
 		//Formuläret
@@ -240,11 +240,16 @@ class PrintPage {
 				<option value='0'>-- Hela Sverige --</option>".
 				$state.
 				"</select>
+				Sortera på pris:
+				<select name='price' id='price'>
+				<option value='0'>Välj pris</option>
+				<option value='1'>Lägsta pris till högsta</option>
+				<option value='2'>Högsta pris till lägsta</option>
+				</select>
 				<input type='submit' name='searchProduct' value='Sök'>
 				</form>";
 		return $this->html = $html;
 	}
-
 
 	//Sökresultatet
 	function searchResult($dbCon, $query)

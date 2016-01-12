@@ -185,7 +185,13 @@ class UploadProduct {
 				<a href='?id=$id'><img src='upload/".$row['image_name']."' width='200' alt=''></a><br>
 				";
 			}
-			return "<h3>Välkomen till ".$name."s Loppis</h3><br>".$this->html = $html."<br>";
+			//Om namet inte slutar på ett s, läggs ett s på i slutet
+			if(substr($name,-1) == "s"){
+			$name=$name;
+			}elseif($name){
+			$name=$name.'s';
+			}
+			return "<h3>Välkommen till ".$name." Loppis</h3><br>".$this->html = $html."<br>";
 		}
 	}
 	//Visar annonsens bild, rubrik och pris – till startsidan
