@@ -105,6 +105,7 @@ class Query{
 		return $this->query = $query;
 	}
 
+	//Sökfunktion
 	function searchProduct($dbCon)
 	{
 		
@@ -113,28 +114,43 @@ class Query{
 		$query .="JOIN state AS state ON state.state_id=product.state_id "; 
 		$operator= "WHERE ";
 
+		//Om sökfältet är ifyllt, sök på valt ord i annonsens titel och beskrivande text
 		if(isset($_POST['searchField']) && $_POST['searchField'] !="")
 		{
 			$search=$dbCon->real_escape_string($_POST['searchField']);
 			$query .= "$operator product.title LIKE '%$search%' OR product.text LIKE '%$search%' ";
 			$operator= 'AND';
 		}
-
+		//Om en kategori är vald, visa alla annonser inom den kategorin
 		if(isset($_POST['category']) && $_POST['category'] != 0)
 		{
 			$category_id=$dbCon->real_escape_string($_POST['category']);
 			$query .= "$operator product.category='$category_id' ";
 			$operator= 'AND ';
 		}
-
+		//Om ett län är valt, visa alla annonser i det valda länet
 		if(isset($_POST['state']) && $_POST['state'] != 0)
 		{
 			$state_id=$dbCon->real_escape_string($_POST['state']);
 			$query .= "$operator product.state_id='$state_id' ";
 			$operator= 'AND ';
 		}
-
-		$query .="GROUP BY product.product_id DESC"; 
+		//Om sortera på pris "Lägsta pris till högsta" är valt sorteras priserna stigande
+		if(isset($_POST['price']) && $_POST['price'] == 1){
+			$priceLowToHigh=$dbCon->real_escape_string($_POST['price']);
+			$query .= "GROUP BY product.price ASC";
+			$operator= 'AND ';
+		}
+		//Om sortera på pris "Högsta pris till lägsta" är valt sorteras priserna fallande
+		elseif(isset($_POST['price']) && $_POST['price'] == 2){
+			$priceLowToHigh=$dbCon->real_escape_string($_POST['price']);
+			$query .= "GROUP BY product.price DESC";
+			$operator= 'AND ';
+		}
+		//Annars sorteras alla annonser på den senaste inlagda annonsen
+		else{
+		$query .="GROUP BY product.product_id DESC";
+		} 
 		return $this->query = $query;
 	}		
 }
