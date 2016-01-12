@@ -134,7 +134,7 @@ class Query{
 			$operator= 'AND ';
 		}
 
-		$query .="GROUP BY product.product_id "; 
+		$query .="GROUP BY product.product_id DESC"; 
 		return $this->query = $query;
 	}		
 }
