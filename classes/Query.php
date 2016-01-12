@@ -135,16 +135,28 @@ class Query{
 			$query .= "$operator product.state_id='$state_id' ";
 			$operator= 'AND ';
 		}
-		//Om sortera på pris "Lägsta pris till högsta" är valt sorteras priserna stigande
-		if(isset($_POST['price']) && $_POST['price'] == 1){
-			$priceLowToHigh=$dbCon->real_escape_string($_POST['price']);
+		//Om sortera på "Pris stigande" är valt, sorteras priserna stigande
+		if(isset($_POST['sort']) && $_POST['sort'] == 1){
+			$priceLowToHigh=$dbCon->real_escape_string($_POST['sort']);
 			$query .= "GROUP BY product.price ASC";
 			$operator= 'AND ';
 		}
-		//Om sortera på pris "Högsta pris till lägsta" är valt sorteras priserna fallande
-		elseif(isset($_POST['price']) && $_POST['price'] == 2){
-			$priceLowToHigh=$dbCon->real_escape_string($_POST['price']);
+		//Om sortera på "Pris fallande" är valt, sorteras priserna fallande
+		elseif(isset($_POST['sort']) && $_POST['sort'] == 2){
+			$priceLowToHigh=$dbCon->real_escape_string($_POST['sort']);
 			$query .= "GROUP BY product.price DESC";
+			$operator= 'AND ';
+		}
+		//Om sortera på "Nyaste först" är valt, sorteras annonserna nyast överst
+		elseif(isset($_POST['sort']) && $_POST['sort'] == 3){
+			$priceLowToHigh=$dbCon->real_escape_string($_POST['sort']);
+			$query .= "GROUP BY product.date_added DESC";
+			$operator= 'AND ';
+		}
+		//Om sortera på "Äldsta först" är valt, sorteras annonserna äldst överst
+		elseif(isset($_POST['sort']) && $_POST['sort'] == 4){
+			$priceLowToHigh=$dbCon->real_escape_string($_POST['sort']);
+			$query .= "GROUP BY product.date_added ASC";
 			$operator= 'AND ';
 		}
 		//Annars sorteras alla annonser på den senaste inlagda annonsen

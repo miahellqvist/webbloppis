@@ -240,11 +240,13 @@ class PrintPage {
 				<option value='0'>-- Hela Sverige --</option>".
 				$state.
 				"</select>
-				Sortera på pris:
-				<select name='price' id='price'>
-				<option value='0'>Välj pris</option>
-				<option value='1'>Lägsta pris till högsta</option>
-				<option value='2'>Högsta pris till lägsta</option>
+				Sortera på:
+				<select name='sort' id='sort'>
+				<option value='0'>-- Alla annonser --</option>
+				<option value='1'>Pris stigande</option>
+				<option value='2'>Pris fallande</option>
+				<option value='3'>Nyast först</option>
+				<option value='4'>Äldst först</option>
 				</select>
 				<input type='submit' name='searchProduct' value='Sök'>
 				</form>";
