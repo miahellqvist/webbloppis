@@ -1,7 +1,5 @@
 <?php
 
-
-
 class Contact {
 	
 	/*function sendEmail() {
@@ -40,7 +38,7 @@ class Contact {
 
 				$m->FromName = 'Contact';
 
-				$m->AddAddress('natalianakagawa@gmail.com', 'Natalia Nakagawa');
+				$m->addAddress('natalianakagawa@gmail.com', 'Natalia Nakagawa');
 
 				if ($m->send()) {
 					return "Your email has been sent";
@@ -61,33 +59,26 @@ class Contact {
 
 	function sendEmail($dbCon, $query) {
 		$html="";
-		//require_once 'PHPMailerAutoload.php';
-		//$mail = new PHPMailer;
+		
 		$fromEmail=$_POST['email'];
 		$fromName=$_POST['name'];
 		$message=$_POST['message'];
-		$subject=$_POST['subject'];
 		$headers= "From: $fromEmail";
-		//$mail->SetFrom($fromEmail, $fromName);
 
 		if ($result = $dbCon->query($query->getUserEmail($dbCon))){
 
 			while ($row = $result->fetch_assoc()) {
-	  			//$mail->AddAddress($row["email"], $row["name"]);
-	  			//$mail->Subject = $subject;
-	  			//$mail->Body = 'From: ' . $fromEmail . ' (' . $fromName . ')<p>' . $message . '</p>';
+	  			$subject=$row['title'];
 	  			$to=$row['email'];
 	  			$sendIt=mail($to, $subject, $message, $headers);
 	  			
-	  			
 	  			if(isset($sendIt)) {
-	  				$html .= "Message sent to :" . $row["name"] . ' (' . str_replace("@", "&#64;",     $row["email"]) . ')<br>';
+	  				$html .= "Message sent to :" . $row["name"] . ' (' . str_replace("@", "&#64;",     $row["email"]) . ')<br>
+	  				From: '.$fromName.' (' . $fromEmail . ')<br>
+	  				Subject: '.$subject;
 	  			} else {
 	    			$html .= "Mailer Error (" . str_replace("@", "&#64;", $row["email"]) . ') <br>';
 				}
-				// Clear all addresses and attachments for next loop
-				//$mail->ClearAddresses();
-				//$mail->ClearAttachments();
 			}return $this->html=$html;
 		}
 	}

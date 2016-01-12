@@ -76,10 +76,12 @@ class UploadProduct {
 				$state = $dbCon->real_escape_string($_POST['state']);
 			   	
 			   	//Lägger in i databasen
+			   	//Jag var tvungen att ändra date_added till date för att få koden att skrivas ut
 				$query = ("INSERT INTO product
 							(title, text, price, image_name, image_type, image_size, category, subcategory, date_added, user_id, state_id)
 							VALUES 
-							('$product_title', '$product_text', '$product_price', '$image_name', '$image_type', '$image_size', '$product_category', '$product_subcategory', CURRENT_TIMESTAMP, '$user_id', '$state')");
+							('$product_title', '$product_text', '$product_price', '$image_name', '$image_type', '$image_size', 
+								'$product_category', '$product_subcategory', CURRENT_TIMESTAMP, '$user_id', '$state')");
 				$dbCon->query($query);
 				// Uppladdning av fil
 				if($uploadfile && $query){
@@ -185,13 +187,7 @@ class UploadProduct {
 				<a href='?id=$id'><img src='upload/".$row['image_name']."' width='200' alt=''></a><br>
 				";
 			}
-			//Om namet inte slutar på ett s, läggs ett s på i slutet
-			if(substr($name,-1) == "s"){
-			$name=$name;
-			}elseif($name){
-			$name=$name.'s';
-			}
-			return "<h3>Välkommen till ".$name." Loppis</h3><br>".$this->html = $html."<br>";
+			return "<h3>Välkomen till ".$name."s Loppis</h3><br>".$this->html = $html."<br>";
 		}
 	}
 	//Visar annonsens bild, rubrik och pris – till startsidan

@@ -7,7 +7,11 @@
 </head>
 <body>
 
-<p>{{name}}</p> 
+<h4>{{name}}</h4> 
+
+{{logoutForm | raw}}
+
+{{goBackToFirstLoggedInPage | raw}}
 
 {{loginForm | raw}}
 
@@ -23,19 +27,21 @@
 
 {{uploadProduct | raw}}
 
-{{logoutForm | raw}}
-
 {{logoutMsg}}
 
-{{countProducts | raw}}
+{{showProductsButton | raw}}
 
-{{showProductsForm | raw}}
+{{updateAnnons | raw}}
 
-{{goBackToFirstLoggedInPage | raw}}
+{{annonsUpdated | raw}}
+
+{{deleteAnnons | raw}}
+
+{{deletePersonal | raw}}
 
 {{viewAddImage | raw}}
 
-{{viewProductAd | raw}}
+{{viewProductAdd | raw}}
 
 {{printMailform | raw}}
 
@@ -55,6 +61,13 @@
 
 {{viewUserProducts | raw}}
 
+{{emailSent | raw}}
+
+{{updatePersonalButton | raw}}
+
+{{personalData | raw}}
+
+{{personalUpdated | raw}}
 
 </body>
 </html>

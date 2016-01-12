@@ -9,21 +9,18 @@ function __autoload($class_name) {
 //DATABASKOPPLINGEN
 $dbCon = Connection::connect();
 
-mysqli_query($dbCon, "SET NAMES 'utf8'") or die(mysql_error());
-mysqli_query($dbCon, "SET CHARACTER SET 'utf8'") or die(mysql_error()); 
-
 //NYA OBJEKT
 $user = new User();
 $print = new PrintPage();
 $upload = new UploadProduct();
 $query = new Query();
 $mail = new ValidateMail();
+$contact = new Contact();
+$personalData = new UpdatePersonal();
+$updateAnnons = new UpdateAnnons();
 
-$sender = $mail->valSendername();
-$subject = $mail->valSubject();
-$message = $mail->valMessage();
-$senderemail = $mail->valSenderemail();
-
+mysqli_query($dbCon, "SET NAMES 'utf8'") or die(mysql_error());
+mysqli_query($dbCon, "SET CHARACTER SET 'utf8'") or die(mysql_error());
 
 //NÄR MAN KOMMER IN PÅ SIDAN VISAS ANNONSER OCH INLOGGNINGSFORMULÄR
 //OM MAN HAR TRYCKT PÅ LOGIN KNAPPEN GÖRS EN KONTROLL AV ANV.NAMN & PASS OCH MAN LOGGAS IN
@@ -37,36 +34,89 @@ $upload->upload($dbCon);
 //OM SESSION HAR SATTS VISAS TITLE, USERS NAMN OCH LOGOUTKNAPP
 //DETTA ÄR EN VÄLDIGT LÅNG IF-SATS MED MÅNGA ELSEIF
 if (isset($_SESSION['username'])) {
-	
 	if($upload -> countProducts($dbCon)==true)
 	{
 		$data = array(
-		'title' => 'Webbloppis',
-		'name' =>$print->printName($dbCon),
-		'logoutForm' =>$print->printLogoutForm(),
-		'newProductForm' =>$print -> newProductForm($dbCon),
-		'uploadProduct' =>$upload->upload($dbCon),
-		'showProductsForm' =>$print->ShowProductsButton()
-	);
+			'title' => 'Webbloppis',
+			'name' =>$print->printName($dbCon),
+			'logoutForm' =>$print->printLogoutForm(),
+			'newProductForm' =>$print -> newProductForm($dbCon),
+			'uploadProduct' =>$upload->upload($dbCon),
+			'showProductsButton' =>$print->showProductsButton(),
+			'updatePersonalButton' =>$print->updatePersonalInfoButton()
+		);
 	}
 	else 
 	{
 		$data = array(
-		'title' => 'Webbloppis',
-		'name' =>$print->printName($dbCon),
-		'logoutForm' =>$print->printLogoutForm(),
-		'countProducts' =>$upload ->countProducts($dbCon),
-		'showProductsForm' =>$print->ShowProductsButton()
-	);
+			'title' => 'Webbloppis',
+			'name' =>$print->printName($dbCon),
+			'logoutForm' =>$print->printLogoutForm(),
+			'countProducts' =>$upload ->countProducts($dbCon),
+			'showProductsButton' =>$print->showProductsButton(),
+			'updatePersonalButton' =>$print->updatePersonalInfoButton()
+		);
 	}
 
 	//VISAR ALLA ANVÄNDARENS ANNONSER
 	if(isset($_POST['showProducts'])){
 		$data = array(
-		'title' => 'Webbloppis',
-		'viewPersonalAds' => $print->viewPersonalAds($dbCon,$query),
-		'goBackToFirstLoggedInPage' => $print->GoBackFromShowProductsButton()
+			'title' => 'Webbloppis',
+			'viewPersonalAds' => $print->viewPersonalAds($dbCon,$query),
+			'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
 		);
+	}
+
+	//Uppdatera mina personliga uppgifter
+	if (isset($_POST['update'])) {
+		$data = array(
+			'title' => 'Webbloppis',
+			'personalData' => $personalData->personalData($dbCon, $query),
+			'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
+		);
+	}
+	if (isset($_POST['updatePersonal'])) {
+		$data = array(
+			'title' => 'Webbloppis',
+			'personalUpdated' => $personalData->updatePersonalData($dbCon),
+			'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
+		);
+	}
+	if (isset($_POST['deletePersonal'])) {
+		$data = array(
+			'title' => 'Webbloppis',
+			'deletePersonal' =>$personalData->deletePersonal($dbCon),
+			'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
+		);
+	}
+
+	//Ändrar information om produkten
+	if (isset($_GET['id'])) {
+		$data = array(
+			'title' => 'Webbloppis',
+			'updateAnnons' =>$updateAnnons->annonsData($dbCon,$query),
+			'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
+		);
+
+		if (isset($_POST['updateAnnons'])) {
+			$data = array(
+				'title' => 'Webbloppis',
+				'annonsUpdated' =>$updateAnnons->updateAnnonsData($dbCon, $query),
+				'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
+			);
+		}
+
+		if (isset($_POST['deleteAnnons'])) {
+			$data = array(
+				'title' => 'Webbloppis',
+				'deleteAnnons' =>$updateAnnons->deleteAnnons($dbCon),
+				'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
+			);
+		}
+	}
+
+	if (isset($_POST['goBack'])) {
+		header("Location: http://localhost:8080/Aulas/Miniprojekt/Miniprojekt%203/Index.php"); //skriv din egen Location
 	}
 }
 
@@ -74,11 +124,11 @@ if (isset($_SESSION['username'])) {
 elseif(isset($_GET['id'])){
 	$data = array(
 		'title' => 'Webbloppis',
-		'viewProductAd' => $upload->viewProductAdd($dbCon, $query),
-		'openMailform' =>$print->openMailform(),
+		'viewProductAdd' => $upload->viewProductAdd($dbCon, $query),
+		'openMailform' =>$print->openMailform()
 	);
 	//SKRIVER UT MEJLFORMULÄRET
-	if (isset($_POST['sendmail'])) {
+	if (isset($_POST['writeemail'])) {
 		$data = array(
 			'title' => 'Webbloppis',
 			'printMailform'=>$print->printMailform()
@@ -86,7 +136,12 @@ elseif(isset($_GET['id'])){
 	}
 	//SKICKAR ETT MEJL TILL SÄLJAREN
 	if (isset($_POST['send'])) {
-		mail($receiveremail, $subject, $message, 'From: ' . $senderemail);
+		$data = array (
+			'title' => 'Webbloppis',
+			'emailSent' =>$contact->sendEmail($dbCon, $query),
+			'openMailform' =>$print->openMailform(),
+			'viewProductAdd' => $upload->viewProductAdd($dbCon, $query)
+		);
 	}
 	
 }
@@ -115,20 +170,8 @@ elseif (isset($_GET['state'])) {
 elseif (isset($_GET['user_id'])) {
 	$data = array(
 		'title' => 'Webbloppis',
-		'viewProfile' =>$upload->viewProfile($dbCon, $query),
-		'openMailform' =>$print->openMailform(),
+		'viewProfile' =>$upload->viewProfile($dbCon, $query)
 	);
-	//DET VISAS MEJLFORMULÄRET
-	if (isset($_POST['sendmail'])) {
-		$data = array(
-			'title' => 'Webbloppis',
-			'printMailform'=>$print->printMailform()
-		);
-	}
-	//DET SKICKAR ETT MEJL TILL SÄLJAREN
-	if (isset($_POST['send'])) {
-		
-	}
 }
 
 //ANNARS VISAS DET TITLE OCH LOGIN FORMULÄR
@@ -171,11 +214,11 @@ if (isset($_POST['searchProduct'])){
 	);
 }
 
-
 //Läser in Twig
 require_once 'Twig/lib/Twig/Autoloader.php';
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem('templates/');
 $twig = new Twig_Environment($loader);
 echo $twig->render('index.html', $data);
+
 

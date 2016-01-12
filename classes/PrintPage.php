@@ -36,19 +36,28 @@ class PrintPage {
 	}
 
 	//Knapp som visar Visa-alla-dina-annonser-formuläret när man är inloggad
-	function ShowProductsButton() {
+	function showProductsButton() {
 		return 
 			"<form action='' method='post'>
 				<input type='submit' name='showProducts' value='Visa alla dina annonser'>
 			</form>";
 	}
 
+	//Knapp för att uppdatera personliga uppgifter
+	function updatePersonalInfoButton() {
+		return 
+			"<form action='' method='post'>
+				<input type='submit' name='update' value='Uppdatera mina personliga uppgifter'>
+			</form>";
+	}
+
 	//Skriver ut Tillbaka-knapp när användaren tittar på alla sina annonser
-	function GoBackFromShowProductsButton() {
+	function goBackFromShowProductsButton() {
 		return 
 			"<form action='' method='post'>
 				<input type='submit' name='goBack' value='<< Tillbaka'>
 			</form>";
+
 	}
 
 	//SKRIVER UT REGISTRERINGS-FORMULÄR
@@ -122,11 +131,11 @@ class PrintPage {
 		}
 
 		//Län		
-		$query = "SELECT * FROM state";
-		$result2 = $dbCon->query($query);
+		$query3 = "SELECT * FROM state";
+		$result3 = $dbCon->query($query3);
 
-		while ($row2 = mysqli_fetch_assoc($result2)) {
-			$state.="<option value='".$row2['state_id']."'>".$row2['state_name']."</option>";
+		while ($row = mysqli_fetch_assoc($result3)) {
+			$state.="<option value='".$row['state_id']."'>".$row['state_name']."</option>";
 		}
 		
 
@@ -166,7 +175,7 @@ class PrintPage {
 	//Knapp som öppnar mailformuläret.
 	function openMailform(){
 		return "<form action='' method='post'>
-					<input type='submit' name='sendmail' value='Skicka meddelande'>
+					<input type='submit' name='writeemail' value='Skicka meddelande'>
 				</form>";
 	}
 
@@ -174,14 +183,12 @@ class PrintPage {
 	function printMailform(){
 		return "<form action='' method='post'>
 				Ditt namn: 
-				<input type='text' name='sendername' required autofocus><br>
+				<input type='text' name='name' required autofocus><br>
 				Din e-post: 
-				<input type='email' name='senderemail' required><br>
-				Ärende: 
-				<input type='text' name='subject' required><br>
+				<input type='email' name='email' required><br>
 				Meddelande: 
 				<textarea name='message' cols='45' rows='6'></textarea><br>
-				<input type='hidden' name='receiveremail'>
+				
 				<input type='submit' name='send' value='Skicka'>
 				</form>";
 	}
@@ -194,10 +201,10 @@ class PrintPage {
 		{
 			while ($row = $result->fetch_assoc())
 			{
-				$id=$row['image_name'];
+				$id=$row['product_id'];
 				$html .= "".
 				$row['title']." Pris: ".$row['price']." kr<br>
-				<img src='upload/".$row['image_name']."' width='200' alt=''><br>
+				<a href='?id=$id'><img src='upload/".$row['image_name']."' width='200' alt=''></a><br>
 				";
 			}
 			return $this->html = $html;
@@ -212,19 +219,19 @@ class PrintPage {
 		$state="";
 
 		//Sök kategori
-		$query = "SELECT * FROM category";
-		$result = $dbCon->query($query);
+		$query1 = "SELECT * FROM category";
+		$result = $dbCon->query($query1);
 
 		while ($row = mysqli_fetch_assoc($result)) {
 			$category.="<option value='".$row['category_id']."'>".$row['category_name']."</option>";
 		}
 
 		//Sök Län		
-		$query1 = "SELECT * FROM state";
-		$result1 = $dbCon->query($query1);
+		$query = "SELECT * FROM state";
+		$result2 = $dbCon->query($query);
 
-		while ($row1 = mysqli_fetch_assoc($result1)) {
-			$state.="<option value='".$row1['state_id']."'>".$row1['state_name']."</option>";
+		while ($row2 = mysqli_fetch_assoc($result2)) {
+			$state.="<option value='".$row2['state_id']."'>".$row2['state_name']."</option>";
 		}
 		
 		//Formuläret
@@ -240,18 +247,11 @@ class PrintPage {
 				<option value='0'>-- Hela Sverige --</option>".
 				$state.
 				"</select>
-				Sortera på:
-				<select name='sort' id='sort'>
-				<option value='0'>-- Alla annonser --</option>
-				<option value='1'>Pris stigande</option>
-				<option value='2'>Pris fallande</option>
-				<option value='3'>Nyast först</option>
-				<option value='4'>Äldst först</option>
-				</select>
 				<input type='submit' name='searchProduct' value='Sök'>
 				</form>";
 		return $this->html = $html;
 	}
+
 
 	//Sökresultatet
 	function searchResult($dbCon, $query)
