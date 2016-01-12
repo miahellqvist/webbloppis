@@ -9,6 +9,9 @@ function __autoload($class_name) {
 //DATABASKOPPLINGEN
 $dbCon = Connection::connect();
 
+mysqli_query($dbCon, "SET NAMES 'utf8'") or die(mysql_error());
+mysqli_query($dbCon, "SET CHARACTER SET 'utf8'") or die(mysql_error()); 
+
 //NYA OBJEKT
 $user = new User();
 $print = new PrintPage();
@@ -16,33 +19,23 @@ $upload = new UploadProduct();
 $query = new Query();
 $mail = new ValidateMail();
 
-mysqli_query($dbCon, "SET NAMES 'utf8'") or die(mysql_error());
-mysqli_query($dbCon, "SET CHARACTER SET 'utf8'") or die(mysql_error()); 
-
 $sender = $mail->valSendername();
 $subject = $mail->valSubject();
 $message = $mail->valMessage();
 $senderemail = $mail->valSenderemail();
-$receiveremail = $mail->valReceiveremail();
-
-$upload->upload($dbCon);
 
 
-//OM MAN HAR TRYCKT PÅ LOGIN KNAPP VISAS DET LOGIN FORMULÄR
+//NÄR MAN KOMMER IN PÅ SIDAN VISAS ANNONSER OCH INLOGGNINGSFORMULÄR
+//OM MAN HAR TRYCKT PÅ LOGIN KNAPPEN GÖRS EN KONTROLL AV ANV.NAMN & PASS OCH MAN LOGGAS IN
 if (isset($_POST['login'])) {
 	$user->login($dbCon);
 }
 
-//OM MAN HAR TRYCKT PÅ LOGOUT KNAPP VISAS DET TITLE, LOGOUT MEDDELANDE OCH LOGIN FORMULÄR
-if (isset($_POST['logout'])) {
-	$data = array(
-		'title' => 'Webbloppis',
-		'logoutMsg' =>$user->logout(),
-		'loginForm' =>$print->printLoginForm(),
-	);
-}
+//NÄR MAN HAR LOGGATS IN KOMMER MAN TILL FORMULÄRET FÖR ATT LAGGA IN EN ANNONS
+$upload->upload($dbCon);
 
-//OM SESSION HAR SATT VISAS DET TITLE, USERS NAMN OCH LOGOUT FORMULÄR
+//OM SESSION HAR SATTS VISAS TITLE, USERS NAMN OCH LOGOUTKNAPP
+//DETTA ÄR EN VÄLDIGT LÅNG IF-SATS MED MÅNGA ELSEIF
 if (isset($_SESSION['username'])) {
 	
 	if($upload -> countProducts($dbCon)==true)
@@ -67,7 +60,7 @@ if (isset($_SESSION['username'])) {
 	);
 	}
 
-	//Visar en viss säljares annonser
+	//VISAR ALLA ANVÄNDARENS ANNONSER
 	if(isset($_POST['showProducts'])){
 		$data = array(
 		'title' => 'Webbloppis',
@@ -77,41 +70,41 @@ if (isset($_SESSION['username'])) {
 	}
 }
 
-//DET VISAS HELA ANNONSEN
+//SKRIVER UT HELA ANNONSEN
 elseif(isset($_GET['id'])){
 	$data = array(
 		'title' => 'Webbloppis',
 		'viewProductAd' => $upload->viewProductAdd($dbCon, $query),
 		'openMailform' =>$print->openMailform(),
 	);
-	//DET VISAS MEJLFORMULÄRET
+	//SKRIVER UT MEJLFORMULÄRET
 	if (isset($_POST['sendmail'])) {
 		$data = array(
 			'title' => 'Webbloppis',
 			'printMailform'=>$print->printMailform()
 		);
 	}
-	//DET SKICKAR ETT MEJL TILL SÄLJAREN
+	//SKICKAR ETT MEJL TILL SÄLJAREN
 	if (isset($_POST['send'])) {
 		mail($receiveremail, $subject, $message, 'From: ' . $senderemail);
 	}
 	
 }
-//DET VISAS ALLA ANNONSER SOM TILLHÖR EN KATEGORI
+//SKRIVER UT ALLA ANNONSER SOM TILLHÖR EN KATEGORI
 elseif (isset($_GET['category'])) {
 	$data = array(
 		'title' => 'Webbloppis',
 		'viewCategory' =>$upload->viewCategory($dbCon, $query)
 	);
 }
-//DET VISAS ALLA ANNONSER SOM TILLHÖR EN SUBKATEGORI
+//SKRIVER UT ALLA ANNONSER SOM TILLHÖR EN SUBKATEGORI
 elseif (isset($_GET['subcategory'])) {
 	$data = array(
 		'title' => 'Webbloppis',
 		'viewSubcategory' =>$upload->viewSubcategory($dbCon, $query)
 	);
 }
-//DET VISAS ALLA ANNONSER SOM TILLHÖR EN LÄN
+//SKRIVER UT ALLA ANNONSER SOM TILLHÖR EN LÄN
 elseif (isset($_GET['state'])) {
 	$data = array(
 		'title' => 'Webbloppis',
@@ -145,6 +138,16 @@ else {
 		'loginForm' =>$print->printLoginForm(),
 		'viewAddImage' => $upload->viewAddImage($dbCon, $query),
 		'searchForm' => $print->searchProductForm($dbCon)
+	);
+}//HÄR SLUTAR DEN LÅNGA IF-SATSEN
+
+//OM MAN HAR TRYCKT PÅ LOGOUT KNAPPEN KOMMER MAN TILLBAKA TILL LOGIN FORMULÄRET
+//OCH ETT MEDDELANDE OM ATT MAN ÄR UTLOGGAT SKRIVS UT
+if (isset($_POST['logout'])) {
+	$data = array(
+		'title' => 'Webbloppis',
+		'logoutMsg' =>$user->logout(),
+		'loginForm' =>$print->printLoginForm(),
 	);
 }
 
