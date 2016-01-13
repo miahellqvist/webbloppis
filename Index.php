@@ -115,7 +115,7 @@ if (isset($_SESSION['username'])) {
 	}
 
 	if (isset($_POST['goBack'])) {
-		header("Location: http://localhost:8080/Aulas/Miniprojekt/Miniprojekt%203/Index.php"); //skriv din egen Location
+		header("Location: Index.php");
 	}
 }
 
