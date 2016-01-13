@@ -1,15 +1,11 @@
 <?php
-
 class UploadProduct {
-
 	function countProducts($dbCon){
-
 		$username = $_SESSION['username'];
 		$query="SELECT user.user_id FROM user WHERE username='$username'";
 		$result = $dbCon->query($query);
 		$row = $result->fetch_assoc();
 		$user_id=$row['user_id'];
-
 		$query2= "SELECT count(product.product_id) AS count
 			FROM product, user
 			WHERE user.user_id=product.user_id
@@ -18,7 +14,6 @@ class UploadProduct {
 		$result2 = $dbCon->query($query2);
 		$row = $result2->fetch_assoc();
 		$count=$row['count'];
-
 		$query3= "SELECT membership.membership_limit 
 			FROM membership, user 
 			WHERE user.type_membership_id=membership.membership_name
@@ -26,10 +21,8 @@ class UploadProduct {
 		$result3 = $dbCon->query($query3);
 		$row = $result3->fetch_assoc();
 		$limit=$row['membership_limit'];
-
 		$html="";
 		$html.= "Antal produkter: ".$count. " Gräns: ".$limit;
-
 		if($count>$limit)
 		{
 			return false;
@@ -39,7 +32,6 @@ class UploadProduct {
 			return true;
 		}
 	}
-
 	function upload($dbCon){
 		if(isset($_POST['submit'])){
 			$username = $dbCon->real_escape_string($_SESSION['username']);
@@ -105,6 +97,7 @@ class UploadProduct {
 		{
 			while ($row = $result->fetch_assoc())
 			{
+				$product_id=$row['product_id'];
 				$category_id=$row['category_id'];
 				$subcategory_id=$row['subcategory_id'];
 				$state_id=$row['state_id'];
@@ -116,7 +109,8 @@ class UploadProduct {
 				$row['date_added']." ".
 				"<a href='?state=$state_id'>".$row['state_name']."</a><br>".
 				"<a href='?user_id=$user_id'>".$row['username']."</a><br>".
-				$row['text']."<br>
+				$row['text']."<br>".
+				"<a href= Index.php#".$product_id.">Gå tillbaka till Galleriet</a>
 				";
 			}
 			return $this->html = $html;
@@ -200,7 +194,8 @@ class UploadProduct {
 				$id=$row['product_id'];
 				$html .= "".
 				$row['title']." Pris: ".$row['price']." kr<br>
-				<a href='?id=$id'><img src='upload/".$row['image_name']."' width='200' alt=''></a><br>
+				<a href='?id=$id'><img src='upload/".$row['image_name']."' width='200' alt=''></a><br>".
+				"<div id=".$id."></div>
 				";
 			}
 			return $this->html = $html;
