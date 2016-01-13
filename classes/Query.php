@@ -17,10 +17,14 @@ class Query{
 	}
 
 	//Hämtar användarens user_id
-	function getUserid()
+	function getUserid($dbCon)
 	{
-		$query = ("SELECT user_id FROM user WHERE user.user_id='$user_id' LIMIT 1");
-		 return $this->query = $query;
+		$username = $dbCon->real_escape_string($_SESSION['username']);
+		$query = ("SELECT * FROM user, state, membership 
+			WHERE username='$username'
+			AND user.type_membership_id=membership.membership_name
+			AND user.state=state.state_id");
+		return $this->query = $query;
 	}
 
 	//Hämtar all data i product-tabellen (annonsen)
@@ -49,7 +53,7 @@ class Query{
 		$query = ("SELECT * FROM category, product
 					WHERE product.category=category.category_id
 					AND category.category_id='$category_id'
-					ORDER BY date_added DESC");
+					ORDER BY product.date_added DESC");
 		return $this->query = $query;
 	}
 	
@@ -59,7 +63,7 @@ class Query{
 		$query = ("SELECT * FROM subcategory, product
 					WHERE product.subcategory=subcategory.subcategory_id
 					AND subcategory.subcategory_id='$subcategory_id'
-					ORDER BY date_added DESC");
+					ORDER BY product.date_added DESC");
 		return $this->query = $query;
 	}
 	
@@ -87,10 +91,12 @@ class Query{
 	}
 
 	//Hämtar ut säljarens e-post.
-	function getUsermail($dbcon)
+	function getUserEmail($dbCon)
 	{
 		$id=$dbCon->real_escape_string($_GET['id']);
-		$query =("SELECT user.email FROM user WHERE user.id = '$id'");
+		$query =("SELECT * FROM user, product 
+			WHERE product.product_id = '$id'
+			AND product.user_id = user.user_id");
 		return $this->query = $query;
 	}
 
@@ -99,7 +105,7 @@ class Query{
 	{
 		$username = $dbCon->real_escape_string($_SESSION['username']);
 		$query = ("SELECT *  FROM product, user 
-				WHERE product.user_id=user.user_id 
+				WHERE product.user_id=user.user_id
 				AND username = '$username'
 				ORDER BY product.date_added DESC");
 		return $this->query = $query;
