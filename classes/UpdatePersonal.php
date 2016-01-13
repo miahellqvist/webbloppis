@@ -67,7 +67,11 @@
 						 <input type='submit'  name='deletePersonal' value='Avsluta prenumeration'>						 
 						</form>
 					";
-		 	return $this->html=$html;	
+		 	return $this->html=$html;
+
+		 	if (isset($_POST['updatePersonal'])) {
+		 		header('Location: UpdatePersonal.php');
+		 	}
     	}
 
 

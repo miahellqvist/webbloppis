@@ -3,6 +3,7 @@
 class User {
 	
 	function createAccount($dbCon) {
+		$html="";
 		$name = $dbCon->real_escape_string($_POST['name']);
 		$username = $dbCon->real_escape_string($_POST['username']);
 		$password = $dbCon->real_escape_string($_POST['password']);
@@ -19,13 +20,23 @@ class User {
 		    'cost' => 11
 		];
 		$hash = password_hash($password, PASSWORD_BCRYPT, $options);
-		$query = "INSERT INTO user
-				(name, username, password, adress, zip_code, city, state, email, phone, date, type_membership_id)
- 				VALUES ('$name','$username', '$hash', '$adress', '$zip_code', '$city', '$state', '$email', '$phone', '$date', '$membership')";
-		$dbCon->query($query);
 
-		mkdir('upload/'.$_POST['username']);
-		echo "Ditt konto har skapats!";
+		$queryUsernameExists = ("SELECT * FROM user WHERE email='$email'");
+		$result = $dbCon->query($queryUsernameExists);
+
+		if ($row = $result->fetch_assoc()) {
+			$html .="E-post addressen används redan.";
+		} 
+		else{
+			$query = "INSERT INTO user
+					(name, username, password, adress, zip_code, city, state, email, phone, date, type_membership_id)
+	 				VALUES ('$name','$username', '$hash', '$adress', '$zip_code', '$city', '$state', '$email', '$phone', '$date', '$membership')";
+			$dbCon->query($query);
+
+			mkdir('upload/'.$_POST['username']);
+			$html .="Ditt konto har skapats!";
+		}
+		return $this->html=$html;
 	}
 	function login($dbCon) {
 	

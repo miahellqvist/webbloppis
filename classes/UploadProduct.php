@@ -181,7 +181,8 @@ class UploadProduct {
 				<a href='?id=$id'><img src='upload/".$row['image_name']."' width='200' alt=''></a><br>
 				";
 			}
-			return "<h3>Välkomen till ".$name."s Loppis</h3><br>".$this->html = $html."<br>";
+			return "<h3>Välkomen till ".$name."s Loppis</h3>
+			<p><a href='?id=$id'>Gå tillbaka till Annonsen</a></p>".$this->html = $html."<br>";
 		}
 	}
 	//Visar annonsens bild, rubrik och pris – till startsidan

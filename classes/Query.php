@@ -170,6 +170,21 @@ class Query{
 		$query .="GROUP BY product.product_id DESC";
 		} 
 		return $this->query = $query;
-	}		
+	}
+
+	function getReviews($dbCon) {
+		$user_id=$dbCon->real_escape_string($_GET['user_id']);
+		$query = ("SELECT * FROM review, user, rate 
+			WHERE review.user_id=user.user_id
+			AND review.rate_id=rate.rate_id
+			AND user.user_id='$user_id'
+			ORDER BY date_comment DESC");
+		return $this->query = $query;
+	}
+
+	function getRate() {
+		$query = ("SELECT *  FROM rate");
+		return $this->query = $query;
+	}
 }
 

@@ -43,6 +43,13 @@ class PrintPage {
 			</form>";
 	}
 
+	function showAllAnnonsButton() {
+		return 
+			"<form action='' method='post'>
+				<input type='submit' name='showAllAnnons' value='Visa alla annonser på sajten'>
+			</form>";
+	}
+
 	//Knapp för att uppdatera personliga uppgifter
 	function updatePersonalInfoButton() {
 		return 
@@ -54,7 +61,7 @@ class PrintPage {
 	//Skriver ut Tillbaka-knapp när användaren tittar på alla sina annonser
 	function goBackFromShowProductsButton() {
 		return 
-			"<form action='' method='post'>
+			"<form action='Index.php' method='post'>
 				<input type='submit' name='goBack' value='<< Tillbaka'>
 			</form>";
 
@@ -287,4 +294,5 @@ class PrintPage {
 			}	
 		}	
 	}
+
 }
