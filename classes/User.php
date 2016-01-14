@@ -21,11 +21,11 @@ class User {
 		];
 		$hash = password_hash($password, PASSWORD_BCRYPT, $options);
 
-		$queryUsernameExists = ("SELECT * FROM user WHERE email='$email'");
+		$queryUsernameExists = ("SELECT * FROM user WHERE username='$username' OR email='$email'");
 		$result = $dbCon->query($queryUsernameExists);
 
 		if ($row = $result->fetch_assoc()) {
-			$html .="E-post addressen används redan.";
+			$html .="Användarnamnet eller e-post addressen används redan.";
 		} 
 		else{
 			$query = "INSERT INTO user
