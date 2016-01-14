@@ -48,7 +48,7 @@ class UploadProduct {
 			    die('Bilden är redan uppladdad.');
 			}
 			// Kollar att det är rätt filtyp (png, jpg, jpeg eller gif)
-			if(!$_FILES['file']['type'] == 'image/png' || $_FILES['file']['type'] == 'image/jpg' || $_FILES['file']['type'] == 'image/jpeg' || $_FILES['file']['type'] == 'image/gif'){
+			if($_FILES['file']['type'] == 'image/png' || $_FILES['file']['type'] == 'image/PNG' || $_FILES['file']['type'] == 'image/jpg' || $_FILES['file']['type'] == 'image/jpeg' || $_FILES['file']['type'] == 'image/gif'){
 				
 				//Den uppladdade bilden placeras i mappen användarens mapp i upload
 				$uploadfile = move_uploaded_file($_FILES['file']['tmp_name'], 'upload/'.$username.'/'.$_FILES['file']['name']);
