@@ -124,7 +124,15 @@ class Query{
 		if(isset($_POST['searchField']) && $_POST['searchField'] !="")
 		{
 			$search=$dbCon->real_escape_string($_POST['searchField']);
-			$query .= "$operator product.title LIKE '%$search%' OR product.text LIKE '%$search%' ";
+			$query .= "$operator (product.title LIKE '%$search%' ";
+			$operator= 'AND';
+		}
+		//Om sökfältet är ifyllt, sök på valt ord i annonsens titel och beskrivande text
+		if(isset($_POST['searchField']) && $_POST['searchField'] !="")
+		{
+			$search=$dbCon->real_escape_string($_POST['searchField']);
+			$operator= 'OR';
+			$query .= "$operator product.text LIKE '%$search%' )";
 			$operator= 'AND';
 		}
 		//Om en kategori är vald, visa alla annonser inom den kategorin
