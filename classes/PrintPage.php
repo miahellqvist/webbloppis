@@ -2,31 +2,6 @@
 
 class PrintPage {
 
-	//SKRIVER UT LOGIN-FORMULÄR
-	function printLoginForm() {
-		return 
-			"<form action='' method='post'>
-				Användarnamn: <input type='text' name='username' /> <br>
-				Lösenord: <input type='password' name='password' /> <br>
-				<input type='submit' name='login' value='Logga in'>
-				<input type='submit' name='newAccount' value='Skapa nytt konto'>
-			</form>";
-	}
-
-	//SKRIVER UT ANVÄNDARENS NAMN
-	function printName($dbCon) {
-		
-			$username = $dbCon->real_escape_string($_SESSION['username']);
-			$query = "
-				SELECT *
-				FROM user 
-				WHERE username = '$username'
-			";
-			$result = $dbCon->query($query);
-			$row = $result->fetch_assoc();
-			return "Välkommen ".$row['name'];
-	}
-
 	//SKRIVER UT LOGOUT-FORMULÄR
 	function printLogoutForm() {
 		return 
@@ -189,14 +164,13 @@ class PrintPage {
 	//Mailformulär för att kontakta säljaren.
 	function printMailform(){
 		return "<form action='' method='post'>
-				Ditt namn: 
-				<input type='text' name='name' required autofocus><br>
-				Din e-post: 
-				<input type='email' name='email' required><br>
-				Meddelande: 
-				<textarea name='message' cols='45' rows='6'></textarea><br>
-				
-				<input type='submit' name='send' value='Skicka'>
+					Ditt namn: 
+					<input type='text' name='name' required autofocus><br>
+					Din e-post: 
+					<input type='email' name='email' required><br>
+					Meddelande: 
+					<textarea name='message' cols='45' rows='6'></textarea><br>
+					<input type='submit' name='send' value='Skicka'>
 				</form>";
 	}
 
@@ -266,7 +240,6 @@ class PrintPage {
 				</form>";
 		return $this->html = $html;
 	}
-
 
 	//Sökresultatet
 	function searchResult($dbCon, $query)
