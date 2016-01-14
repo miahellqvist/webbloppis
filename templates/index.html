@@ -7,7 +7,20 @@
 </head>
 <body>
 
-<h4>{{name}}</h4> 
+<!-- LOGIN-FORMULÄRET -->
+{%if session.username == false %}
+<form action='' method='post'>
+	Användarnamn: <input type='text' name='username' /> <br>
+	Lösenord: <input type='password' name='password' /> <br>
+	<input type='submit' name='login' value='Logga in'>
+	<input type='submit' name='newAccount' value='Skapa nytt konto'>
+</form>
+{%endif%}
+
+<!-- HÄLSAR ANVÄNDAREN VÄLKOMMEN -->
+{% if session.username == true %}
+<h4>Välkommen {{name.name}}!</h4>
+{%endif%}
 
 {{logoutForm | raw}}
 

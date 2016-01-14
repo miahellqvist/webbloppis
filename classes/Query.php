@@ -16,6 +16,17 @@ class Query{
 		 return $this->query = $query;
 	}
 
+	//Hämtar användarnamnet
+	function getUserName($dbCon){
+		$username = $dbCon->real_escape_string($_SESSION['username']);
+		$query = ("SELECT * FROM user 
+				WHERE username = '$username'
+		");
+		$result = $dbCon->query($query);
+		$row = $result->fetch_assoc();
+		return $row;
+	}
+
 	//Hämtar användarens user_id
 	function getUserid($dbCon)
 	{

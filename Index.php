@@ -37,13 +37,14 @@ if (isset($_SESSION['username'])) {
 	if($upload -> countProducts($dbCon)==true)
 	{
 		$data = array(
-			'name' =>$print->printName($dbCon),
+			'name' =>$query->getUserName($dbCon),
 			'logoutForm' =>$print->printLogoutForm(),
 			'newProductForm' =>$print -> newProductForm($dbCon),
 			'uploadProduct' =>$upload->upload($dbCon),
 			'showProductsButton' =>$print->showProductsButton(),
 			'updatePersonalButton' =>$print->updatePersonalInfoButton(),
-			'showAllAnnonsButton'=>$print->showAllAnnonsButton()
+			'showAllAnnonsButton'=>$print->showAllAnnonsButton(),
+			'session'=> $_SESSION,
 		);
 	}
 	else 
@@ -54,7 +55,7 @@ if (isset($_SESSION['username'])) {
 			'countProducts' =>$upload ->countProducts($dbCon),
 			'showProductsButton' =>$print->showProductsButton(),
 			'updatePersonalButton' =>$print->updatePersonalInfoButton(),
-			'viewAddImage' => $upload->viewAddImage($dbCon, $query)
+			'viewAddImage' => $upload->viewAddImage($dbCon, $query),
 		);
 	}
 
@@ -192,18 +193,19 @@ elseif (isset($_GET['user_id'])) {
 //ANNARS VISAS DET TITLE OCH LOGIN FORMULÄR
 else {
 	$data = array(
-		'loginForm' =>$print->printLoginForm(),
+		//'loginForm' =>$print->printLoginForm(),
 		'viewAddImage' => $upload->viewAddImage($dbCon, $query),
-		'searchForm' => $print->searchProductForm($dbCon)
+		'searchForm' => $print->searchProductForm($dbCon),
+		'session'=> $_SESSION,
 	);
 }//HÄR SLUTAR DEN LÅNGA IF-SATSEN
 
 //OM MAN HAR TRYCKT PÅ LOGOUT KNAPPEN KOMMER MAN TILLBAKA TILL LOGIN FORMULÄRET
 //OCH ETT MEDDELANDE OM ATT MAN ÄR UTLOGGAT SKRIVS UT
 if (isset($_POST['logout'])) {
+	header('Location:index.php');
 	$data = array(
 		'logoutMsg' =>$user->logout(),
-		'loginForm' =>$print->printLoginForm(),
 	);
 }
 
@@ -219,7 +221,6 @@ if (isset($_POST['createAccount'])){
 	$data = array(
 		'accountCreated' =>$user->createAccount($dbCon)
 	);
-	
 }
 
 //Om man har klickat på sök-knappen visas sökresultatet
