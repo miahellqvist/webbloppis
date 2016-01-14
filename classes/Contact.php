@@ -70,7 +70,8 @@ class Contact {
 			while ($row = $result->fetch_assoc()) {
 	  			$subject=$row['title'];
 	  			$to=$row['email'];
-	  			$sendIt=mail($to, $subject, $message, $headers);
+	  			$text = "Från: ". $fromName.", ". $fromEmail."\r\n". $message;
+	  			$sendIt=mail($to, $subject, $text, $headers);
 	  			
 	  			if(isset($sendIt)) {
 	  				$html .= "Message sent to :" . $row["name"] . ' (' . str_replace("@", "&#64;",     $row["email"]) . ')<br>
