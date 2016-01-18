@@ -1,0 +1,16 @@
+<!-- recensionformulär -->
+<div>
+	<form action='' method='post'>
+		<h3>Skriv din recension</h3>
+		<p>Betyg: 
+		<select name='rate'>
+			<option value='0'>-- Välj ett betyg --</option>
+			{% for item in reviewForm %}
+			<option value='{{item.rate_id}}'>{{item.rate_name}}</option>
+			{% endfor %}
+		</select><br></p>
+		<p>Kommentar:</p>
+		<textarea name='comment' cols='45' rows='6'></textarea><br><br>
+		<input type='submit' name='sendreview' value='Skicka din recension'>
+	</form>
+</div>

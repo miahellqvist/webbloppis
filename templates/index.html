@@ -1,102 +1,128 @@
 <!doctype>
 <html>
-<head>
-	<title>Webbloppis</title>
-	<meta charset="utf-8">
-	<link type="text/css"  rel="stylesheet" href="style.css">
-</head>
+{% include 'header.html' %}
 <body>
+<a href="?index">
+  <h1>Webbloppis</h1>
+</a>
 
 <!-- LOGIN-FORMULÄRET -->
-{%if session.username == false %}
-<form action='' method='post'>
-	Användarnamn: <input type='text' name='username' /> <br>
-	Lösenord: <input type='password' name='password' /> <br>
-	<input type='submit' name='login' value='Logga in'>
-	<input type='submit' name='newAccount' value='Skapa nytt konto'>
-</form>
-{%endif%}
+{% if session.username == false %}
+  <form class="form-inline" method='post'>
+    <div class="form-group">
+      <label for="username">Användarnamn</label>
+      <input type="text" class="form-control" name="username">
+    </div>
+    <div class="form-group">
+      <label for="password">Lösenord</label>
+      <input type="password" class="form-control" name="password">
+    </div>
+    <button type="submit" name="login" class="btn btn-primary">Logga in</button>
+    <a href="?SkapaKonto" class="btn btn-primary">Skapa konto</a>
+  </form>
+  
+  {% if createAccountForm %}
+    {% include 'createAccount.html' %}
+  {% endif %}
+
+
+{% endif %}
+
 
 <!-- HÄLSAR ANVÄNDAREN VÄLKOMMEN -->
 {% if session.username == true %}
-<h4>Välkommen {{name.name}}!</h4>
-{%endif%}
 
-{{logoutForm | raw}}
+	{% include 'userLoggedIn.html' %}
 
-{{goBackToFirstLoggedInPage | raw}}
+  {% if newProductForm %}
+    {% include 'newProductForm.html' %}
+  {% endif %}
 
-{{loginForm | raw}}
+  {{productAdded | raw}}
+
+  {% if viewPersonalAds %}
+    {% include 'printAd.html' %}
+  {% endif %}
+
+
+  {{updateProduct | raw}}
+
+  {{productUpdated | raw}}
+
+  {{deleteProduct | raw}}
+
+  {{personalData | raw}}
+
+  {{personalUpdated | raw}}
+ 
+  {{deletePersonal | raw}}
+
+  {{writeReviewButton | raw}}
+
+  {% if reviewForm %}
+    {% include 'reviewForm.html' %}
+  {% endif %}
+
+  {{sendReview | raw}}
+
+{% endif %}
+
+
+
+{% if viewProductAdd %}
+  {% include 'printAd.html' %}
+{% endif %}
 
 {{searchForm | raw}}
 
-{{searchResult | raw}}
+{% if searchResult %}
+  {% include 'printAd.html' %}
+{% endif %}
 
-{{createAccountForm | raw}}
+{% if printProductThumbnail %}
+  {% include 'printAd.html' %}
+{% endif %}
 
-{{accountCreated | raw}}
+{% if printUserProducts %}
+  {% include 'printAd.html' %}
+{% endif %}
 
-{{newProductForm | raw}}
-
-{{addProduct | raw}}
-
-{{uploadProduct | raw}}
-
-{{logoutMsg}}
-
-{{showProductsButton | raw}}
-
-{{showAllAnnonsButton | raw}}
-
-{{updateAnnons | raw}}
-
-{{annonsUpdated | raw}}
-
-{{deleteAnnons | raw}}
-
-{{deletePersonal | raw}}
-
-{{viewAddImage | raw}}
-
-{{viewProductAdd | raw}}
-
-{{printMailform | raw}}
-
-{{viewCategory | raw}}
-
-{{viewSubcategory | raw}}
-
-{{viewState | raw}}
-
-{{viewProfile | raw}}
-
-{{rateButton | raw}}
-
-{{openMailform | raw}}
-
-{{showPersonalPage | raw}}
-
-{{viewPersonalAds | raw}}
-
-{{viewUserProducts | raw}}
+{% if printMailform %}
+  {% include 'emailForm.html' %}
+{% endif %}
 
 {{emailSent | raw}}
 
-{{updatePersonalButton | raw}}
+{% if printCategoryProducts %}
+  {% include 'printAd.html' %}
+{% endif %}
 
-{{personalData | raw}}
+{% if printSubcategoryProducts %}
+  {% include 'printAd.html' %}
+{% endif %}
 
-{{personalUpdated | raw}}
+{% if printStateProducts %}
+  {% include 'printAd.html' %}
+{% endif %}
 
-{{writeReviewButton | raw}}
+{% if showReviews %}
+  {% include 'reviews.html' %}
+{% endif %}
 
-{{showReviews | raw}}
+{{rateButton | raw}}
 
-{{reviewForm | raw}}
+<div id="footer">
 
-{{sendReview | raw}}
+<br><span class=''>Kontakt</span><span>Företaget</span>
+<!--Start Cookie Script--> <script type="text/javascript" charset="UTF-8" src="http://cookie-script.com/s/6c955dd4e1539b275a77ee179040c1c0.js"></script> <!--End Cookie Script-->
+</div>
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
 
 </body>
+
+
+
 </html>

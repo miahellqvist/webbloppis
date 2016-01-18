@@ -16,7 +16,7 @@ $upload = new UploadProduct();
 $query = new Query();
 $contact = new Contact();
 $personalData = new UpdatePersonal();
-$updateAnnons = new UpdateAnnons();
+$updateProduct = new UpdateProduct();
 $review = new Reviews();
 
 mysqli_query($dbCon, "SET NAMES 'utf8'") or die(mysql_error());
@@ -28,113 +28,183 @@ if (isset($_POST['login'])) {
 	$user->login($dbCon);
 }
 
-//NÄR MAN HAR LOGGATS IN KOMMER MAN TILL FORMULÄRET FÖR ATT LAGGA IN EN ANNONS
-$upload->upload($dbCon);
-
 //OM SESSION HAR SATTS VISAS TITLE, USERS NAMN OCH LOGOUTKNAPP
 //DETTA ÄR EN VÄLDIGT LÅNG IF-SATS MED MÅNGA ELSEIF
+
 if (isset($_SESSION['username'])) {
-	if($upload -> countProducts($dbCon)==true)
-	{
+	
+	$data = array(
+		'name' =>$query->getUserName($dbCon),
+		'user_id'=>$query->getUserName($dbCon),
+		'session'=> $_SESSION
+	);
+
+	if (isset($_GET['index'])) {
+		$data=array(
+			'name' =>$query->getUserName($dbCon),
+			'session'=> $_SESSION,
+			'printProductThumbnail' => $upload->printProductThumbnail($dbCon, $query),
+			'searchForm' => $print->searchProductForm($dbCon),
+		);
+	}
+
+	if (isset($_GET['id'])) {
+		$data=array(
+			'name' =>$query->getUserName($dbCon),
+			'session'=> $_SESSION,
+			'viewProductAdd' => $upload->viewProductAdd($dbCon, $query)
+		);
+	}
+
+	//SKRIVER UT MEJLFORMULÄRET
+	if (isset($_GET['Mejl']) && isset($_GET['id'])) {
 		$data = array(
 			'name' =>$query->getUserName($dbCon),
-			'logoutForm' =>$print->printLogoutForm(),
-			'newProductForm' =>$print -> newProductForm($dbCon),
-			'uploadProduct' =>$upload->upload($dbCon),
-			'showProductsButton' =>$print->showProductsButton(),
-			'updatePersonalButton' =>$print->updatePersonalInfoButton(),
-			'showAllAnnonsButton'=>$print->showAllAnnonsButton(),
 			'session'=> $_SESSION,
+			'printMailform'=>$upload->viewProductAdd($dbCon, $query)
 		);
 	}
-	else 
-	{
-		$data = array(
-			'name' =>$print->printName($dbCon),
-			'logoutForm' =>$print->printLogoutForm(),
-			'countProducts' =>$upload ->countProducts($dbCon),
-			'showProductsButton' =>$print->showProductsButton(),
-			'updatePersonalButton' =>$print->updatePersonalInfoButton(),
-			'viewAddImage' => $upload->viewAddImage($dbCon, $query),
-		);
-	}
-
-	if (isset($_POST['showAllAnnons'])) {
-		$data = array(
-			'viewAddImage' => $upload->viewAddImage($dbCon, $query),
-			'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
+	//SKICKAR ETT MEJL TILL SÄLJAREN
+	if (isset($_POST['send'])) {
+		$data = array (
+			'name' =>$query->getUserName($dbCon),
+			'session'=> $_SESSION,
+			'emailSent'=>$contact->sendEmail($dbCon, $query)
 		);
 	}
 
-	//VISAR ALLA ANVÄNDARENS ANNONSER
-	if(isset($_POST['showProducts'])){
+	if (isset($_GET['user_id'])) {
 		$data = array(
-			'viewPersonalAds' => $print->viewPersonalAds($dbCon,$query),
-			'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
+			'name' =>$query->getUserName($dbCon),
+			'session'=> $_SESSION,
+			'printUserProducts' =>$upload->printUserProducts($dbCon, $query),
+			'rateButton' =>$review->reviewButton($dbCon)
+		);
+
+		if (isset($_GET['VisaRecensioner']) && isset($_GET['user_id'])) {
+			$data=array(
+				'name' =>$query->getUserName($dbCon),
+				'session'=> $_SESSION,
+				'showReviews'=>$review->showReviews($dbCon),
+				'writeReviewButton'=>$review->writeReviewButton($dbCon)
+			);
+		}
+		//Skriver ut recensionsformulär
+		if (isset($_GET['SkrivRecension']) && isset($_GET['user_id'])) {
+			$data = array(
+				'name' =>$query->getUserName($dbCon),
+				'session'=> $_SESSION,
+				'reviewForm'=>$review->reviewForm($dbCon)
+			);
+		}
+
+		//Skicka en recension
+		if (isset($_POST['sendreview'])) {
+			$data = array(
+				'name' =>$query->getUserName($dbCon),
+				'session'=> $_SESSION,
+				'sendReview'=>$review->sendReview($dbCon, $query)
+			);
+		}
+	}
+
+	if (isset($_GET['MinaOmdomen']) && isset($_GET['user_id'])) {
+		$data=array(
+			'name' =>$query->getUserName($dbCon),
+			'user_id'=>$query->getUserName($dbCon),
+			'session'=> $_SESSION,
+			'showReviews'=>$review->showReviews($dbCon)
 		);
 	}
 
-	//Uppdatera mina personliga uppgifter
-	if (isset($_POST['update'])) {
-		$data = array(
-			'personalData' => $personalData->personalData($dbCon, $query),
-			'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
+	if (isset($_GET['MinSida'])) {
+		$data=array(
+			'name' =>$query->getUserName($dbCon),
+			'session'=> $_SESSION,
+			'viewPersonalAds' => $print->viewPersonalAds($dbCon,$query)
 		);
 	}
-	if (isset($_POST['updatePersonal'])) {
+
+	if (isset($_GET['NyAnnons'])) {
 		$data = array(
-			'personalUpdated' => $personalData->updatePersonalData($dbCon),
-			'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
+			'name' =>$query->getUserName($dbCon),
+			'newProductForm' =>$print->newProductForm($dbCon),
+			'session'=> $_SESSION
 		);
 	}
-	if (isset($_POST['deletePersonal'])) {
-		$data = array(
-			'deletePersonal' =>$personalData->deletePersonal($dbCon),
-			'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
+
+	if (isset($_POST['add'])) {
+		$data=array(
+			'name' =>$query->getUserName($dbCon),
+			'session'=> $_SESSION,
+			'productAdded'=>$upload->addProduct($dbCon)
 		);
 	}
 
 	//Ändrar information om produkten
-	if (isset($_GET['id'])) {
+	if(isset($_GET['MinSida']) && isset($_GET['id'])){
 		$data = array(
-			'updateAnnons' =>$updateAnnons->annonsData($dbCon,$query),
-			'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
+			'name' =>$query->getUserName($dbCon),
+			'session'=> $_SESSION,
+			'updateProduct' =>$updateProduct->productData($dbCon,$query)
 		);
 
-		if (isset($_POST['updateAnnons'])) {
+		if (isset($_POST['updateProduct'])) {
 			$data = array(
-				'annonsUpdated' =>$updateAnnons->updateAnnonsData($dbCon, $query),
-				'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
+				'name' =>$query->getUserName($dbCon),
+				'session'=> $_SESSION,
+				'productUpdated' =>$updateProduct->updateProductData($dbCon, $query)
 			);
 		}
 
-		if (isset($_POST['deleteAnnons'])) {
+		if (isset($_POST['deleteProduct'])) {
 			$data = array(
-				'deleteAnnons' =>$updateAnnons->deleteAnnons($dbCon),
-				'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
+				'name' =>$query->getUserName($dbCon),
+				'session'=> $_SESSION,
+				'deleteProduct' =>$updateProduct->deleteProduct($dbCon)
 			);
 		}
+	}
+
+	//Uppdatera mina personliga uppgifter
+	if (isset($_GET['MinaUppgifter'])) {
+		$data = array(
+			'name' =>$query->getUserName($dbCon),
+			'personalData' => $personalData->personalData($dbCon, $query),
+			'session'=> $_SESSION
+		);
+	}
+	if (isset($_POST['updatePersonal'])) {
+		$data = array(
+			'name' =>$query->getUserName($dbCon),
+			'session'=> $_SESSION,
+			'personalUpdated' => $personalData->updatePersonalData($dbCon)
+		);
+	}
+	if (isset($_POST['deletePersonal'])) {
+		$data = array(
+			'name' =>$query->getUserName($dbCon),
+			'session'=> $_SESSION,
+			'deletePersonal' =>$personalData->deletePersonal($dbCon)
+		);
 	}
 }
 
 //SKRIVER UT HELA ANNONSEN
 elseif(isset($_GET['id'])){
 	$data = array(
-		'viewProductAdd' => $upload->viewProductAdd($dbCon, $query),
-		'openMailform' =>$print->openMailform()
+		'viewProductAdd' => $upload->viewProductAdd($dbCon, $query)
 	);
 	//SKRIVER UT MEJLFORMULÄRET
-	if (isset($_POST['writeemail'])) {
-		$data = array(
-			'printMailform'=>$print->printMailform()
+	if (isset($_GET['Mejl']) && isset($_GET['id'])) {
+		$data=array(
+			'printMailform'=>$upload->viewProductAdd($dbCon, $query)
 		);
 	}
 	//SKICKAR ETT MEJL TILL SÄLJAREN
 	if (isset($_POST['send'])) {
 		$data = array (
-			'emailSent' =>$contact->sendEmail($dbCon, $query),
-			'openMailform' =>$print->openMailform(),
-			'viewProductAdd' => $upload->viewProductAdd($dbCon, $query)
+			'emailSent' =>$contact->sendEmail($dbCon, $query)
 		);
 	}
 	
@@ -142,75 +212,53 @@ elseif(isset($_GET['id'])){
 //SKRIVER UT ALLA ANNONSER SOM TILLHÖR EN KATEGORI
 elseif (isset($_GET['category'])) {
 	$data = array(
-		'viewCategory' =>$upload->viewCategory($dbCon, $query)
+		'printCategoryProducts' =>$upload->printCategoryProducts($dbCon, $query)
 	);
 }
 //SKRIVER UT ALLA ANNONSER SOM TILLHÖR EN SUBKATEGORI
 elseif (isset($_GET['subcategory'])) {
 	$data = array(
-		'viewSubcategory' =>$upload->viewSubcategory($dbCon, $query)
+		'printSubcategoryProducts' =>$upload->printSubcategoryProducts($dbCon, $query)
 	);
 }
-//SKRIVER UT ALLA ANNONSER SOM TILLHÖR EN LÄN
+//SKRIVER UT ALLA ANNONSER SOM TILLHÖR ETT LÄN
 elseif (isset($_GET['state'])) {
 	$data = array(
-		'viewState' =>$upload->viewState($dbCon, $query)
+		'printStateProducts' =>$upload->printStateProducts($dbCon, $query)
 	);
 }
 //DET VISAS ALLA ANNONSER SOM TILLHÖR EN SÄLJARE
 elseif (isset($_GET['user_id'])) {
 	$data = array(
-		'viewProfile' =>$upload->viewProfile($dbCon, $query),
-		'rateButton' =>$review->reviewButton()
+		'printUserProducts' =>$upload->printUserProducts($dbCon, $query),
+		'rateButton' =>$review->reviewButton($dbCon)
 	);
 
 	//Skriver ut alla recensioner
-	if (isset($_POST['viewreviews'])) {
+	if (isset($_GET['VisaRecensioner']) && isset($_GET['user_id'])) {
 		$data = array(
-			'showReviews'=>$review->showReviews($dbCon, $query),
-			'writeReviewButton'=>$review->writeReviewButton(),
-			'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
-		);
-	}
-
-	//Skriver ut recensionformulär
-	if (isset($_POST['writereview'])) {
-		$data = array(
-			'reviewForm'=>$review->reviewForm($dbCon, $query),
-			'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
-		);
-	}
-
-	//Skicka en recension
-	if (isset($_POST['sendreview'])) {
-		$data = array(
-			'sendReview'=>$review->sendReview($dbCon, $query),
-			'goBackToFirstLoggedInPage' => $print->goBackFromShowProductsButton()
+			'showReviews'=>$review->showReviews($dbCon)
 		);
 	}
 }
 
-//ANNARS VISAS DET TITLE OCH LOGIN FORMULÄR
+//ANNARS VISAS TITEL OCH LOGINFORMULÄR
 else {
 	$data = array(
-		//'loginForm' =>$print->printLoginForm(),
-		'viewAddImage' => $upload->viewAddImage($dbCon, $query),
-		'searchForm' => $print->searchProductForm($dbCon),
-		'session'=> $_SESSION,
+		'printProductThumbnail' => $upload->printProductThumbnail($dbCon, $query),
+		'searchForm' => $print->searchProductForm($dbCon)
+		
 	);
 }//HÄR SLUTAR DEN LÅNGA IF-SATSEN
 
 //OM MAN HAR TRYCKT PÅ LOGOUT KNAPPEN KOMMER MAN TILLBAKA TILL LOGIN FORMULÄRET
 //OCH ETT MEDDELANDE OM ATT MAN ÄR UTLOGGAT SKRIVS UT
 if (isset($_POST['logout'])) {
-	header('Location:index.php');
-	$data = array(
-		'logoutMsg' =>$user->logout(),
-	);
+	$user->logout();
 }
 
 //OM MAN HAR TRYCKT PÅ CREATE NEW ACCOUNT KNAPP VISAS DET ETT FORMULÄR FÖR ATT SKAPA ETT KONTO
-if (isset($_POST['newAccount'])) {
+if (isset($_GET['SkapaKonto'])) {
 	$data = array(
 		'createAccountForm' =>$print->createAccountForm($dbCon)
 	);
@@ -218,9 +266,7 @@ if (isset($_POST['newAccount'])) {
 
 //SKAPA ETT KONTO
 if (isset($_POST['createAccount'])){
-	$data = array(
-		'accountCreated' =>$user->createAccount($dbCon)
-	);
+	$user->createAccount($dbCon);
 }
 
 //Om man har klickat på sök-knappen visas sökresultatet
@@ -236,5 +282,4 @@ Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem('templates/');
 $twig = new Twig_Environment($loader);
 echo $twig->render('index.html', $data);
-
 

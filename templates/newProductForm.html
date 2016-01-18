@@ -1,0 +1,30 @@
+<form action='' method='post'>
+	Önskad titel:<input type='text' name='title'><br>
+	Beskrivande text:<textarea name='text' cols='45' rows='6'></textarea><br>
+	Önskat pris:<input type='number' name='price'><br>
+	Lägg till en bild:<input type='file' name='file'><br>
+	Välj kategori:
+		<select name='category'>
+			<option value='0'>-- Välj en kategori --</option>
+			{% for return in newProductForm %}
+				<option value='{{return.category_id}}'> {{return.category_name}} </option>
+			{% endfor %}
+		</select><br>
+
+	Välj underkategori:
+		<select name='subcategory'>
+			<option value='0'>-- Välj en underkategori --</option>
+			{% for return in newProductForm %}
+				<option value='{{return.subcategory_id}}'> {{return.subcategory_name}} </option>
+			{% endfor %}
+		</select><br>
+
+	Välj län:
+		<select name='state'>
+			<option value='0'>-- Välj ett län --</option>
+			{% for return in newProductForm %}
+				<option value='{{return.state_id}}'> {{return.state_name}} </option>
+			{% endfor %}
+		</select><br>
+	<input type='submit' name='add' value='Publicera annonsen'>
+</form>

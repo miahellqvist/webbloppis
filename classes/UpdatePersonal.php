@@ -23,7 +23,7 @@
 				$allState .="<option value='".$row['state_id']."'>".$row['state_name']."</option>";
 			}
 
-    		if ($result = $dbCon->query($query->getUserid($dbCon))){
+    		if ($result = $dbCon->query($query->getUserData($dbCon))){
 
     			while($row = $result->fetch_assoc()){
     				

@@ -1,0 +1,88 @@
+<!-- search result -->
+<div class="ads">
+	{% for item in searchResult %}
+		<div id="{{item.product_id}}">
+			{{item.title}} Pris: {{item.price}}kr <br>
+			<a href='?id={{item.product_id}}'><img src='upload/{{item.image_name}}' width='200' alt=''></a><br>
+		</div>
+	{% endfor %}
+</div>
+
+<!-- view personal ads -->
+<div class="ads">
+	{% for item in viewPersonalAds %}
+		<div id="{{item.product_id}}">
+			{{item.title}} Pris: {{item.price}}kr <br>
+			<a href='?MinSida&id={{item.product_id}}'><img src='upload/{{item.image_name}}' width='200' alt=''></a><br>
+		</div>
+	{% endfor %}
+</div>
+
+<!-- print product thumbnail-->
+<div class="ads">
+	{% for item in printProductThumbnail %}
+		<div id="{{item.product_id}}">
+			{{item.title}} Pris: {{item.price}}kr <br>
+			<a href='?id={{item.product_id}}'><img src='upload/{{item.image_name}}' width='200' alt=''></a><br>
+		</div>
+	{% endfor %}
+</div>
+
+<!-- view product ad -->
+<div class="ads">
+	{% for item in viewProductAdd %}
+		<div id="{{item.product_id}}">
+			<img src="upload/{{item.image_name}}" width="400"><br>
+			{{item.title}} Pris: {{item.price}}kr <br>
+			<a href="?category={{item.category_id}}">{{item.category_name}}</a>
+			<a href="?subcategory={{item.subcategory_id}}">{{item.subcategory_name}}</a>
+			{{item.date_added}}
+			<a href="?state={{item.state_id}}">{{item.state_name}}</a><br>
+			<a href="?user_id={{item.user_id}}">{{item.username}}</a><br>
+			{{item.text}}<br>
+			<a href='?Mejl&id={{item.product_id}}'>Skicka meddelande</a><br>
+			<a href='Index.php#{{item.product_id}}'>Gå tillbaka till Galleriet</a>
+		</div>
+	{% endfor %}
+</div>
+
+<!-- print user products -->
+<div class="ads">
+	{% for item in printUserProducts %}
+		<h3>Welcome to {{item.name}} Loppis</h3>
+		<div id="{{item.product_id}}">
+			{{item.title}} Pris: {{item.price}}kr <br>
+			<a href='?id={{item.product_id}}'><img src='upload/{{item.image_name}}' width='200' alt=''></a><br>
+		{% endfor %}
+		</div>
+</div>
+
+<!-- print state products -->
+<div class="ads">
+	{% for item in printStateProducts %}
+		<div id="{{item.product_id}}">
+			{{item.title}} Pris: {{item.price}}kr <br>
+			<a href='?id={{item.product_id}}'><img src='upload/{{item.image_name}}' width='200' alt=''></a><br>
+		</div>
+	{% endfor %}
+</div>
+
+<!-- print category products -->
+<div class="ads">
+	{% for item in printCategoryProducts %}
+		<div id="{{item.product_id}}">
+			{{item.title}} Pris: {{item.price}}kr <br>
+			<a href='?id={{item.product_id}}'><img src='upload/{{item.image_name}}' width='200' alt=''></a><br>
+		</div>
+	{% endfor %}
+</div>
+
+<!-- print subcategory products -->
+<div class="ads">
+	{% for item in printSubcategoryProducts %}
+		<div id="{{item.product_id}}">
+			{{item.title}} Pris: {{item.price}}kr <br>
+			<a href='?id={{item.product_id}}'><img src='upload/{{item.image_name}}' width='200' alt=''></a><br>
+		</div>
+	{% endfor %}
+</div>

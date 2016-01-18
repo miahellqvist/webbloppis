@@ -1,5 +1,7 @@
 <?php
 class UploadProduct {
+
+	//FUNKAR EJ -- ska ej vara här
 	function countProducts($dbCon){
 		$username = $_SESSION['username'];
 		$query="SELECT user.user_id FROM user WHERE username='$username'";
@@ -32,23 +34,25 @@ class UploadProduct {
 			return true;
 		}
 	}
-	function upload($dbCon){
-		if(isset($_POST['submit'])){
+
+	//Lägger till en produktannons med text och bild
+	function addProduct($dbCon){
+		if (isset($_POST['add'])) {
 			$username = $dbCon->real_escape_string($_SESSION['username']);
 			// Kollar efter fel
 			if($_FILES['file']['error'] > 0){
 			   die('Fel vid uppladdning.');
 			}
 			// Kollar filstorlek – maxstorlek 6 mb
-			if($_FILES['file']['size'] > 6291456){
+			elseif($_FILES['file']['size'] > 6291456){
 			    die('Bilden överskrider maxstorleken.');
 			}
 			// Kollar om bilden redan finns
-			if(file_exists('upload/' .$username.'/'. $_FILES['file']['name'])){
+			elseif(file_exists('upload/' .$username.'/'. $_FILES['file']['name'])){
 			    die('Bilden är redan uppladdad.');
 			}
 			// Kollar att det är rätt filtyp (png, jpg, jpeg eller gif)
-			if($_FILES['file']['type'] == 'image/png' || $_FILES['file']['type'] == 'image/PNG' || $_FILES['file']['type'] == 'image/jpg' || $_FILES['file']['type'] == 'image/jpeg' || $_FILES['file']['type'] == 'image/gif'){
+			elseif($_FILES['file']['type'] == 'image/png' || $_FILES['file']['type'] == 'image/PNG' || $_FILES['file']['type'] == 'image/jpg' || $_FILES['file']['type'] == 'image/jpeg' || $_FILES['file']['type'] == 'image/gif'){
 				
 				//Den uppladdade bilden placeras i mappen användarens mapp i upload
 				$uploadfile = move_uploaded_file($_FILES['file']['tmp_name'], 'upload/'.$username.'/'.$_FILES['file']['name']);
@@ -78,6 +82,7 @@ class UploadProduct {
 				// Uppladdning av fil
 				if($uploadfile && $query){
 					die('Uppladdningen lyckades!');
+					header('Location:Index.php');
 				}else if(!$uploadfile){
 					die('Uppladdningen misslyckades');
 				}else if(!$query){
@@ -90,116 +95,80 @@ class UploadProduct {
 			}
 		}
 	}
-	//Visar hela annonsen
+
+	//Visar hela annonsen -- ska ej vara här (gallery)
 	function viewProductAdd($dbCon, $query){
-		$html="";
-		if ($result = $dbCon->query($query->showFullProductAd($dbCon)))
+		if ($result = $dbCon->query($query->showFullProduct($dbCon)))
 		{
 			while ($row = $result->fetch_assoc())
 			{
-				$product_id=$row['product_id'];
-				$category_id=$row['category_id'];
-				$subcategory_id=$row['subcategory_id'];
-				$state_id=$row['state_id'];
-				$user_id=$row['user_id'];
-				$html = "
-				<img src='upload/".$row['image_name']."' width='200' alt=''><br>".
-				$row['title']." Pris: ".$row['price']." kr<br>".
-				"<a href='?category=$category_id'>".$row['category_name']."</a> <a href='?subcategory=$subcategory_id'>".$row['subcategory_name']."</a><br>".
-				$row['date_added']." ".
-				"<a href='?state=$state_id'>".$row['state_name']."</a><br>".
-				"<a href='?user_id=$user_id'>".$row['username']."</a><br>".
-				$row['text']."<br>".
-				"<a href= Index.php#".$product_id.">Gå tillbaka till Galleriet</a>
-				";
+				$items[]=$row;
 			}
-			return $this->html = $html;
+			return $items;
 		}
 		else
 		{
 			return "Inga annonser";
 		}
 	}
-	//visar alla annonser som tillhör kategorien
-	function viewCategory($dbCon, $query){
+	
+	//visar alla annonser som tillhör kategorin -- ska ej vara här (galleri)
+	function printCategoryProducts($dbCon, $query){
 		$html="";
-		if ($result = $dbCon->query($query->showProductsByCategory($dbCon)))
+		if ($result = $dbCon->query($query->getProductsByCategory($dbCon)))
 		{
 			while ($row = $result->fetch_assoc())
 			{
-				$id=$row['product_id'];
-				$html .= "".
-				$row['title']." Pris: ".$row['price']." kr<br>
-				<a href='?id=$id'><img src='upload/".$row['image_name']."' width='200' alt=''></a><br>
-				";
+				$items[]=$row;
 			}
-			return $this->html = $html;
+			return $items;
 		}
 	}
-	//visar alla annonser som tillhör subkategorien
-	function viewSubcategory($dbCon, $query){
+	//visar alla annonser som tillhör subkategorien -- ska ej vara här
+	function printSubcategoryProducts($dbCon, $query){
 		$html="";
-		if ($result = $dbCon->query($query->showProductsBySubcategory($dbCon)))
+		if ($result = $dbCon->query($query->getProductsBySubcategory($dbCon)))
 		{
 			while ($row = $result->fetch_assoc())
 			{
-				$id=$row['product_id'];
-				$html .= "".
-				$row['title']." Pris: ".$row['price']." kr<br>
-				<a href='?id=$id'><img src='upload/".$row['image_name']."' width='200' alt=''></a><br>
-				";
+				$items[]=$row;
 			}
-			return $this->html = $html;
+			return $items;
 		}
 	}
-	//visar alla annonser som tillhör län
-	function viewState($dbCon, $query){
-		$html="";
-		if ($result = $dbCon->query($query->showProductsByState($dbCon)))
+	//visar alla annonser som tillhör län -- ska ej vara här (print)
+	function printStateProducts($dbCon, $query){
+		if ($result = $dbCon->query($query->getProductsByState($dbCon)))
+		{
+			while ($row = $result->fetch_assoc())
+			{	
+				$items[]=$row;
+			}
+			return $items;
+		}
+	}
+
+	//Skriver alla annonser från en säljare (print)
+	function printUserProducts($dbCon, $query){
+		if ($result = $dbCon->query($query->getUserProducts($dbCon)))
 		{
 			while ($row = $result->fetch_assoc())
 			{
-				$id=$row['product_id'];
-				$html .= "".
-				$row['title']." Pris: ".$row['price']." kr<br>
-				<a href='?id=$id'><img src='upload/".$row['image_name']."' width='200' alt=''></a><br>
-				";
+				$items[]=$row;
 			}
-			return $this->html = $html;
+			return $items;
 		}
 	}
-	function viewProfile($dbCon, $query){
-		$html="";
-		if ($result = $dbCon->query($query->showProfile($dbCon)))
-		{
-			while ($row = $result->fetch_assoc())
-			{
-				$id=$row['product_id'];
-				$name=$row['name'];
-				$html .= "".
-				$row['title']." Pris: ".$row['price']." kr<br>
-				<a href='?id=$id'><img src='upload/".$row['image_name']."' width='200' alt=''></a><br>
-				";
-			}
-			return "<h3>Välkomen till ".$name."s Loppis</h3>
-			<p><a href='?id=$id'>Gå tillbaka till Annonsen</a></p>".$this->html = $html."<br>";
-		}
-	}
+
 	//Visar annonsens bild, rubrik och pris – till startsidan
-	function viewAddImage($dbCon, $query){
-		$html="";	
-		if ($result = $dbCon->query($query->showMinimizedProductAd()))
+	function printProductThumbnail($dbCon, $query){
+		if ($result = $dbCon->query($query->getProductThumbnail()))
 		{
 			while ($row = $result->fetch_assoc())
 			{
-				$id=$row['product_id'];
-				$html .= "".
-				$row['title']." Pris: ".$row['price']." kr<br>
-				<a href='?id=$id'><img src='upload/".$row['image_name']."' width='200' alt=''></a><br>".
-				"<div id=".$id."></div>
-				";
+				$items[]=$row;
 			}
-			return $this->html = $html;
+			return $items;
 		}
 	}
 }

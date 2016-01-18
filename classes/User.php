@@ -3,7 +3,7 @@
 class User {
 	
 	function createAccount($dbCon) {
-		$html="";
+	
 		$name = $dbCon->real_escape_string($_POST['name']);
 		$username = $dbCon->real_escape_string($_POST['username']);
 		$password = $dbCon->real_escape_string($_POST['password']);
@@ -34,33 +34,40 @@ class User {
 			$dbCon->query($query);
 
 			mkdir('upload/'.$_POST['username']);
-			$html .="Ditt konto har skapats!";
+			header('Location:Index.php');
 		}
 		return $this->html=$html;
 	}
+
+	//Kollar om användaren skrivit in rätt namn ch lösenord och skapar en session med användarnamnet i
 	function login($dbCon) {
-	
+		$html="";
 		$username = $dbCon->real_escape_string($_POST['username']);
 		$password = $dbCon->real_escape_string($_POST['password']);
+
+		//hämtar ut användarinfo
 		$query = "
-			SELECT *
+			SELECT password, name
 			FROM user 
 			WHERE username = '$username' 
 		";
-		//hämtar ut användarinfo
+		
 		$result = $dbCon->query($query);
 		$row = $result->fetch_assoc();
 		$getpassword= $row['password'];
-		//Kollar om det hashade lösenordet stämmer överenst med det användaren skrivit in
+
+		//Kollar om det hashade lösenordet stämmer överens med det användaren skrivit in
 		if (password_verify($password, $getpassword)) {
 			$_SESSION['username'] = $username;
+			header('Location:?MinSida');
 		} else {
-		    echo 'Fel användarnamn eller lösenord.';
+		    echo "Fel användarnamn eller lösenord.";
 		}
 	}
-	//OM MAN HAR TRYCKT PÅ LOGOUT KNAPP UNSET SESSION OCH VISAS "YOU ARE LOGGED OUT"
+
+	//Om säljaren tryck på "logga ut" avslutas sessionen username
 	function logout() {
 		session_unset();
-		return "Du har loggat ut!";
+		header('Location:Index.php');
 	}
 }

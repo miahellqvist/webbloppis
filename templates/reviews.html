@@ -1,0 +1,9 @@
+<!-- print recensioner -->
+<div>
+	{% for item in showReviews %}
+		{{item.buyer_name}}<br>
+		{{item.date_comment}}<br>
+		Säljares betyg: {{item.rate_name}}<br>
+		{{item.comment}}<br><br>
+	{% endfor %}
+</div>
