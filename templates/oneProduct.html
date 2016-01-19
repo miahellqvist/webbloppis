@@ -1,0 +1,15 @@
+
+<div class="ads">
+		<div id="{{product.product_id}}">
+			<img src="upload/{{product.image_name}}" width="400"><br>
+			{{product.title}} Pris: {{product.price}}kr <br>
+			<a href="?/Product/productCategory/{{product.category_id}}">{{product.category_name}}</a>
+			<a href="?/Product/productSubcategory/{{product.subcategory_id}}">{{product.subcategory_name}}</a>
+			{{product.date_added}}
+			<a href="?/Product/productState/{{product.state_id}}">{{product.state_name}}</a><br>
+			<a href="?/Product/productUser/{{product.user_id}}">{{product.username}}</a><br>
+			{{product.text}}<br>
+			<a href='?Mejl&id={{product.product_id}}'>Skicka meddelande</a><br> 
+			<a href='Index.php#{{product.product_id}}'>Gå tillbaka till Galleriet</a>
+		</div>
+</div>

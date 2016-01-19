@@ -1,0 +1,10 @@
+<!-- view personal ads -->
+<h4>{{title}}</h4>
+<div class="ads">
+	{% for product in products %}
+		<div id="{{product.product_id}}">
+			{{product.title}} Pris: {{product.price}}kr <br>
+			<a href='?/Product/singleProduct/{{product.product_id}}'><img src='upload/{{product.image_name}}' width='200' alt=''></a><br>
+		</div>
+	{% endfor %}
+</div>

@@ -1,15 +1,3 @@
-<!doctype>
-<html>
-<head>
-	<title>{{title}}</title>
-	<meta charset="UTF-8">
-	<link type="text/css"  rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<p>Fyll i formuläret för att publicera ny produkt.</p>
-
-{{ upload.upload | raw }}
-
-</body>
-</html>
+	{% include 'head.html' %}
+	{% include 'newProductForm.html' %}
+	{% include 'footer.html' %}

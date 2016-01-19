@@ -5,7 +5,7 @@ class PrintPage {
 	//SKRIVER UT REGISTRERINGS-FORMULÄR
 	function createAccountForm($dbCon) {
 		//Medlemskap		
-		$query = "SELECT * FROM membership";
+		$query = "SELECT membership_name FROM membership";
 		if($result = $dbCon->query($query)){
 
 			while ($row = $result->fetch_assoc()) {
@@ -14,7 +14,7 @@ class PrintPage {
 		}
 
 		//Län		
-		$query = "SELECT * FROM state";
+		$query = "SELECT state_name FROM state";
 		if($result = $dbCon->query($query)){
 			while ($row = $result->fetch_assoc()) {
 				$returns[]=$row;
@@ -27,27 +27,48 @@ class PrintPage {
 	//SKRIVER UT ANNONS-INLÄGGNING-FORMULÄR
 	function newProductForm($dbCon){
 		//Kategori -- kommer ändras
-		$query = "SELECT * FROM category";
+		$query = "SELECT category_name FROM category";
 		if($result = $dbCon->query($query)){
 			while ($row = $result->fetch_assoc()) {
-				$returns[]=$row;
+				$returns[0]=$row;
 			}
 		}
 		//Underkategori
-		$query = "SELECT * FROM subcategory";
+		$query = "SELECT subcategory_name FROM subcategory";
 		if($result = $dbCon->query($query)) {
 			while ($row = $result->fetch_assoc()) {
-				$returns[]=$row;
+				$returns[0]=$row;
 			}
 		}
 		//Län		
-		$query = "SELECT * FROM state";
+		$query = "SELECT state_name FROM state";
 		if($result = $dbCon->query($query)) {
 			while ($row = $result->fetch_assoc()) {
-				$returns[]=$row;
+				$returns[0]=$row;
 			}
 		}
 		return $returns;
+	}
+
+
+	//Knapp som öppnar mailformuläret.
+	function openMailform(){
+		return "<form action='' method='post'>
+					<input type='submit' name='writeemail' value='Skicka meddelande'>
+				</form>";
+	}
+
+	//Mailformulär för att kontakta säljaren.
+	function printMailform(){
+		return "<form action='' method='post'>
+					Ditt namn: 
+					<input type='text' name='name' required autofocus><br>
+					Din e-post: 
+					<input type='email' name='email' required><br>
+					Meddelande: 
+					<textarea name='message' cols='45' rows='6'></textarea><br>
+					<input type='submit' name='send' value='Skicka'>
+				</form>";
 	}
 
 	//Visar säljarens egna annonser med bild, rubrik och pris på den personliga sidan
@@ -58,9 +79,13 @@ class PrintPage {
 		{
 			while ($row = $result->fetch_assoc())
 			{
-				$items[]=$row;
+				$id=$row['product_id'];
+				$html .= "".
+				$row['title']." Pris: ".$row['price']." kr<br>
+				<a href='?MinSida&id=$id'><img src='upload/".$row['image_name']."' width='200' alt=''></a><br>
+				";
 			}
-			return $items;
+			return "<p><b>Mina annonser</b></p>".$this->html = $html;
 		}
 	}
 
@@ -116,19 +141,28 @@ class PrintPage {
 	//Sökresultatet
 	function searchResult($dbCon, $query)
 	{
+
 		if ($result = $dbCon->query($query->searchProduct($dbCon)))
-		{	
+		{
+			$html="";	
 
 			if(mysqli_num_rows($result)>0){
 				while ($row = $result->fetch_assoc())
-				{				
-					$items[]=$row;
+				{
+					$id=$row['product_id'];
+					$html .= "".
+					$row['title']." Pris: ".$row['price']." kr<br>
+					<a href='?id=$id'><img src='upload/".$row['image_name']."' width='200' alt=''></a><br>
+					";
+					print_r($query);
+					
 				}
-				return $items;
+				return $this->html = $html;
 			}
 			else{
-				echo "Ingen annons funnen.";
-			}
+				$html="Ingen annons funnen.";
+				return $this->html = $html;
+			}	
 		}	
 	}
 

@@ -19,7 +19,17 @@ class Query{
 	//Hämtar användarens namn
 	function getUserName($dbCon){
 		$username = $dbCon->real_escape_string($_SESSION['username']);
-		$query = ("SELECT name, adress, user_id FROM user 
+		$query = ("SELECT name FROM user 
+				WHERE username = '$username'
+		");
+		$result = $dbCon->query($query);
+		$row = $result->fetch_assoc();
+		return $row;
+	}
+
+	function getUserId($dbCon){
+		$username = $dbCon->real_escape_string($_SESSION['username']);
+		$query = ("SELECT user_id FROM user 
 				WHERE username = '$username'
 		");
 		$result = $dbCon->query($query);

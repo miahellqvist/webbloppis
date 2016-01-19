@@ -37,7 +37,7 @@ class UploadProduct {
 
 	//Lägger till en produktannons med text och bild
 	function addProduct($dbCon){
-		if (isset($_POST['add'])) {
+		if (isset($_POST['file'])) {
 			$username = $dbCon->real_escape_string($_SESSION['username']);
 			// Kollar efter fel
 			if($_FILES['file']['error'] > 0){

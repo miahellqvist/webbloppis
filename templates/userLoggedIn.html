@@ -1,20 +1,18 @@
 <nav class="navbar navbar-light bg-faded">
-  <a class="navbar-brand" href="?MinSida"><h4>Välkommen {{name.name}}</h4></a>
+  <a class="navbar-brand" href="?/User/home"><h4>Välkommen {{name}}</h4></a>
   <ul class="nav navbar-nav">
     <li class="nav-item active">
-      <a class="nav-link" href="?NyAnnons">Lägg upp annons <span class="sr-only">(current)</span></a>
+      <a class="nav-link" href="?/UploadController/upload">Lägg upp annons <span class="sr-only">(current)</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="?MinaUppgifter">Mina uppgifter</a>
+      <a class="nav-link" href="?/User/MinaUppgifter">Mina uppgifter</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="?MinaOmdomen&user_id={{user_id.user_id}}">Mina omdömen</a>
+      <a class="nav-link" href="?/Reviews/MinaOmdomen&user_id={{user_id}}">Mina omdömen</a>
     </li>
   </ul>
 
-  <form method="POST" class="form-inline pull-xs-right">
+  <form method="POST" class="form-inline pull-xs-right" action= "?/User/logout">
     <button class="btn btn-success-outline" name="logout" type="submit">Logga ut</button>
-  </form>
+ </form>
 </nav>
-
-
