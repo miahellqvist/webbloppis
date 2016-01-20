@@ -49,7 +49,9 @@ class UploadModel{
 		return $states;
 	}
 
+
 //Tvättar och hanterar uppgifter från newProductForm.html
+
 	public static function upload($title,$text,$price,$file,$category,$subcategory,$state) {
 		$dbCon= Connection::connect();
 		$title = $dbCon->real_escape_string($title);
@@ -99,6 +101,7 @@ class UploadModel{
 		}
 	}
 
+
 //Lägger in produktinformation i databasen
 	public static function insertProduct($title,$text,$price,$file,$category,$subcategory,$state){
 			$dbCon= Connection::connect();
@@ -115,7 +118,7 @@ class UploadModel{
 							('$title', '$text', '$price', '$image_name', '$image_type', '$image_size', 
 								'$category', '$subcategory', CURRENT_TIMESTAMP, '$user_id', '$state')");
 				$dbCon->query($query);
-						// Uppladdning av fil
+				// Uppladdning av fil
 				if($uploadfile && $query){
 					$data['template'] = 'indexOnline.html';
 				}else if(!($uploadfile or $query)){

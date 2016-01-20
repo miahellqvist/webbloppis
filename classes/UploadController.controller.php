@@ -12,6 +12,7 @@ class UploadController {
         return $data;
       }
 
+
 //Skickar produktinformationen från annonsformuläret till upload
     public static function completeUpload() {
       require_once('Upload.model.php');
@@ -37,4 +38,5 @@ class UploadController {
       }
     return $data;
     }
+
 }

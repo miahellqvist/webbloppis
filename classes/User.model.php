@@ -11,7 +11,7 @@ class UserModel {
 
 		//hämtar ut användarinfo
 		$query = "
-			SELECT user_id, name, password, username
+			SELECT user_id, name, username, password
 			FROM user 
 			WHERE username = '$cleanUsername' 
 		";
@@ -25,6 +25,7 @@ class UserModel {
 			$_SESSION['user']['user_id'] = $user['user_id'];
 			$_SESSION['user']['username'] = $user['username'];
 			$_SESSION['user']['name'] = $user['name'];
+			$_SESSION['user']['username'] = $user['username'];
 			
 			return true;
 		} 
