@@ -2,6 +2,7 @@
 
 class UserModel {
 
+//Verifierar lösenord och användarnamn och skapar en Session ifall de stämmer med databasen
 	public static function checkLogin($username, $password) {
 		$dbCon= Connection::connect();
 
@@ -10,7 +11,7 @@ class UserModel {
 
 		//hämtar ut användarinfo
 		$query = "
-			SELECT user_id, name, password
+			SELECT user_id, name, password, username
 			FROM user 
 			WHERE username = '$cleanUsername' 
 		";
@@ -22,6 +23,7 @@ class UserModel {
 		//Kollar om det hashade lösenordet stämmer överens med det användaren skrivit in
 		if (password_verify($cleanPassword, $getpassword)) {
 			$_SESSION['user']['user_id'] = $user['user_id'];
+			$_SESSION['user']['username'] = $user['username'];
 			$_SESSION['user']['name'] = $user['name'];
 			
 			return true;
@@ -30,8 +32,9 @@ class UserModel {
 
 		   throw new Exception('Fel användarnamn eller lösenord.');
 		}
-
 	}
+
+//Hämtar alla medlemsskapsnivåer från databas 
 	public static function getMemberships() {		
 		$dbCon= Connection::connect();
 		$query = "SELECT * FROM membership";
@@ -46,6 +49,8 @@ class UserModel {
 		}
 		return $memberships;
 	}
+
+//Hämtar alla län från databasen
 	public static function getStates() {
 		$dbCon= Connection::connect();
 		$states = array();
@@ -59,6 +64,8 @@ class UserModel {
 		}
 		return $states;
 	}
+
+//Tvättar och lägger in uppgifter från completeRegister i databas
 	public static function register($username,$password,$name,$membership,$state,$email,$adress,$zip_code,$phone,$city) {
 		$dbCon= Connection::connect();
 
@@ -95,5 +102,46 @@ class UserModel {
 			return true;
 		}
 		
+	}
+
+//Hämtar användaruppgifter från databas
+	public static function getPersonalData(){
+		$dbCon=Connection::connect();
+		$user_id=$_SESSION['user']['user_id'];
+		$user=array();
+
+		$query = ("
+			SELECT name, user_id, adress, zip_code, 
+			city, email, phone, state, state_name
+			FROM user, state
+			WHERE user_id='$user_id'
+			AND user.state=state.state_id
+			");
+
+		if ($result = $dbCon->query($query)) {
+  			$user = $result->fetch_assoc();
+  			return $user;
+  		}
+	}
+
+//Hämtar och tvättar uppgifter från completePersonalUpdate och uppdaterar användaruppgifter
+	public static function updatePersonal($name,$state,$email,$adress,$zip_code,$phone,$city){
+		$dbCon= Connection::connect();
+		$user_id=$_SESSION['user']['user_id'];
+		$cleanName = $dbCon->real_escape_string($name);
+		$cleanAdress = $dbCon->real_escape_string($adress);
+ 		$cleanZip_code = $dbCon->real_escape_string($zip_code);
+ 		$cleanCity = $dbCon->real_escape_string($city);
+ 		$cleanState = $dbCon->real_escape_string($state);
+ 		$cleanEmail = $dbCon->real_escape_string($email);
+ 		$cleanPhone = $dbCon->real_escape_string($phone);
+		$query = ("
+			UPDATE user
+			SET name='$cleanName', adress='$cleanAdress', zip_code='$cleanZip_code', city='$cleanCity', 
+				state='$cleanState', email='$cleanEmail', phone='$cleanPhone'
+			WHERE user.user_id='$user_id'
+			");
+		$result=$dbCon->query($query);
+		return true;
 	}
 }

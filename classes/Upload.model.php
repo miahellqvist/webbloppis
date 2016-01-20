@@ -2,6 +2,7 @@
 
 class UploadModel{
 
+//Hämtar alla produktkategorier från databasen
 		public static function getCategories() {		
 		$dbCon= Connection::connect();
 		$query = "SELECT * FROM category";
@@ -17,6 +18,7 @@ class UploadModel{
 		return $categories;
 	}
 
+//Hämtar alla produktunderkategorier från databasen
 	public static function getSubCategories() {		
 		$dbCon= Connection::connect();
 		$query = "SELECT * FROM subcategory";
@@ -32,6 +34,7 @@ class UploadModel{
 		return $subcategories;
 	}
 
+//Hämtar alla län från databasen
 	public static function getStates() {
 		$dbCon= Connection::connect();
 		$states = array();
@@ -45,23 +48,26 @@ class UploadModel{
 		}
 		return $states;
 	}
-	public static function upload($titel,$text,$price,$file,$category,$subcategory,$state) {
+
+//Tvättar och hanterar uppgifter från newProductForm.html
+	public static function upload($title,$text,$price,$file,$category,$subcategory,$state) {
 		$dbCon= Connection::connect();
-		$titel = $dbCon->real_escape_string($titel);
+		$title = $dbCon->real_escape_string($title);
   		$text = $dbCon->real_escape_string($text);
   		$price = $dbCon->real_escape_string($price);
   		$category = $dbCon->real_escape_string($category);
   		$subcategory = $dbCon->real_escape_string($subcategory);
   		$state = $dbCon->real_escape_string($state);
   		$image = self::fileControl($file);
-  		$insert = self::insertProduct($titel,$text,$price,$file,$category,$subcategory,$state);
+  		$insert = self::insertProduct($title,$text,$price,$file,$category,$subcategory,$state);
 
 	}
 
+//Kontrollerar ifall bildfilen som användaren laddat upp i newProductForm är av rätt typ
 	public static function fileControl($file) {
 		//$dbCon= Connection::connect();
 		if (isset($file)) {
-			$username = $_SESSION['user'];
+			$username = $_SESSION['user']['username'];
 			// Kollar efter fel
 			if(!($file['fel'] > 0)){
 				return true;
@@ -93,15 +99,16 @@ class UploadModel{
 		}
 	}
 
-	public static function insertProduct($titel,$text,$price,$file,$category,$subcategory,$state){
+//Lägger in produktinformation i databasen
+	public static function insertProduct($title,$text,$price,$file,$category,$subcategory,$state){
 			$dbCon= Connection::connect();
-			$username=$_SESSION['username'];
+			$username=$_SESSION['user']['username'];
 			$uploadfile = move_uploaded_file($file['tmp_name'], 'upload/'.$username.'/'.$file['name']);
 			$image_name = $username.'/'.$file['name'];
 			$image_type = $file['type'];
 			$image_size = $file['size'];
 
-		$user_id = ("SELECT user_id FROM user WHERE username='$username'");
+		$user_id = $_SESSION['user']['user_id'];
 		$query = ("INSERT INTO product
 							(title, text, price, image_name, image_type, image_size, category, subcategory, date_added, user_id, state_id)
 							VALUES 

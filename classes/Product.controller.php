@@ -2,7 +2,7 @@
 
 class Product{
 
-
+//Om användaren klickar på en produktbild visas hela produktannonsen
   	public static function singleProduct($url_parts) {
   		require_once('Product.model.php');
   		
@@ -11,10 +11,14 @@ class Product{
 
   			$result = ProductModel::getSingleProduct($id);
   			if($result) {
-  				$data['template'] = 'singleProduct.html';
-  				$data['product'] = $result;
+          if(isset($_SESSION['user'])){
+            $data['template'] = 'singleProductOnline.html';
+            $data['product'] = $result;
+          }else
+  				  $data['template'] = 'singleProduct.html';
+  				  $data['product'] = $result;
   			} else {
-  				$data['template'] = 'registerError.html';
+  				  $data['template'] = 'registerError.html';
   			}
 
   		} else {
@@ -23,6 +27,7 @@ class Product{
   		return $data;
   	}
 
+//Om användaren klickar på en kategori i annonsen visas alla produkter i den kategorin
   	public static function productCategory($url_parts){
   		require_once('Product.model.php');
 
@@ -40,6 +45,7 @@ class Product{
   		}return $data;
   	}
 
+//Om användaren klickar på en underkategori i annonsen visas alla produkter i den underkategorin
   	public static function productSubcategory($url_parts){
   		require_once('Product.model.php');
 
@@ -57,6 +63,7 @@ class Product{
   		}return $data;
   	}
 
+//Om användaren klickar på ett län i annonsen visas alla produkter i det länet
   	public static function productState($url_parts){
   		require_once('Product.model.php');
 
@@ -74,6 +81,7 @@ class Product{
   		}return $data;
   	}
 
+//Om användaren klickar på säljarnamnet i annonsen visas alla produkter från den säljaren
   	public static function productUser($url_parts){
   		require_once('Product.model.php');
 

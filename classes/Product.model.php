@@ -2,6 +2,8 @@
 
 
 class ProductModel {
+
+//Hämtar produktinformation från databasen (För galleri)
 	public static function getAllProducts() {
 		$dbCon= Connection::connect();
 		$query = 
@@ -25,6 +27,7 @@ class ProductModel {
 		}
 	}
 
+//Hämtar produktinformation från databasen (För att visa ela annonsen)
 	public static function getSingleProduct($id) {
   		$dbCon= Connection::connect();
 
@@ -43,6 +46,7 @@ class ProductModel {
 
   	}
 
+//Hämtar produktinformation för produkter i en viss kategori från databasen
   	public static function getProductsCategory($category_id) {
 		$dbCon= Connection::connect();
 		$query = 
@@ -67,6 +71,7 @@ class ProductModel {
 		}
 	}
 
+//Hämtar produktinformation för produkter i en viss underkategori från databasen
 	public static function getProductsSubcategory($subcategory_id) {
 		$dbCon= Connection::connect();
 		$query = 
@@ -91,6 +96,7 @@ class ProductModel {
 		}
 	}
 
+//Hämtar produktinformation för produkter i ett viss län från databasen
 	public static function getProductsState($state_id) {
 		$dbCon= Connection::connect();
 		$query = 
@@ -116,6 +122,7 @@ class ProductModel {
 		}
 	}
 
+//Hämtar produktinformation för produkter från en viss säljare från databasen
 	public static function getProductsUser($user_id) {
 		$dbCon= Connection::connect();
 		$query = 
