@@ -61,7 +61,7 @@ class UploadModel{
 	public static function fileControl($file) {
 		//$dbCon= Connection::connect();
 		if (isset($file)) {
-			$username = $_SESSION['user'];
+			$username=$_SESSION['user']['username'];
 			// Kollar efter fel
 			if(!($file['fel'] > 0)){
 				return true;
@@ -108,7 +108,7 @@ class UploadModel{
 							('$title', '$text', '$price', '$image_name', '$image_type', '$image_size', 
 								'$category', '$subcategory', CURRENT_TIMESTAMP, '$user_id', '$state')");
 				$dbCon->query($query);
-						// Uppladdning av fil
+				// Uppladdning av fil
 				if($uploadfile && $query){
 					$data['template'] = 'indexOnline.html';
 				}else if(!($uploadfile or $query)){
