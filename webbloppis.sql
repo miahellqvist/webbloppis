@@ -16,6 +16,15 @@ CREATE TABLE `category` (
   PRIMARY KEY (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `category` (`category_id`, `category_name`) VALUES
+(1,	'Damkläder'),
+(2,	'Herrkläder'),
+(3,	'Barnkläder'),
+(4,	'Leksaker'),
+(5,	'Heminredning'),
+(6,	'Verktyg'),
+(7,	'Trädgård'),
+(8,	'Böcker');
 
 DROP TABLE IF EXISTS `city`;
 CREATE TABLE `city` (
@@ -25,6 +34,297 @@ CREATE TABLE `city` (
   PRIMARY KEY (`city_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `city` (`city_id`, `city_name`, `state_id`) VALUES
+(1,	'Karlshamns kommun',	1),
+(2,	'Karlskrona kommun',	1),
+(3,	'Olofströms kommun',	1),
+(4,	'Ronneby kommun',	1),
+(5,	'Sölvesborgs kommun',	1),
+(6,	'Avesta kommun',	2),
+(7,	'Borlänge kommun',	2),
+(8,	'Falu kommun',	2),
+(9,	'Gagnefs kommun',	2),
+(10,	'Hedemora kommun',	2),
+(11,	'Leksands kommun',	2),
+(12,	'Ludvika kommun',	2),
+(13,	'Malung-Sälens kommun',	2),
+(14,	'Mora kommun',	2),
+(15,	'Orsa kommun',	2),
+(16,	'Rättviks kommun',	2),
+(17,	'Smedjebackens kommun',	2),
+(18,	'Säters kommun',	2),
+(19,	'Vansbro kommun',	2),
+(20,	'Älvdalens kommun',	2),
+(21,	'Gotlands kommun',	3),
+(22,	'Bollnäs kommun',	4),
+(23,	'Gävle kommun',	4),
+(24,	'Hofors kommun',	4),
+(25,	'Hudiksvalls kommun',	4),
+(26,	'Ljusdals kommun',	4),
+(27,	'Nordanstigs kommun',	4),
+(28,	'Ockelbo kommun',	4),
+(29,	'Ovanåkers kommun',	4),
+(30,	'Sandvikens kommun',	4),
+(31,	'Söderhamns kommun',	4),
+(32,	'Falkenbergs kommun',	5),
+(33,	'Halmstads kommun',	5),
+(34,	'Hylte kommun',	5),
+(35,	'Kungsbacka kommun',	5),
+(36,	'Laholms kommun',	5),
+(37,	'Varbergs kommun',	5),
+(38,	'Bergs kommun',	6),
+(39,	'Bräcke kommun',	6),
+(40,	'Härjedalens kommun',	6),
+(41,	'Krokoms kommun',	6),
+(42,	'Ragunda kommun',	6),
+(43,	'Strömsunds kommun',	6),
+(44,	'Åre kommun',	6),
+(45,	'Östersunds kommun',	6),
+(46,	'Aneby kommun',	7),
+(47,	'Eksjö kommun',	7),
+(48,	'Gislaveds kommun',	7),
+(49,	'Gnosjö kommun',	7),
+(50,	'Habo kommun',	7),
+(51,	'Jönköpings kommun',	7),
+(52,	'Mullsjö kommun',	7),
+(53,	'Nässjö kommun',	7),
+(54,	'Sävsjö kommun',	7),
+(55,	'Tranås kommun',	7),
+(56,	'Vaggeryds kommun',	7),
+(57,	'Vetlanda kommun',	7),
+(58,	'Värnamo kommun',	7),
+(59,	'Borgholms kommun',	8),
+(60,	'Emmaboda kommun',	8),
+(61,	'Hultsfreds kommun',	8),
+(62,	'Högsby kommun',	8),
+(63,	'Kalmar kommun',	8),
+(64,	'Mönsterås kommun',	8),
+(65,	'Mörbylånga kommun',	8),
+(66,	'Nybro kommun',	8),
+(67,	'Oskarshamns kommun',	8),
+(68,	'Torsås kommun',	8),
+(69,	'Vimmerby kommun',	8),
+(70,	'Västerviks kommun',	8),
+(71,	'Alvesta kommun',	9),
+(72,	'Lessebo kommun',	9),
+(73,	'Ljungby kommun',	9),
+(74,	'Markaryds kommun',	9),
+(75,	'Tingsryds kommun',	9),
+(76,	'Uppvidinge kommun',	9),
+(77,	'Växjö kommun',	9),
+(78,	'Älmhults kommun',	9),
+(79,	'Arjeplogs kommun',	10),
+(80,	'Arvidsjaurs kommun',	10),
+(81,	'Bodens kommun',	10),
+(82,	'Gällivare kommun',	10),
+(83,	'Haparanda kommun',	10),
+(84,	'Jokkmokks kommun',	10),
+(85,	'Kalix kommun',	10),
+(86,	'Kiruna kommun',	10),
+(87,	'Luleå kommun',	10),
+(88,	'Pajala kommun',	10),
+(89,	'Piteå kommun',	10),
+(90,	'Älvsbyns kommun',	10),
+(91,	'Överkalix kommun',	10),
+(92,	'Övertorneå kommun',	10),
+(93,	'Bjuvs kommun',	11),
+(94,	'Bromölla kommun',	11),
+(95,	'Burlövs kommun',	11),
+(96,	'Båstads kommun',	11),
+(97,	'Eslövs kommun',	11),
+(98,	'Helsingborgs kommun',	11),
+(99,	'Hässleholms kommun',	11),
+(100,	'Höganäs kommun',	11),
+(101,	'Hörby kommun',	11),
+(102,	'Höörs kommun',	11),
+(103,	'Klippans kommun',	11),
+(104,	'Kristianstads kommun',	11),
+(105,	'Kävlinge kommun',	11),
+(106,	'Landskrona kommun',	11),
+(107,	'Lomma kommun',	11),
+(108,	'Lunds kommun',	11),
+(109,	'Malmö kommun',	11),
+(110,	'Osby kommun',	11),
+(111,	'Perstorps kommun',	11),
+(112,	'Simrishamns kommun',	11),
+(113,	'Sjöbo kommun',	11),
+(114,	'Skurups kommun',	11),
+(115,	'Staffanstorps kommun',	11),
+(116,	'Svalövs kommun',	11),
+(117,	'Svedala kommun',	11),
+(118,	'Tomelilla kommun',	11),
+(119,	'Trelleborgs kommun',	11),
+(120,	'Vellinge kommun',	11),
+(121,	'Ystads kommun',	11),
+(122,	'Åstorps kommun',	11),
+(123,	'Ängelholms kommun',	11),
+(124,	'Örkelljunga kommun',	11),
+(125,	'Östra Göinge kommun',	11),
+(126,	'Botkyrka kommun',	12),
+(127,	'Danderyds kommun',	12),
+(128,	'Ekerö kommun',	12),
+(129,	'Haninge kommun',	12),
+(130,	'Huddinge kommun',	12),
+(131,	'Järfälla kommun',	12),
+(132,	'Lidingö kommun',	12),
+(133,	'Nacka kommun',	12),
+(134,	'Norrtälje kommun',	12),
+(135,	'Nykvarns kommun',	12),
+(136,	'Nynäshamns kommun',	12),
+(137,	'Salems kommun',	12),
+(138,	'Sigtuna kommun',	12),
+(139,	'Sollentuna kommun',	12),
+(140,	'Solna kommun',	12),
+(141,	'Stockholms kommun',	12),
+(142,	'Sundbybergs kommun',	12),
+(143,	'Södertälje kommun',	12),
+(144,	'Tyresö kommun',	12),
+(145,	'Täby kommun',	12),
+(146,	'Upplands Väsby kommun',	12),
+(147,	'Upplands-Bro kommun',	12),
+(148,	'Vallentuna kommun',	12),
+(149,	'Vaxholms kommun',	12),
+(150,	'Värmdö kommun',	12),
+(151,	'Österåkers kommun',	12),
+(152,	'Eskilstuna kommun',	13),
+(153,	'Flens kommun',	13),
+(154,	'Gnesta kommun',	13),
+(155,	'Katrineholms kommun',	13),
+(156,	'Nyköpings kommun',	13),
+(157,	'Oxelösunds kommun',	13),
+(158,	'Strängnäs kommun',	13),
+(159,	'Trosa kommun',	13),
+(160,	'Vingåkers kommun',	13),
+(161,	'Enköpings kommun',	14),
+(162,	'Heby kommun',	14),
+(163,	'Håbo kommun',	14),
+(164,	'Knivsta kommun',	14),
+(165,	'Tierps kommun',	14),
+(166,	'Uppsala kommun',	14),
+(167,	'Älvkarleby kommun',	14),
+(168,	'Östhammars kommun',	14),
+(169,	'Arvika kommun',	15),
+(170,	'Eda kommun',	15),
+(171,	'Filipstads kommun',	15),
+(172,	'Forshaga kommun',	15),
+(173,	'Grums kommun',	15),
+(174,	'Hagfors kommun',	15),
+(175,	'Hammarö kommun',	15),
+(176,	'Karlstads kommun',	15),
+(177,	'Kils kommun',	15),
+(178,	'Kristinehamns kommun',	15),
+(179,	'Munkfors kommun',	15),
+(180,	'Storfors kommun',	15),
+(181,	'Sunne kommun',	15),
+(182,	'Säffle kommun',	15),
+(183,	'Torsby kommun',	15),
+(184,	'Årjängs kommun',	15),
+(185,	'Bjurholms kommun',	16),
+(186,	'Dorotea kommun',	16),
+(187,	'Lycksele kommun',	16),
+(188,	'Malå kommun',	16),
+(189,	'Nordmalings kommun',	16),
+(190,	'Norsjö kommun',	16),
+(191,	'Robertsfors kommun',	16),
+(192,	'Skellefteå kommun',	16),
+(193,	'Sorsele kommun',	16),
+(194,	'Storumans kommun',	16),
+(195,	'Umeå kommun',	16),
+(196,	'Vilhelmina kommun',	16),
+(197,	'Vindelns kommun',	16),
+(198,	'Vännäs kommun',	16),
+(199,	'Åsele kommun',	16),
+(200,	'Härnösands kommun',	17),
+(201,	'Kramfors kommun',	17),
+(202,	'Sollefteå kommun',	17),
+(203,	'Sundsvalls kommun',	17),
+(204,	'Timrå kommun',	17),
+(205,	'Ånge kommun',	17),
+(206,	'Örnsköldsviks kommun',	17),
+(207,	'Arboga kommun',	18),
+(208,	'Fagersta kommun',	18),
+(209,	'Hallstahammars kommun',	18),
+(210,	'Kungsörs kommun',	18),
+(211,	'Köpings kommun',	18),
+(212,	'Norbergs kommun',	18),
+(213,	'Sala kommun',	18),
+(214,	'Skinnskattebergs kommun',	18),
+(215,	'Surahammars kommun',	18),
+(216,	'Västerås kommun',	18),
+(217,	'Ale kommun',	19),
+(218,	'Alingsås kommun',	19),
+(219,	'Bengtsfors kommun',	19),
+(220,	'Bollebygds kommun',	19),
+(221,	'Borås kommun',	19),
+(222,	'Dals-Eds kommun',	19),
+(223,	'Essunga kommun',	19),
+(224,	'Falköpings kommun',	19),
+(225,	'Färgelanda kommun',	19),
+(226,	'Grästorps kommun',	19),
+(227,	'Gullspångs kommun',	19),
+(228,	'Göteborgs kommun',	19),
+(229,	'Götene kommun',	19),
+(230,	'Herrljunga kommun',	19),
+(231,	'Hjo kommun',	19),
+(232,	'Härryda kommun',	19),
+(233,	'Karlsborgs kommun',	19),
+(234,	'Kungälvs kommun',	19),
+(235,	'Lerums kommun',	19),
+(236,	'Lidköpings kommun',	19),
+(237,	'Lilla Edets kommun',	19),
+(238,	'Lysekils kommun',	19),
+(239,	'Mariestads kommun',	19),
+(240,	'Marks kommun',	19),
+(241,	'Melleruds kommun',	19),
+(242,	'Munkedals kommun',	19),
+(243,	'Mölndals kommun',	19),
+(244,	' 	Orusts kommun',	19),
+(245,	'Partille kommun',	19),
+(246,	'Skara kommun',	19),
+(247,	'Skövde kommun',	19),
+(248,	'Sotenäs kommun',	19),
+(249,	'Stenungsunds kommun',	19),
+(250,	'Strömstads kommun',	19),
+(251,	'Svenljunga kommun',	19),
+(252,	'Tanums kommun',	19),
+(253,	'Tibro kommun',	19),
+(254,	'Tidaholms kommun',	19),
+(255,	'Tjörns kommun',	19),
+(256,	'Tranemo kommun',	19),
+(257,	'Trollhättans kommun',	19),
+(258,	'Töreboda kommun',	19),
+(259,	'Uddevalla kommun',	19),
+(260,	'Ulricehamns kommun',	19),
+(261,	'Vara kommun',	19),
+(262,	'Vårgårda kommun',	19),
+(263,	'Vänersborgs kommun',	19),
+(264,	'Åmåls kommun',	19),
+(265,	'Öckerö kommun',	19),
+(266,	'Askersunds kommun',	20),
+(267,	'Degerfors kommun',	20),
+(268,	'Hallsbergs kommun',	20),
+(269,	'Hällefors kommun',	20),
+(270,	'Karlskoga kommun',	20),
+(271,	'Kumla kommun',	20),
+(272,	'Laxå kommun',	20),
+(273,	'Lekebergs kommun',	20),
+(274,	'Lindesbergs kommun',	20),
+(275,	'Ljusnarsbergs kommun',	20),
+(276,	'Nora kommun',	20),
+(277,	'Örebro kommun',	20),
+(278,	'Boxholms kommun',	21),
+(279,	'Finspångs kommun',	21),
+(280,	'Kinda kommun',	21),
+(281,	'Linköpings kommun',	21),
+(282,	'Mjölby kommun',	21),
+(283,	'Motala kommun',	21),
+(284,	'Norrköpings kommun',	21),
+(285,	'Söderköpings kommun',	21),
+(286,	'Vadstena kommun',	21),
+(287,	'Valdemarsviks kommun',	21),
+(288,	'Ydre kommun',	21),
+(289,	'Åtvidabergs kommun',	21),
+(290,	'Ödeshögs kommun',	21);
 
 DROP TABLE IF EXISTS `membership`;
 CREATE TABLE `membership` (
@@ -32,6 +332,10 @@ CREATE TABLE `membership` (
   `membership_limit` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `membership` (`membership_name`, `membership_limit`) VALUES
+('Guld',	500),
+('Silver',	50),
+('Brons',	10);
 
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
@@ -50,6 +354,8 @@ CREATE TABLE `product` (
   PRIMARY KEY (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `product` (`product_id`, `title`, `text`, `price`, `image_name`, `image_type`, `image_size`, `category`, `subcategory`, `date_added`, `user_id`, `state_id`) VALUES
+(40,	'',	'pippi',	1200,	'/uggla.PNG',	'image/png',	37422,	'2',	'6',	'2016-01-20 09:38:02',	0,	5);
 
 DROP TABLE IF EXISTS `rate`;
 CREATE TABLE `rate` (
@@ -58,6 +364,10 @@ CREATE TABLE `rate` (
   PRIMARY KEY (`rate_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `rate` (`rate_id`, `rate_name`) VALUES
+(1,	'Dålig säljare'),
+(2,	'Bra säljare'),
+(3,	'Utmärk säljare');
 
 DROP TABLE IF EXISTS `review`;
 CREATE TABLE `review` (
@@ -71,6 +381,9 @@ CREATE TABLE `review` (
   PRIMARY KEY (`review_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `review` (`review_id`, `buyer_id`, `buyer_name`, `seller_id`, `rate_id`, `comment`, `date_comment`) VALUES
+(90,	6,	'Anna',	5,	2,	':)',	'2016-01-14 22:52:43'),
+(92,	5,	'Natalia',	6,	2,	'Bra!',	'2016-01-15 00:05:30');
 
 DROP TABLE IF EXISTS `select_category`;
 CREATE TABLE `select_category` (
@@ -78,6 +391,36 @@ CREATE TABLE `select_category` (
   `subcategory_id` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `select_category` (`category_id`, `subcategory_id`) VALUES
+(1,	1),
+(1,	2),
+(1,	3),
+(1,	4),
+(2,	1),
+(2,	2),
+(2,	3),
+(2,	4),
+(3,	1),
+(3,	2),
+(3,	3),
+(3,	4),
+(4,	7),
+(4,	8),
+(4,	9),
+(4,	10),
+(4,	11),
+(1,	11),
+(2,	11),
+(3,	11),
+(5,	12),
+(5,	13),
+(5,	14),
+(5,	11),
+(7,	15),
+(7,	16),
+(7,	11),
+(8,	17),
+(8,	18);
 
 DROP TABLE IF EXISTS `state`;
 CREATE TABLE `state` (
@@ -86,6 +429,28 @@ CREATE TABLE `state` (
   PRIMARY KEY (`state_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `state` (`state_id`, `state_name`) VALUES
+(1,	'Blekinge län'),
+(2,	'Dalarnas län'),
+(3,	'Gotlands län'),
+(4,	'Gävleborgs län'),
+(5,	'Hallands län'),
+(6,	'Jämtlands län'),
+(7,	'Jönköpings län'),
+(8,	'Kalmar län'),
+(9,	'Kronobergs län'),
+(10,	'Norrbottens län'),
+(11,	'Skåne län'),
+(12,	'Stockholms län'),
+(13,	'Södermanlands län'),
+(14,	'Uppsala län'),
+(15,	'Värmlands län'),
+(16,	'Västerbottens län'),
+(17,	'Västernorrlands län'),
+(18,	'Västmanlands län'),
+(19,	'Västra Götalands län'),
+(20,	'Örebro län'),
+(21,	'Östergötlands län');
 
 DROP TABLE IF EXISTS `subcategory`;
 CREATE TABLE `subcategory` (
@@ -94,6 +459,25 @@ CREATE TABLE `subcategory` (
   PRIMARY KEY (`subcategory_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `subcategory` (`subcategory_id`, `subcategory_name`) VALUES
+(1,	'Byxor'),
+(2,	'Tröjor'),
+(3,	'Skor'),
+(4,	'Ytterkläder'),
+(5,	'Redskap'),
+(6,	'Övrigt'),
+(7,	'Mjukisdjur'),
+(8,	'Uteleksaker'),
+(9,	'Spel'),
+(10,	'Dockor'),
+(11,	'Övrigt'),
+(12,	'Ljusstakar'),
+(13,	'Textil'),
+(14,	'Husgeråd'),
+(15,	'Frön'),
+(16,	'Redskap'),
+(17,	'Inbundna böcker'),
+(18,	'Pocket');
 
 DROP TABLE IF EXISTS `type_membership`;
 CREATE TABLE `type_membership` (
@@ -103,6 +487,10 @@ CREATE TABLE `type_membership` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `type_membership` (`id`, `name`, `permission`) VALUES
+(1,	'Bronze',	''),
+(2,	'Silver',	''),
+(3,	'Gold',	'');
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -122,5 +510,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+INSERT INTO `user` (`user_id`, `name`, `username`, `password`, `adress`, `zip_code`, `city`, `state`, `email`, `phone`, `date`, `type_membership_id`, `rate_id`) VALUES
+(14,	'Helene',	'helene',	'$2y$11$4rYRXRvwy1Ho6bN8b2xJr.AOjzZ1fcCdcsWx6GBsnsz3OOBSdqgNO',	'Kakvägen 1',	12345,	'Stockholm',	'3',	'helene.francke@gmail.com',	1234567,	'2016-01-20 09:33:50',	'Silver',	0);
 
--- 2016-01-20 08:23:37
+-- 2016-01-20 08:44:33
