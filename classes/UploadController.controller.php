@@ -15,7 +15,7 @@ public static function upload() {
   		require_once('Upload.model.php');
   		$data = array();
   		if(isset($_POST['createProduct'])) {
-  			$titel = $_POST['title'];
+  			$title = $_POST['title'];
   			$text = $_POST['text'];
   			$price = $_POST['price'];
   			$file = $_FILES['file'];
@@ -23,7 +23,7 @@ public static function upload() {
   			$subcategory = $_POST['subcategory'];
   			$state = $_POST['state'];
   			try{
-  				$result = UploadModel::upload($titel,$text,$price,$file,$category,$subcategory,$state);
+  				$result = UploadModel::upload($title,$text,$price,$file,$category,$subcategory,$state);
   				$data['redirect'] = '?/User/home';
   			}catch (Exception $e) {
   				$data['error'] = $e->getMessage();

@@ -45,16 +45,16 @@ class UploadModel{
 		}
 		return $states;
 	}
-	public static function upload($titel,$text,$price,$file,$category,$subcategory,$state) {
+	public static function upload($title,$text,$price,$file,$category,$subcategory,$state) {
 		$dbCon= Connection::connect();
-		$titel = $dbCon->real_escape_string($titel);
+		$title = $dbCon->real_escape_string($title);
   		$text = $dbCon->real_escape_string($text);
   		$price = $dbCon->real_escape_string($price);
   		$category = $dbCon->real_escape_string($category);
   		$subcategory = $dbCon->real_escape_string($subcategory);
   		$state = $dbCon->real_escape_string($state);
   		$image = self::fileControl($file);
-  		$insert = self::insertProduct($titel,$text,$price,$file,$category,$subcategory,$state);
+  		$insert = self::insertProduct($title,$text,$price,$file,$category,$subcategory,$state);
 
 	}
 
@@ -93,15 +93,15 @@ class UploadModel{
 		}
 	}
 
-	public static function insertProduct($titel,$text,$price,$file,$category,$subcategory,$state){
+	public static function insertProduct($title,$text,$price,$file,$category,$subcategory,$state){
 			$dbCon= Connection::connect();
-			$username=$_SESSION['username'];
+			$username=$_SESSION['user']['username'];
 			$uploadfile = move_uploaded_file($file['tmp_name'], 'upload/'.$username.'/'.$file['name']);
 			$image_name = $username.'/'.$file['name'];
 			$image_type = $file['type'];
 			$image_size = $file['size'];
 
-		$user_id = ("SELECT user_id FROM user WHERE username='$username'");
+		$user_id = $_SESSION['user']['user_id'];
 		$query = ("INSERT INTO product
 							(title, text, price, image_name, image_type, image_size, category, subcategory, date_added, user_id, state_id)
 							VALUES 
