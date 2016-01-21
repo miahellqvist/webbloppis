@@ -5,11 +5,12 @@ class Product{
 //Om användaren klickar på en produktbild visas hela produktannonsen
   	public static function singleProduct($url_parts) {
   		require_once('Product.model.php');
+      require_once('User.model.php');
   		
   		if (count($url_parts) > 0) {
   			$id = $url_parts[0];
 
-  			$result = ProductModel::getSingleProduct($id);
+  			$result = ProductModel::getProductData($id);
   			if($result) {
           if(isset($_SESSION['user'])){
             $data['template'] = 'singleProductOnline.html';
@@ -102,6 +103,7 @@ class Product{
   		}return $data;
   	}
 
+//
     public static function myProducts() {
       require_once('Product.model.php');
       require_once('User.model.php');
@@ -116,6 +118,7 @@ class Product{
       return $data;
     }
 
+//Uppdatera annons
     public static function personalProduct($url_parts){
       require_once('User.model.php');
       require_once('Upload.model.php');
@@ -137,6 +140,7 @@ class Product{
       return $data;
     }
 
+//Uppdatera annons
     public static function completePersonalProductUpdate(){
       require_once('Product.model.php');
       $data=array();

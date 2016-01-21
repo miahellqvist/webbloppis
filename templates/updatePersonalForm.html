@@ -4,17 +4,17 @@
 	<input type='hidden' name='user_id' value='{{user.user_id}}'/>
 
 	<p><label>Namn:</label><br/>
-		<input type='text' name='name' value='{{user.name}}'></p>
+		<input type='text' name='name' value='{{user.name}}' required></p>
 	</p>
 	<p><label>Adress:</label><br/>
-		<input type='text' name='adress' value='{{user.adress}}'></p>
+		<input type='text' name='adress' value='{{user.adress}}'required></p>
 	<p><label>Postnummer:</label><br/>
-		<input type='text' name='zip_code' value='{{user.zip_code}}'></p>
+		<input type='text' name='zip_code' value='{{user.zip_code}}' required></p>
 	<p><label>Stad:</label><br/>
-		<input type='text' name='city' value='{{user.city}}'></p>
+		<input type='text' name='city' value='{{user.city}}' required></p>
 	
 	<p><label>Välj län:</label><br/>
-		<select name='state'>
+		<select name='state' required>
 			<option value='{{user.state_id}}'> {{user.state_name}} </option>
 			<option value='0'>-- Välj ett län --</option>
 			{% for state in states %}
@@ -23,8 +23,8 @@
 		</select><br><p>
 
 	<p><label>Email:</label><br/>
-		<input type='email' name='email' value='{{user.email}}'></p>
+		<input type='email' name='email' value='{{user.email}}' required></p>
 	<p><label>Telefon:</label><br/>
-		<input type='text' name='phone' value='{{user.phone}}'></p>
+		<input type='text' name='phone' value='{{user.phone}}' required></p>
 		<input type='submit'  name='updatePersonal' value='Spara'>
 </form>
