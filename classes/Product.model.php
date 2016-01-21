@@ -28,7 +28,7 @@ class ProductModel {
 	}
 
 //Hämtar produktinformation från databasen (För att visa ela annonsen)
-	public static function getSingleProduct($id) {
+	public static function getProductData($id) {
   		$dbCon= Connection::connect();
 
   		$query=("SELECT * 
@@ -171,24 +171,6 @@ class ProductModel {
 		else {
 			echo "Du har ingen annons.";
 		}
-	}
-
-	public static function getProductData($id){
-		$dbCon=Connection::connect();
-		$user_id=$_SESSION['user']['user_id'];
-
-		$query = ("SELECT * 
-				FROM product, category, subcategory, state, user
-				WHERE product.product_id='$id'
-				AND product.category=category.category_id
-				AND product.subcategory=subcategory.subcategory_id
-				AND product.state_id=state.state_id
-				AND product.user_id=user.user_id");
-
-		if ($result = $dbCon->query($query)) {
-  			$product = $result->fetch_assoc();
-  			return $product;
-  		}
 	}
 
 	public static function updatePersonalProduct($title,$text,$price,$category,$subcategory,$state,$id){

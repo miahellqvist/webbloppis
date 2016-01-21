@@ -6,6 +6,7 @@ class User{
 	public static function login() {
 
 		require_once('User.model.php');
+    require_once('Product.model.php');
 		$data = array();
 		if (isset($_POST['login'])) {
 			
@@ -14,8 +15,9 @@ class User{
 			try {
 				$result = UserModel::checkLogin($username, $password);
         if ($result) {
-          $data['redirect'] = '?/User/home';
+          $data['template'] = 'myProfile.html';
           $data['user']=$result;
+          $data['products']=ProductModel::getMyProducts();
         }
 				
 			}
