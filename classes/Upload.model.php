@@ -34,6 +34,31 @@ class UploadModel{
 		return $subcategories;
 	}
 
+//Kontrollerar ifall bildfilen som användaren laddat upp i newProductForm är av rätt typ
+	public static function fileControl($file) {
+		$dbCon= Connection::connect();
+		if (isset($file)) {
+			$username = $_SESSION['user']['username'];
+			// Kollar efter fel
+			if($file['error'] > 0){
+			   throw new Exception('Fel vid uppladdning.');
+			}
+			// Kollar filstorlek – maxstorlek 6 mb
+			if(!($file['size'] < 8388608)){
+			   throw new Exception('Bilden överskrider maxstorleken.');
+			}
+			// Kollar om bilden redan finns
+			if(file_exists('upload/' . $username . '/' . $file['name'])){
+			   throw new Exception('Bilden är redan uppladdad.');
+			}
+			// Kollar att det är rätt filtyp (png, jpg, jpeg eller gif)
+			if(!($file['type'] == 'image/png' || $file['type'] == 'image/PNG' || $file['type'] == 'image/jpg' || $file['type'] == 'image/jpeg' || $file['type'] == 'image/gif')){
+			   throw new Exception('Bilden inte rätt typ.');	
+			}
+		} else {
+			throw new Exception('Bilden laddades inte upp.');
+		}
+	}
 
 //Tvättar och hanterar uppgifter från newProductForm.html
 
@@ -45,47 +70,16 @@ class UploadModel{
   		$category = $dbCon->real_escape_string($category);
   		$subcategory = $dbCon->real_escape_string($subcategory);
   		$state = $dbCon->real_escape_string($state);
+  		try{
   		$image = self::fileControl($file);
+  		}
+  		catch (Exception $e){
+  			throw $e;
+  		}
   		$insert = self::insertProduct($title,$text,$price,$file,$category,$subcategory,$state);
 
-	}
 
-//Kontrollerar ifall bildfilen som användaren laddat upp i newProductForm är av rätt typ
-	public static function fileControl($file) {
-		//$dbCon= Connection::connect();
-		if (isset($file)) {
-			$username = $_SESSION['user']['username'];
-			// Kollar efter fel
-			if(!($file['fel'] > 0)){
-				return true;
-			}else{
-			   throw new Exception('Fel vid uppladdning.');
-			}
-			// Kollar filstorlek – maxstorlek 6 mb
-			if($file['size'] < 6291456){
-			    return true;
-			}else{
-			   throw new Exception('Bilden överskrider maxstorleken. Din storlek var : '.$file['size']);
-			}
-			// Kollar om bilden redan finns
-			if(!(file_exists('upload/' .$username.'/'. $file['name']))){
-			    return true;
-			}else{
-			   throw new Exception('Bilden är redan uppladdad.');
-			}
-			// Kollar att det är rätt filtyp (png, jpg, jpeg eller gif)
-			if($file['type'] == 'image/png' || $file['type'] == 'image/PNG' || $file['type'] == 'image/jpg' || $file['type'] == 'image/jpeg' || $file['type'] == 'image/gif'){
-				return true;
-			}else{
-			   throw new Exception("Bilden inte rätt typ.");
-					
-			}
-			return true;
-		} else {
-			throw new Exception("Bilden laddades inte upp.");
-		}
 	}
-
 
 //Lägger in produktinformation i databasen
 	public static function insertProduct($title,$text,$price,$file,$category,$subcategory,$state){
@@ -106,8 +100,8 @@ class UploadModel{
 				// Uppladdning av fil
 				if($uploadfile && $query){
 					$data['template'] = 'indexOnline.html';
-				}else if(!($uploadfile or $query)){
-					$data['template'] = 'uploadError.html';
+				}elseif(!($uploadfile or $query)){
+					throw new Exception("Bilden laddades inte upp.");
 				}
 				return $data;
 	}

@@ -16,7 +16,7 @@ class UploadController {
 
 
 //Skickar produktinformationen från annonsformuläret till upload
-    public static function completeUpload() {
+    public function completeUpload() {
       require_once('Upload.model.php');
       $data = array();
       if(isset($_POST['createProduct'])) {
@@ -31,14 +31,15 @@ class UploadController {
           $result = UploadModel::upload($title,$text,$price,$file,$category,$subcategory,$state);
           $data['redirect'] = '?/User/home';
         }catch (Exception $e) {
-          $data['error'] = $e->getMessage();
           $data['template'] = 'uploadError.html';
+          $data['error'] = $e->getMessage();
         }
-        
+        return $data;
     } else {
-      $data['redirect'] = 'uploadError.html';
+      $data['template'] = 'uploadError.html';
+      return $data;
       }
-    return $data;
+    
     }
 
 }
