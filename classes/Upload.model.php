@@ -34,21 +34,6 @@ class UploadModel{
 		return $subcategories;
 	}
 
-//Hämtar alla län från databasen
-	public static function getStates() {
-		$dbCon= Connection::connect();
-		$states = array();
-		$query = "SELECT * FROM state";
-		if($result = $dbCon->query($query)){
-			while ($state = $result->fetch_assoc()) {
-				$states[]=$state;
-			} 	
-		} else {
-			die($dbCon->error);
-		}
-		return $states;
-	}
-
 
 //Tvättar och hanterar uppgifter från newProductForm.html
 

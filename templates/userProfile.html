@@ -1,5 +1,6 @@
-<!-- view personal ads -->
-<h4>{{rubrik}} {{title}}</h4>
+{% include 'head.html' %}
+<h4>Välkommen till {{title}}s Loppis</h4>
+<a href='?/Review/sellerReviews/{{product.user_id}}'>Visa Recensioner</a>
 <div class="ads">
 	{% for product in products %}
 		<div id="{{product.product_id}}">
@@ -8,3 +9,4 @@
 		</div>
 	{% endfor %}
 </div>
+{% include 'footer.html' %}

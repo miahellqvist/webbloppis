@@ -15,8 +15,6 @@
 	
 	<p><label>Välj län:</label><br/>
 		<select name='state'>
-
-			
 			<option value='{{user.state_id}}'> {{user.state_name}} </option>
 			<option value='0'>-- Välj ett län --</option>
 			{% for state in states %}

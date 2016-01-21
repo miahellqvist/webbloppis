@@ -13,13 +13,19 @@ class User{
 			$password = $_POST['password'];
 			try {
 				$result = UserModel::checkLogin($username, $password);
-				$data['redirect'] = '?/User/home';
-			} catch(Exception $e) {
+        if ($result) {
+          $data['redirect'] = '?/User/home';
+          $data['user']=$result;
+        }
+				
+			}
+      catch(Exception $e) {
 				$data['error'] = $e->getMessage();
 				$data['template'] = 'registerError.html';
 			}
 
-		} else {
+		} 
+    else {
 			$data['redirect'] = '?/User/home';
 		}
 		return $data;
@@ -72,12 +78,14 @@ class User{
   	public static function home() {
 		require_once('Product.model.php');
 		require_once('Upload.model.php');
+    require_once('User.model.php');
 		$data['products'] = ProductModel::getAllProducts();
-		$data['states'] = UploadModel::getStates();
+		$data['states'] = UserModel::getStates();
 		$data['categories'] = UploadModel::getCategories();
 
 		if(isset($_SESSION['user'])) {
 			$data['template'] = 'indexOnline.html';
+      $data['user'] = UserModel::getPersonalData();
 		} else {
 			$data['template'] = 'indexOffline.html';
 		}
@@ -88,11 +96,11 @@ class User{
   	public static function personal(){
   		require_once('User.model.php');
   		require_once('Upload.model.php');
-    	$data['states'] = UploadModel::getStates();
+    	$data['states'] = UserModel::getStates();
     	$data['user'] = UserModel::getPersonalData();
   		$data['template']='personal.html';
   		return $data;
-  	}
+  	} 
 
 //Hämtar uppgifter från "Uppdatera personliga uppgifter"
   	public static function completePersonalUpdate(){

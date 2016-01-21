@@ -1,0 +1,38 @@
+{% include 'head.html' %}
+{% include 'userLoggedIn.html' %}
+<form method=post action="?/Product/completePersonalProductUpdate">
+	<h3>Här kan du uppdatera din annons uppgifter</h3>
+	<input type='hidden' name='product_id' value='{{product.product_id}}'/>
+	<p><label>Önskad titel:<br/><input type='text' name='title' value='{{product.title}}'></p>
+	<p><label>Beskrivande text:<br/><textarea name='text' cols='45' rows='6'>{{product.text}} </textarea></label></p>
+	<p><label>Önskat pris:<br/><input type='number' name='price' value='{{product.price}}'></label></p>
+	Välj kategori:
+		<select name='category'>
+		<option value='{{product.category_id}}'> {{product.category_name}} </option>
+		<option value='0'>-- Välj en kategori --</option>
+		{% for category in categories %}
+			<option value='{{category.category_id}}'> {{category.category_name}} </option>
+		{% endfor %}
+		</select><br>
+
+	Välj underkategori:
+		<select name='subcategory'>
+		<option value='{{product.subcategory_id}}'> {{product.subcategory_name}} </option>
+		<option value='0'>-- Välj en underkategori --</option>
+		{% for subcategory in subcategories %}
+			<option value='{{subcategory.subcategory_id}}'> {{subcategory.subcategory_name}} </option>
+		{% endfor %}
+		</select><br>
+
+	Välj län:
+		<select name='state'>
+		<option value='{{product.state_id}}'> {{product.state_name}} </option>
+		<option value='0'>-- Välj ett län --</option>
+		{% for state in states %}
+			<option value='{{state.state_id}}'> {{state.state_name}} </option>
+		{% endfor %}
+		</select><br><br>
+						 
+	<input type='submit'  name='updateProduct' value='Spara'>						 
+</form>
+{% include 'footer.html' %}

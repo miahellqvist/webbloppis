@@ -1,0 +1,11 @@
+	{% include 'head.html' %}
+	{% include 'userLoggedIn.html' %}
+	<div>
+	{% for review in reviews %}
+		{{review.buyer_name}}<br>
+		{{review.date_comment}}<br>
+		Säljares betyg: {{review.rate_name}}<br>
+		{{review.comment}}<br><br>
+	{% endfor %}
+	</div>
+	{% include 'footer.html' %}

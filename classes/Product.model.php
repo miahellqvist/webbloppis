@@ -36,7 +36,7 @@ class ProductModel {
 				WHERE product.product_id='$id'
 				AND product.category=category.category_id
 				AND product.subcategory=subcategory.subcategory_id
-				AND user.state=state.state_id
+				AND product.state_id=state.state_id
 				AND product.user_id=user.user_id");
 
   		if ($result = $dbCon->query($query)) {
@@ -102,7 +102,7 @@ class ProductModel {
 		$query = 
 			("SELECT title, price, image_name, product_id, state_name
 			FROM state, user, product
-			WHERE user.state=state.state_id
+			WHERE product.state_id=state.state_id
 			AND state.state_id='$state_id'
 			AND product.user_id=user.user_id
 			ORDER BY product.date_added DESC");
@@ -147,4 +147,78 @@ class ProductModel {
 		}
 	}
 
+	public static function getMyProducts() {
+		$dbCon= Connection::connect();
+		$user_id=$_SESSION['user']['user_id'];
+
+		$query = 
+			("SELECT title, price, image_name, product_id, name
+			FROM user, product
+			WHERE user.user_id='$user_id'
+			AND product.user_id=user.user_id
+			ORDER BY product.date_added DESC");
+
+		if ($result = $dbCon->query($query))
+		{	
+			$products = array();
+			while ($product = $result->fetch_assoc())
+			{
+				$products[]=$product;
+			}
+			
+			return $products;
+		}
+		else {
+			echo "Du har ingen annons.";
+		}
+	}
+
+	public static function getProductData($id){
+		$dbCon=Connection::connect();
+		$user_id=$_SESSION['user']['user_id'];
+
+		$query = ("SELECT * 
+				FROM product, category, subcategory, state, user
+				WHERE product.product_id='$id'
+				AND product.category=category.category_id
+				AND product.subcategory=subcategory.subcategory_id
+				AND product.state_id=state.state_id
+				AND product.user_id=user.user_id");
+
+		if ($result = $dbCon->query($query)) {
+  			$product = $result->fetch_assoc();
+  			return $product;
+  		}
+	}
+
+	public static function updatePersonalProduct($title,$text,$price,$category,$subcategory,$state,$id){
+		$dbCon= Connection::connect();
+
+		$cleanTitle = $dbCon->real_escape_string($title);
+		$cleanText = $dbCon->real_escape_string($text);
+ 		$cleanPrice = $dbCon->real_escape_string($price);
+ 		$cleanCategory = $dbCon->real_escape_string($category);
+ 		$cleanSubcategory = $dbCon->real_escape_string($subcategory);
+ 		$cleanState = $dbCon->real_escape_string($state);
+ 		$cleanId = $dbCon->real_escape_string($id);
+
+		$query = ("
+			UPDATE product
+			SET title='$cleanTitle', text='$cleanText', price='$cleanPrice', category='$cleanCategory', subcategory='$cleanSubcategory', state_id='$cleanState'
+			WHERE product.product_id='$cleanId'
+			");
+
+		$result=$dbCon->query($query);
+		return true;
+	}
+
+	public static function deleteProduct($id) {
+		$dbCon= Connection::connect();
+
+		$cleanId = $dbCon->real_escape_string($id);
+
+		$query = "DELETE FROM product WHERE product_id='$cleanId'";
+		$result=$dbCon->query($query);
+		return true;
+	}
 }

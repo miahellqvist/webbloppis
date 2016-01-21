@@ -25,9 +25,8 @@ class UserModel {
 			$_SESSION['user']['user_id'] = $user['user_id'];
 			$_SESSION['user']['username'] = $user['username'];
 			$_SESSION['user']['name'] = $user['name'];
-			$_SESSION['user']['username'] = $user['username'];
 			
-			return true;
+			return $user;
 		} 
 		else {
 
@@ -95,7 +94,7 @@ class UserModel {
 		} 
 		else{
 			$query = "INSERT INTO user
-					(name, username, password, adress, zip_code, city, state, email, phone, date, type_membership_id)
+					(name, username, password, adress, zip_code, city, state, email, phone, date, type_membership)
 	 				VALUES ('$cleanName','$cleanUsername', '$hash', '$cleanAdress', '$cleanZip_code', '$cleanCity', '$cleanState', '$cleanEmail', '$cleanPhone', '$date', '$cleanMembership')";
 			$dbCon->query($query);
 
@@ -109,7 +108,6 @@ class UserModel {
 	public static function getPersonalData(){
 		$dbCon=Connection::connect();
 		$user_id=$_SESSION['user']['user_id'];
-		$user=array();
 
 		$query = ("
 			SELECT name, user_id, adress, zip_code, 

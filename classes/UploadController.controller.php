@@ -5,9 +5,11 @@ class UploadController {
 //Om användaren klickar på "Lägg upp annons" skickas användaren till annonsformuläret
     public static function upload() {
         require_once('Upload.model.php');
-        $data['states'] = UploadModel::getStates();
+        require_once('User.model.php');
+        $data['states'] = UserModel::getStates();
         $data['categories'] = UploadModel::getCategories();
         $data['subcategories'] = UploadModel::getSubCategories();
+        $data['user'] = UserModel::getPersonalData();
         $data['template'] = 'upload.html';
         return $data;
       }
