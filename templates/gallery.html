@@ -1,10 +1,10 @@
-<!-- view personal ads -->
+<!-- Annonser i galleriet -->
 <h4>{{rubrik}} {{title}}</h4>
 <div class="ads">
 	{% for product in products %}
 		<div id="{{product.product_id}}">
-			{{product.title}} Pris: {{product.price}}kr <br>
-			<a href='?/Product/singleProduct/{{product.product_id}}'><img src='upload/{{product.image_name}}' width='200' alt=''></a><br>
+			{{product.title}} Pris: {{product.price}} kr <br>
+			<a href='?/Product/singleProduct/{{product.product_id}}'><img src='upload/{{product.image_name}}' class="gallery" alt=''></a><br>
 		</div>
 	{% endfor %}
 </div>

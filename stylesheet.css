@@ -1,0 +1,73 @@
+.container-fluid {
+	width: 100%;	
+}
+body{
+	background-color: #e1d2dd;
+}
+
+/*Raden för logotypen*/
+.logo {
+	padding: 3%;
+	background-color: #730553;
+}
+/*Logotypen*/
+.logo img{
+	width: 60%;
+}
+/*Centrering av bild*/
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+/*Bold i nav-bar*/
+.navbar-brand{
+	font-weight: bold;
+}
+/*Login/logout-raden*/
+.login{
+	background-color: #730553;
+	padding-left: 5%;
+	padding-right: 5%;
+}
+.no-padding {
+	padding-right: 0px;
+	padding-left: 0px;
+}
+/*Galleribilderna*/
+.gallery{
+	width: 220px;
+	display: inline-block;
+}
+/*Hela annonsen*/
+.big-ad{
+	width: 600px;
+}
+.inline{
+	display: inline-block;
+}
+/*Privata annonser som inloggad*/
+.private-ads{
+	background-color: #c9b6c3;
+}
+.padding-left{
+	padding-left: 1%;
+}
+/*Annonser*/
+.ads div{
+	float: left;
+	margin: 10px;
+}
+.ads{
+	overflow: auto;
+}
+
+/*laptop-size*/
+@media all and (min-width: 1170px) { 
+	.container-fluid {
+		position: absolute;
+		margin: 0px auto;
+		left: 0px;
+		right: 0px;
+	}
+}

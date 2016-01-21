@@ -1,3 +1,4 @@
+<!--Visar en säljares alla annonser och omdömen-->
 {% include 'head.html' %}
 <h4>Välkommen till {{title}}s Loppis</h4>
 <a href='?/Review/sellerReviews/{{product.user_id}}'>Visa Recensioner</a>
@@ -5,7 +6,7 @@
 	{% for product in products %}
 		<div id="{{product.product_id}}">
 			{{product.title}} Pris: {{product.price}}kr <br>
-			<a href='?/Product/singleProduct/{{product.product_id}}'><img src='upload/{{product.image_name}}' width='200' alt=''></a><br>
+			<a href='?/Product/singleProduct/{{product.product_id}}'><img src='upload/{{product.image_name}}' class='gallery' alt=''></a><br>
 		</div>
 	{% endfor %}
 </div>

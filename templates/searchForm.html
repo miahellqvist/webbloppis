@@ -1,28 +1,45 @@
-<form class="form-inline" action='?Search/searchResult' method='post'>
-<div class="form-group">
-	<input type='text' name='searchField' class='form-control' placeholder='Sök efter annons'>
-	<label for="category">Välj kategori:</label>
-	<select name='category' id='category' class='form-control'>
-	<option value='0'>-- Alla kategorier --</option>
-		{% for category in categories %}
-			<option value='{{category.category_id}}'> {{category.category_name}} </option>
-		{% endfor %}
-	</select>
-	<label for="state">Välj län:</label>
-	<select name='state' id='state' class='form-control'>
-	<option value='0'>-- Hela Sverige --</option>
-		{% for state in states %}
-			<option value='{{ state.state_id }}'> {{ state.state_name }} </option>
-		{% endfor %}
-	</select>
-	<label for="sort">Sortera på:</label>
-	<select name='sort' id='sort' class='form-control'>
-	<option value='0'>-- Alla annonser --</option>
-	<option value='1'>Pris stigande</option>
-	<option value='2'>Pris fallande</option>
-	<option value='3'>Nyast först</option>
-	<option value='4'>Äldst först</option>
-	</select>
+<!--Sökformulär-->
+<div class="row">
+	<div class="col-xs-12 no-padding">
+		<nav class="navbar navbar-default">
+			<form class="navbar-form navbar-left" action='?Search/searchResult' method='post'>
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			        	<span class="sr-only">Toggle navigation</span>
+			        	<span class="icon-bar"></span>
+			        	<span class="icon-bar"></span>
+			        	<span class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<div class="form-group">
+						<input type='text' name='searchField' class='form-control' placeholder='Sök efter annons'>
+						<label for="category">Välj kategori:</label>
+						<select name='category' id='category' class='form-control'>
+						<option value='0'>-- Alla kategorier --</option>
+							{% for category in categories %}
+								<option value='{{category.category_id}}'> {{category.category_name}} </option>
+							{% endfor %}
+						</select>
+						<label for="state">Välj län:</label>
+						<select name='state' id='state' class='form-control'>
+						<option value='0'>-- Hela Sverige --</option>
+							{% for state in states %}
+								<option value='{{ state.state_id }}'> {{ state.state_name }} </option>
+							{% endfor %}
+						</select>
+						<label for="sort">Sortera på:</label>
+						<select name='sort' id='sort' class='form-control'>
+						<option value='0'>-- Alla annonser --</option>
+						<option value='1'>Pris stigande</option>
+						<option value='2'>Pris fallande</option>
+						<option value='3'>Nyast först</option>
+						<option value='4'>Äldst först</option>
+						</select>
+						<button type='submit' name='searchProduct' class="btn btn-default">Sök</button>
+					</div>
+				</div>
+			</form>
+		</nav>
 	</div>
-	 <button type='submit' name='searchProduct' class="btn btn-primary">Sök</button>
-</form>
+</div>

@@ -1,8 +1,8 @@
-{% include 'head.html' %}	
+<!--Visar en hel annons-->
 {% include 'userLoggedIn.html' %}
 <div class="ads">
 		<div id="{{product.product_id}}">
-			<img src="upload/{{product.image_name}}" width="400"><br>
+			<img src="upload/{{product.image_name}}" class="big-ad img-responsive"><br>
 			{{product.title}} Pris: {{product.price}}kr <br>
 			<a href="?/Product/productCategory/{{product.category_id}}">{{product.category_name}}</a>
 			<a href="?/Product/productSubcategory/{{product.subcategory_id}}">{{product.subcategory_name}}</a>

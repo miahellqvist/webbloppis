@@ -1,20 +1,22 @@
-{% include 'head.html' %}
+<!--Visar säljarens alla annonser när den är inloggad, man kan ändra och ta bort annonsen-->
 {% include 'userLoggedIn.html' %}
 <h1>Mina Annonser</h1>
 <div class="ads">
 	{% for product in products %}
+	<div class="private-ads">
 		<div id="{{product.product_id}}">
 			{{product.title}} Pris: {{product.price}}kr <br>
 			<input type='hidden'  name='product_id' value='{{product.product_id}}'>
-			<a href='?/Product/singleProduct/{{product.product_id}}'><img src='upload/{{product.image_name}}' width='200' alt=''></a><br>
-		</div>
-		<div>
-			<a style="display:inline;" class="btn btn-primary" href="?/Product/personalProduct/{{product.product_id}}">Ändra</a>
-			<form style="display:inline;" method="post" action="?/Product/completeDeleteProduct">
-				<input class="btn btn-primary" type='hidden'  name='deleteProduct' value='Ta bort annonsen'>
-				<input class="btn btn-primary" type='submit'  name='deleteProduct' value='Ta bort annonsen'>
+			<a href='?/Product/singleProduct/{{product.product_id}}'><img src='upload/{{product.image_name}}' class='gallery' alt=''></a><br>
+		</div><br>
+		<div class="inline">
+			<a class="btn btn-default" href="?/Product/personalProduct/{{product.product_id}}">Ändra</a>
+			<form method="post" action="?/Product/completeDeleteProduct">
+				<input class="btn btn-default" type='hidden'  name='deleteProduct' value='Ta bort annonsen'>
+				<input class="btn btn-default" type='submit'  name='deleteProduct' value='Ta bort annonsen'>
 			</form>
 		</div>	
+		</div>
 	{% endfor %}
 </div>
 {% include 'footer.html' %}

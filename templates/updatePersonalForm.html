@@ -1,20 +1,21 @@
+<!--Formulär för uppdatering av personliga uppgifter-->
 <form method=post action='?User/completePersonalUpdate'>
 	<h3>Här kan du uppdatera dina personliga uppgifter</h3>
 
 	<input type='hidden' name='user_id' value='{{user.user_id}}'/>
 
 	<p><label>Namn:</label><br/>
-		<input type='text' name='name' value='{{user.name}}' required></p>
+		<input type='text' name='name' value='{{user.name}}'></p>
 	</p>
 	<p><label>Adress:</label><br/>
-		<input type='text' name='adress' value='{{user.adress}}'required></p>
+		<input type='text' name='adress' value='{{user.adress}}'></p>
 	<p><label>Postnummer:</label><br/>
-		<input type='text' name='zip_code' value='{{user.zip_code}}' required></p>
+		<input type='text' name='zip_code' value='{{user.zip_code}}'></p>
 	<p><label>Stad:</label><br/>
-		<input type='text' name='city' value='{{user.city}}' required></p>
+		<input type='text' name='city' value='{{user.city}}'></p>
 	
 	<p><label>Välj län:</label><br/>
-		<select name='state' required>
+		<select name='state'>
 			<option value='{{user.state_id}}'> {{user.state_name}} </option>
 			<option value='0'>-- Välj ett län --</option>
 			{% for state in states %}
@@ -23,8 +24,8 @@
 		</select><br><p>
 
 	<p><label>Email:</label><br/>
-		<input type='email' name='email' value='{{user.email}}' required></p>
+		<input type='email' name='email' value='{{user.email}}'></p>
 	<p><label>Telefon:</label><br/>
-		<input type='text' name='phone' value='{{user.phone}}' required></p>
+		<input type='text' name='phone' value='{{user.phone}}'></p>
 		<input type='submit'  name='updatePersonal' value='Spara'>
 </form>
