@@ -5,10 +5,6 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-DROP DATABASE IF EXISTS `webbloppis`;
-CREATE DATABASE `webbloppis` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */;
-USE `webbloppis`;
-
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `category_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -346,8 +342,8 @@ CREATE TABLE `product` (
   `image_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `image_type` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `image_size` int(10) unsigned NOT NULL,
-  `category` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `subcategory` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `category` int(10) unsigned NOT NULL,
+  `subcategory` int(10) unsigned NOT NULL,
   `date_added` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `user_id` int(10) unsigned NOT NULL,
   `state_id` int(10) unsigned NOT NULL,
@@ -355,7 +351,8 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `product` (`product_id`, `title`, `text`, `price`, `image_name`, `image_type`, `image_size`, `category`, `subcategory`, `date_added`, `user_id`, `state_id`) VALUES
-(40,	'',	'pippi',	1200,	'/uggla.PNG',	'image/png',	37422,	'2',	'6',	'2016-01-20 09:38:02',	0,	5);
+(44,	'glad hund',	'glad',	700,	'nat/gladhund.jpg',	'image/jpeg',	32814,	4,	8,	'2016-01-20 11:03:03',	15,	17),
+(48,	'hörlurar',	'säljer nya hörlurar! Bra kvalitet.',	250,	'annaco/horlurar.jpg',	'image/jpeg',	12684,	4,	6,	'2016-01-21 00:10:38',	16,	14);
 
 DROP TABLE IF EXISTS `rate`;
 CREATE TABLE `rate` (
@@ -382,8 +379,7 @@ CREATE TABLE `review` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO `review` (`review_id`, `buyer_id`, `buyer_name`, `seller_id`, `rate_id`, `comment`, `date_comment`) VALUES
-(90,	6,	'Anna',	5,	2,	':)',	'2016-01-14 22:52:43'),
-(92,	5,	'Natalia',	6,	2,	'Bra!',	'2016-01-15 00:05:30');
+(90,	6,	'Anna',	15,	2,	'rekommenderar den här personen varmt!',	'2016-01-20 21:21:01');
 
 DROP TABLE IF EXISTS `select_category`;
 CREATE TABLE `select_category` (
@@ -505,12 +501,15 @@ CREATE TABLE `user` (
   `email` varchar(100) COLLATE utf8_bin NOT NULL,
   `phone` int(10) unsigned NOT NULL,
   `date` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `type_membership_id` enum('Brons','Silver','Guld') COLLATE utf8_bin NOT NULL,
+  `type_membership` varchar(100) COLLATE utf8_bin NOT NULL,
   `rate_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `user` (`user_id`, `name`, `username`, `password`, `adress`, `zip_code`, `city`, `state`, `email`, `phone`, `date`, `type_membership_id`, `rate_id`) VALUES
-(14,	'Helene',	'helene',	'$2y$11$4rYRXRvwy1Ho6bN8b2xJr.AOjzZ1fcCdcsWx6GBsnsz3OOBSdqgNO',	'Kakvägen 1',	12345,	'Stockholm',	'3',	'helene.francke@gmail.com',	1234567,	'2016-01-20 09:33:50',	'Silver',	0);
+INSERT INTO `user` (`user_id`, `name`, `username`, `password`, `adress`, `zip_code`, `city`, `state`, `email`, `phone`, `date`, `type_membership`, `rate_id`) VALUES
+(14,	'Helene',	'helene',	'$2y$11$4rYRXRvwy1Ho6bN8b2xJr.AOjzZ1fcCdcsWx6GBsnsz3OOBSdqgNO',	'Kakvägen 1',	12345,	'Stockholm',	'3',	'helene.francke@gmail.com',	1234567,	'2016-01-20 09:33:50',	'Silver',	0),
+(15,	'Natalia',	'nat',	'$2y$11$jV2jJiJB.CpDF2zofX0rnuBuFLulexwa3sqpcjgJ/m4Lr6JoTPfcS',	'Vägen 10',	11123,	'Stockholm',	'11',	'natalianakagawa@gmail.com',	0,	'2016-01-21 10:39:43',	'Silver',	0),
+(16,	'Anna',	'annaco',	'$2y$11$dZWAFhS/M6GzNYA0q31FTufWw35UAdxm9qvJ8XtpAVLLQ3.yV/j3a',	'Vägen 9',	44456,	'Stockholm',	'7',	'anna@exempel.se',	4294967295,	'2016-01-20 22:47:02',	'Guld',	0),
+(17,	'Tove',	'tove',	'$2y$11$DzduzWNWh6VdVU0X4PybkuKxjGxd8.Uv9pCSraGg1vFHI1jQwX2Bu',	'väg14',	78956,	'Stockholm',	'2',	'tove@exempel.se',	4294967295,	'2016-01-21 10:48:07',	'Silver',	0);
 
--- 2016-01-20 08:44:33
+-- 2016-01-21 09:51:59
