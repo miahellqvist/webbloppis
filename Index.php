@@ -18,6 +18,7 @@ if(count($url_parts)>=2) {
 	$method = array_shift($url_parts); //andra delen i url:en
 	require_once("classes/".$class.".controller.php");
 	$data = $class::$method($url_parts); 
+	$data['session']=$_SESSION;
 
     if(isset($data['redirect'])){
 	   header("Location: ".$data['redirect']);

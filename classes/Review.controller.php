@@ -7,18 +7,20 @@ class Review{
     require_once('User.model.php');
     $data=array();
 
-    $result=ReviewModel::getMyReviews();
-    if ($result) {  	
-    	$data['user'] = UserModel::getPersonalData();
-    	$data['reviews'] = $result;
-    	$data['template'] = 'reviewsOnline.html';
+    try{
+        $result=ReviewModel::getMyReviews();
+        if ($result) {
+         $data['reviews'] = $result;
+        $data['template'] = 'reviewsOnline.html';
+        } 
+      }
+      catch(Exception $e){
+        $data['error']= $e->getMessage();
+        $data['template']='errorloggedin.html';
+      }
+     
+      return $data;
     }
-    else{
-      $data['template'] = 'reviewError.html';
-      $data['user'] = UserModel::getPersonalData();
-    }
-    return $data;
-	}
 
   public static function sellerReviews($url_parts) {
     require_once('Review.model.php');
@@ -27,19 +29,21 @@ class Review{
     if (count($url_parts) > 0) {
       $user_id=$url_parts[0];
 
-      $result=ReviewModel::getSellerReviews($user_id);
-      if ($result) {
-        $data['reviews'] = $result;
-        $data['product'] = ProductModel::getProductData($id);
-        $data['template'] = 'reviewsOffline.html';
+    try{
+        $result=ReviewModel::getSellerReviews($user_id);
+          if ($result) {
+           $data['reviews'] = $result;
+           $data['user_id'] = $user_id;
+          $data['template'] = 'reviewsOffline.html';
+      } 
       }
-      else{
-        $data['template'] = 'reviewError.html';
+      catch(Exception $e){
+        $data['error']= $e->getMessage();
+        $data['template']='error.html';
       }
+     
+      return $data;
     }
-    return $data;
   }
-
-
 
 }

@@ -13,7 +13,9 @@ class ReviewModel {
 				AND review.seller_id='$user_id'
 				ORDER BY date_comment DESC");
 
-		if ($result = $dbCon->query($query))
+		$result = $dbCon->query($query);
+		
+		if ($result->num_rows>0)
 		{	
 			$reviews = array();
 			while ($review = $result->fetch_assoc())
@@ -24,7 +26,7 @@ class ReviewModel {
 			return $reviews;
 		}
 		else {
-			die($dbCon->error);
+			throw new Exception('Du har inga omdömen.');
 		}
 	}
 
@@ -38,7 +40,9 @@ class ReviewModel {
 				AND review.seller_id='$user_id'
 				ORDER BY date_comment DESC");
 
-		if ($result = $dbCon->query($query))
+		$result = $dbCon->query($query);
+
+		if ($result->num_rows>0)
 		{	
 			$reviews = array();
 			while ($review = $result->fetch_assoc())
@@ -49,7 +53,7 @@ class ReviewModel {
 			return $reviews;
 		}
 		else {
-			die($dbCon->error);
+			throw new Exception('Säljaren har inga omdömen.');
 		}
 	}
 }

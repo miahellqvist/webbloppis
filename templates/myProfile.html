@@ -12,7 +12,7 @@
 		<div class="inline">
 			<a class="btn btn-default" href="?/Product/personalProduct/{{product.product_id}}">Ändra</a>
 			<form method="post" action="?/Product/completeDeleteProduct">
-				<input class="btn btn-default" type='hidden'  name='deleteProduct' value='Ta bort annonsen'>
+				<input type='hidden'  name='product_id' value='{{product.product_id}}'>
 				<input class="btn btn-default" type='submit'  name='deleteProduct' value='Ta bort annonsen'>
 			</form>
 		</div>	

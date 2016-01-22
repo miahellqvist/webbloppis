@@ -46,6 +46,24 @@ class ProductModel {
 
   	}
 
+  	public static function getPersonalProduct($id, $user_id) {
+  		$dbCon= Connection::connect();
+
+  		$query=("SELECT * 
+				FROM product, category, subcategory, state, user
+				WHERE product.product_id='$id'
+				AND product.category=category.category_id
+				AND product.subcategory=subcategory.subcategory_id
+				AND product.state_id=state.state_id
+				AND product.user_id='$user_id'
+				");
+
+  		if ($result = $dbCon->query($query)) {
+  			$product = $result->fetch_assoc();
+  			return $product;
+  		}
+  	}
+
 //Hämtar produktinformation för produkter i en viss kategori från databasen
   	public static function getProductsCategory($category_id) {
 		$dbCon= Connection::connect();
@@ -157,8 +175,9 @@ class ProductModel {
 			WHERE user.user_id='$user_id'
 			AND product.user_id=user.user_id
 			ORDER BY product.date_added DESC");
+			$result = $dbCon->query($query);
 
-		if ($result = $dbCon->query($query))
+		if ($result->num_rows>0)
 		{	
 			$products = array();
 			while ($product = $result->fetch_assoc())
@@ -169,7 +188,7 @@ class ProductModel {
 			return $products;
 		}
 		else {
-			echo "Du har ingen annons.";
+			throw new Exception ('Du har inga annonser');
 		}
 	}
 
