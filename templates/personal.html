@@ -1,5 +1,9 @@
 	<!--Uppdatera personliga uppgifter-->
 
-	{% include 'userLoggedIn.html' %}
+	{% if session.user %}
+		{% include 'headOnline.html' %}
+	{% else %}
+		{% include 'headOffline.html' %}
+	{% endif %}
 	{% include 'updatePersonalForm.html' %}
 	{% include 'footer.html' %}

@@ -1,0 +1,7 @@
+	{% if session.user %}
+		{% include 'headOnline.html' %}
+	{% else %}
+		{% include 'headOffline.html' %}
+	{% endif %}
+	Mejl skickat.
+	{% include 'footer.html' %}

@@ -29,14 +29,14 @@ class UploadController {
         $state = $_POST['state'];
         try{
           $result = UploadModel::upload($title,$text,$price,$file,$category,$subcategory,$state);
-          $data['redirect'] = '?/User/home';
+          $data['redirect'] = '?/Product/myProducts';
         }catch (Exception $e) {
-          $data['template'] = 'uploadError.html';
+          $data['template'] = 'error.html';
           $data['error'] = $e->getMessage();
         }
         return $data;
     } else {
-      $data['template'] = 'uploadError.html';
+      $data['template'] = 'error.html';
       return $data;
       }
     

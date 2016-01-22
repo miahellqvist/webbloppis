@@ -1,6 +1,10 @@
 <!--Policy för hantering av cookies-->
 
-{% include 'head.html' %}
+{% if session.user %}
+		{% include 'headOnline.html' %}
+	{% else %}
+		{% include 'headOffline.html' %}
+{% endif %}
 <h1>Cookiepolicy</h1>
 
 <p>Webbloppis webbplats innehåller kakor. En kaka (cookie) är en textfil som sparas på besökarens dator när man besöker webbplatsen. Textfilen används bland annat för att underlätta besökarens användning av webbplatsen.</p>

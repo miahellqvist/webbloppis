@@ -6,20 +6,22 @@ class Product{
   	public static function singleProduct($url_parts) {
   		require_once('Product.model.php');
       require_once('User.model.php');
+      require_once('Upload.model.php');
   		
   		if (count($url_parts) > 0) {
   			$id = $url_parts[0];
 
   			$result = ProductModel::getProductData($id);
   			if($result) {
-          if(isset($_SESSION['user'])){
-            $data['template'] = 'singleProductOnline.html';
+          
+            $data['template'] = 'singleProduct.html';
             $data['product'] = $result;
-          }else
-  				  $data['template'] = 'singleProduct.html';
-  				  $data['product'] = $result;
-  			} else {
-  				  $data['template'] = 'registerError.html';
+            $data['states'] = UserModel::getStates();
+            $data['categories'] = UploadModel::getCategories();
+          } else {
+  				  $data['template'] = 'error.html';
+            $data['states'] = UserModel::getStates();
+            $data['categories'] = UploadModel::getCategories();
   			}
 
   		} else {
@@ -120,7 +122,7 @@ class Product{
       }
       catch(Exception $e){
         $data['error']= $e->getMessage();
-        $data['template']='errorloggedin.html';
+        $data['template']='error.html';
       }
      
       return $data;
@@ -168,10 +170,10 @@ class Product{
           $result=ProductModel::updatePersonalProduct($title,$text,$price,$category,$subcategory,$state,$id);
         
           if($result) {
-            $data['redirect'] = '?/User/home';
+            $data['redirect'] = '?/Product/myProducts';
           } 
           else{
-            $data['template'] = 'registerError.html';
+            $data['template'] = 'error.html';
           }
       }
       else {
@@ -180,7 +182,7 @@ class Product{
       return $data;
     }
 
-    public static function completeDeleteProduct() {
+    /*public static function completeDeleteProduct() {
       require_once('Product.model.php');
       $data=array();
 
@@ -193,8 +195,33 @@ class Product{
           $data['redirect'] = '?/Product/myProducts';
         } 
         else{
-          $data['template'] = 'registerError.html';
+          $data['template'] = 'error.html';
         }
+      }
+       else {
+        $data['redirect'] = '?/User/home';
+      }
+      return $data;
+    }*/
+
+    public static function completeDeleteProduct() {
+      require_once('Product.model.php');
+      $data=array();
+
+      if (isset($_POST['deleteProduct'])) {
+        $id = $_POST['product_id'];
+
+        try{
+        $result=ProductModel::deleteProduct($id);
+        if($result) {
+          $data['products']=ProductModel::getMyProducts();
+          $data['redirect'] = '?/Product/myProducts';
+        } 
+      }
+       catch(Exception $e){
+        $data['error']= $e->getMessage();
+        $data['template']='error.html';
+      }
       }
        else {
         $data['redirect'] = '?/User/home';

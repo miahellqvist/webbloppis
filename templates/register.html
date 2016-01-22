@@ -1,6 +1,10 @@
 	<!--Registeringsformulär-->
 
-	{% include 'head.html' %}
+	{% if session.user %}
+		{% include 'headOnline.html' %}
+	{% else %}
+		{% include 'headOffline.html' %}
+	{% endif %}
 	
 	<form action='?/User/completeRegister' method='post'>
 	<h3>Skapa konto</h3>

@@ -23,7 +23,7 @@ class User{
 			}
       catch(Exception $e) {
 				$data['error'] = $e->getMessage();
-				$data['template'] = 'registerError.html';
+				$data['template'] = 'error.html';
 			}
 
 		} 
@@ -63,12 +63,13 @@ class User{
   			$zip_code = $_POST['zip_code'];
   			$phone = $_POST['phone'];
   			$city =$_POST['city'];
-  			$result = UserModel::register($username,$password,$name,$membership,$state,$email,$adress,$zip_code,$phone,$city);
 
-  			if($result) {
-  				$data['template'] = 'registerSuccess.html';
-  			} else {
-  				$data['template'] = 'registerError.html';
+  			try {
+  				$result = UserModel::register($username,$password,$name,$membership,$state,$email,$adress,$zip_code,$phone,$city);
+          $data['template'] = 'registerSuccess.html';
+  			} catch (Exception $e) {
+  				$data['template'] = 'error.html';
+          $data['error'] = $e->getMessage();
   			}
   		} else {
   			$data['redirect'] = '?/User/register';
@@ -86,10 +87,10 @@ class User{
 		$data['categories'] = UploadModel::getCategories();
 
 		if(isset($_SESSION['user'])) {
-			$data['template'] = 'indexOnline.html';
+			$data['template'] = 'index.html';
       $data['user'] = UserModel::getPersonalData();
 		} else {
-			$data['template'] = 'indexOffline.html';
+			$data['template'] = 'index.html';
 		}
 		return $data;
   	}
@@ -116,19 +117,19 @@ class User{
   			$zip_code = $_POST['zip_code'];
   			$phone = $_POST['phone'];
   			$city =$_POST['city'];
-  			$result=UserModel::updatePersonal($name, $state, $email, $adress, $zip_code, $phone, $city);
-  		
-	  		if($result) {
-	  			$data['redirect'] = '?/User/home';
-	  		} 
-	  		else{
-	  			$data['template'] = 'registerError.html';
-	  		}
-  		}
-  		else {
-  			$data['redirect'] = '?/User/personal';
-  		}
-  		return $data;
+        $result=UserModel::updatePersonal($name, $state, $email, $adress, $zip_code, $phone, $city);
+      
+        if($result) {
+          $data['redirect'] = '?/User/home';
+        } 
+        else{
+          $data['template'] = 'error.html';
+        }
+      }
+      else {
+        $data['redirect'] = '?/User/personal';
+      }
+      return $data;
   	}
 
 }

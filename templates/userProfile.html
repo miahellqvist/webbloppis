@@ -1,7 +1,8 @@
 <!--Visar en säljares alla annonser och omdömen-->
-{% include 'head.html' %}
+{% include 'headOnline.html' %}
 <h4>Välkommen till {{title}}s Loppis</h4>
-<a href='?/Review/sellerReviews/{{user_id}}'>Visa Recensioner</a>
+<a href='?/Review/sellerReviews/{{user_id}}'>Visa Recensioner</a><br>
+<a href="?/Review/reviewForm/{{user_id}}">Skriv en recension</a><br>
 <div class="ads">
 	{% for product in products %}
 		<div id="{{product.product_id}}">

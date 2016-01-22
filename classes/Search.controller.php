@@ -4,7 +4,8 @@ class Search {
 
 	public static function searchCheck(){
 		require_once('Upload.model.php');
-		$data['states'] = UploadModel::getStates();
+		require_once('User.model.php');
+		$data['states'] = UserModel::getStates();
 		$data['categories'] = UploadModel::getCategories();
 		$data['template'] = 'searchForm.html';
 		return $data;
@@ -13,25 +14,32 @@ class Search {
 	public static function searchResult(){
 	
 		require_once('Search.model.php');
+		require_once('Upload.model.php');
+		require_once('User.model.php');
 		$data = array();
 		if(isset($_POST['searchProduct'])) {
 		$searchProduct=$_POST['searchField'];
 		$category=$_POST['category'];
 		$state=$_POST['state'];
 		$sort=$_POST['sort'];
-		$result = SearchModel::searchQuery($searchProduct,$category,$state,$sort);
+		$query = SearchModel::searchQuery($searchProduct,$category,$state,$sort);
 
 			try{
-	  			$result = SearchModel::getSearchResult($searchProduct,$category,$state,$sort);
+	  			$searchresult = SearchModel::getSearchResult($searchProduct,$category,$state,$sort);
 	  			$data['template'] = 'searchResult.html';
-	  			$data['products'] = $result;
+	  			$data['products'] = $searchresult;
+	  			$data['states'] = UserModel::getStates();
+				$data['categories'] = UploadModel::getCategories();
 	  		}catch (Exception $e) {
 	  			$data['error'] = $e->getMessage();
-	  			$data['template'] = 'uploadError.html';
+	  			$data['template'] = 'error.html';
+	  			$data['states'] = UserModel::getStates();
+				$data['categories'] = UploadModel::getCategories();
 	  		}
   			
 		} else {
-			$data['redirect'] = 'uploadError.html';
+			$searchCheck = Self::searchCheck();
+			$data['redirect'] = 'error.html';
 			}
 		return $data;
 	  }

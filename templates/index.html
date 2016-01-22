@@ -1,3 +1,8 @@
-	{% include 'head.html' %}
+	{% if session.user %}
+		{% include 'headOnline.html' %}
+	{% else %}
+		{% include 'headOffline.html' %}
+	{% endif %}
+	{% include 'searchForm.html' %}
 	{% include 'gallery.html' %}
 	{% include 'footer.html' %}

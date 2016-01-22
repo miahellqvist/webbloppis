@@ -99,7 +99,7 @@ class UploadModel{
 				$dbCon->query($query);
 				// Uppladdning av fil
 				if($uploadfile && $query){
-					$data['template'] = 'indexOnline.html';
+					$data['template'] = 'index.html';
 				}elseif(!($uploadfile or $query)){
 					throw new Exception("Bilden laddades inte upp.");
 				}

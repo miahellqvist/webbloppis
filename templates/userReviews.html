@@ -1,0 +1,16 @@
+<!--Visar säljarens egna omdömen-->
+	{% if session.user %}
+		{% include 'headOnline.html' %}
+	{% else %}
+		{% include 'headOffline.html' %}
+		{% include 'searchForm.html' %}
+	{% endif %}
+	<div>
+	{% for review in reviews %}
+		{{review.buyer_name}}<br>
+		{{review.date_comment}}<br>
+		Säljares betyg: {{review.rate_name}}<br>
+		{{review.comment}}<br><br>
+	{% endfor %}
+	</div>
+	{% include 'footer.html' %}
