@@ -61,6 +61,17 @@ body{
 .ads{
 	overflow: auto;
 }
+/*Registreringsformulär*/
+.registerform {
+	padding-left: 20px;
+	width: 50%;
+	float: left;
+}
+/*Registreringsinfo*/
+.registerinfo {
+	width: 50%;
+	float: right;
+}
 
 /*laptop-size*/
 @media all and (min-width: 1170px) { 
