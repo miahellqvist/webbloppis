@@ -36,7 +36,7 @@ body{
 }
 /*Galleribilderna*/
 .gallery{
-	width: 220px;
+	height: 220px;
 	display: inline-block;
 }
 /*Hela annonsen*/
