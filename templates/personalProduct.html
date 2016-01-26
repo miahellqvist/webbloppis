@@ -1,6 +1,5 @@
 <!--Uppdatera annons-->
-
-{% include 'userLoggedIn.html' %}
+{% include 'headOnline.html' %}
 <form method=post action="?/Product/completePersonalProductUpdate">
 	<h3>Här kan du uppdatera din annons uppgifter</h3>
 	<input type='hidden' name='product_id' value='{{product.product_id}}'/>
@@ -36,4 +35,6 @@
 						 
 	<input type='submit'  name='updateProduct' value='Spara'>						 
 </form>
+<div class="row">
+	<div class="col-xs-12 wrapper">
 {% include 'footer.html' %}

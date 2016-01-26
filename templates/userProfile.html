@@ -1,13 +1,38 @@
 <!--Visar en säljares alla annonser och omdömen-->
-{% include 'head.html' %}
-<h4>Välkommen till {{title}}s Loppis</h4>
-<a href='?/Review/sellerReviews/{{user_id}}'>Visa Recensioner</a>
-<div class="ads">
+{% if session.user %}
+	{% include 'headOnline.html' %}
+	<h3 class="welcome">Välkommen till {{title}}s Loppis</h3><br>
+	<div class="reviewLink">
+		<a href='?/Review/sellerReviews/{{user_id}}'>Visa Recensioner</a><br>
+		<a href="?/Review/reviewForm/{{user_id}}">Skriv en recension</a><br>
+	</div>
+	<div class="ads">
 	{% for product in products %}
 		<div id="{{product.product_id}}">
-			{{product.title}} Pris: {{product.price}}kr <br>
-			<a href='?/Product/singleProduct/{{product.product_id}}'><img src='upload/{{product.image_name}}' class='gallery' alt=''></a><br>
+			<a href='?/Product/singleProduct/{{product.product_id}}'><img src='upload/{{product.image_name}}' class="gallery" alt=''></a><br>
+			<a href="?/Product/singleProduct/{{product.product_id}}">{{product.title}}</a><br>
+			<span class="title">Pris: {{product.price}} kr</span>
 		</div>
 	{% endfor %}
 </div>
+{% else %}
+	{% include 'headOffline.html' %}
+	{% include 'searchForm.html' %}
+<h3 class="welcome">Välkommen till {{title}}s Loppis</h3><br>
+<div class="reviewLink">
+	<a href='?/Review/sellerReviews/{{user_id}}'>Visa Recensioner</a><br>
+</div>
+<div class="ads">
+	{% for product in products %}
+		<div id="{{product.product_id}}">
+			<a href='?/Product/singleProduct/{{product.product_id}}'><img src='upload/{{product.image_name}}' class="gallery" alt=''></a><br>
+			<a href="?/Product/singleProduct/{{product.product_id}}">{{product.title}}</a><br>
+			<span class="title">Pris: {{product.price}} kr</span>
+		</div>
+	{% endfor %}
+</div>
+{% endif %}
+
+<div class="row">
+	<div class="col-xs-12 wrapper">
 {% include 'footer.html' %}

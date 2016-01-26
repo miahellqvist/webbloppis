@@ -1,16 +1,21 @@
-<!-- recensionformulär -->
+{% include 'headOnline.html' %}
 <div>
-	<form action='' method='post'>
+	<form action='?Review/postReview' method='post'>
 		<h3>Skriv din recension</h3>
 		<p>Betyg: 
 		<select name='rate'>
 			<option value='0'>-- Välj ett betyg --</option>
-			{% for item in reviewForm %}
-			<option value='{{item.rate_id}}'>{{item.rate_name}}</option>
+			{% for rate in rates %}
+			<option value='{{rate.rate_id}}'>{{rate.rate_name}}</option>
 			{% endfor %}
 		</select><br></p>
 		<p>Kommentar:</p>
 		<textarea name='comment' cols='45' rows='6'></textarea><br><br>
+		<input type='hidden' name='seller_id' value='{{user_id}}'>
 		<input type='submit' name='sendreview' value='Skicka din recension'>
 	</form>
 </div>
+
+<div class="row">
+	<div class="col-xs-12 wrapper">
+{% include 'footer.html' %}

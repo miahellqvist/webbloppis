@@ -1,7 +1,11 @@
 	<!--Registeringsformulär-->
 
-	{% include 'head.html' %}
-	
+	{% if session.user %}
+		{% include 'headOnline.html' %}
+	{% else %}
+		{% include 'headOffline.html' %}
+	{% endif %}
+	<div class='registerform'>
 	<form action='?/User/completeRegister' method='post'>
 	<h3>Skapa konto</h3>
 	<p><label>Namn:</label><br>
@@ -14,7 +18,7 @@
 	<select name='membership' required>
 		<option value='0'>-- Välj medlemskap --</option>
 		{% for membership in memberships %}
-			<option value='{{ membership.membership_name }}'> {{ membership.membership_name }} </option>
+			<option value='{{ membership.id }}'> {{ membership.membership_name }} </option>
 		{% endfor %}
 	</select></p>
 	<p><label>Adress:</label><br>
@@ -36,4 +40,32 @@
 	<input type='text' name='phone' required></p>
 	<input type='submit' name='createAccount' value='Skapa konto'>
 </form>
-	{% include 'footer.html' %}
+</div>
+<div class='registerinfo'>
+<h3>Information</h3>
+	<h4>Namn</h4>
+		<p>Här fyller du i det namn som ska visas på din profilsida och på dina annonser.</p><br>
+	<h4>Användarnamn</h4>
+		<p>Här väljer du ditt användarnamn som du använder för att logga in.</p><br>
+	<h4>Lösenord</h4>
+		<p>Här väljer du ditt lösenord som du använder för att logga in.</p><br>
+	<h4>Medlemsskap</h4>
+		<p>Här väljer du den prenumeration som du vill ha.</p>
+
+<ul>
+	<li class = 'list'>Brons - 10 annonsplatser 99kr/månaden</li>
+	<li class = 'list'>Silver - 50 annonsplatser 299kr/månaden</li>
+	<li class = 'list'>Guld - 150 annonsplatser 499kr/månaden</li>
+</ul>
+
+	<h4>Adress</h4>
+		<p>Din adress kommer inte att synas för andra, utan är endast till för kontakten mellan dig och Webbloppis.com</p><br>
+	<h4>Email</h4>
+		<p>Din emailadress kommer inte att synas för andra, utan är till för kontakten mellan dig och Webbloppis.com samt utskick av kontaktuppgifter från säljare intresserade av dina annonser.</p><br>
+	<h4>Telefon</h4>
+		<p>Telefon är en frivillig uppgift som inte kommer att synas för andra, utan är endast till för kontakten mellan dig och Webbloppis.com</p>
+	</div>
+
+<div class="row">
+<div class="col-xs-12 wrapper">
+{% include 'footer.html' %}

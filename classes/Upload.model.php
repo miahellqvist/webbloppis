@@ -47,10 +47,6 @@ class UploadModel{
 			if(!($file['size'] < 8388608)){
 			   throw new Exception('Bilden överskrider maxstorleken.');
 			}
-			// Kollar om bilden redan finns
-			if(file_exists('upload/' . $username . '/' . $file['name'])){
-			   throw new Exception('Bilden är redan uppladdad.');
-			}
 			// Kollar att det är rätt filtyp (png, jpg, jpeg eller gif)
 			if(!($file['type'] == 'image/png' || $file['type'] == 'image/PNG' || $file['type'] == 'image/jpg' || $file['type'] == 'image/jpeg' || $file['type'] == 'image/gif')){
 			   throw new Exception('Bilden inte rätt typ.');	
@@ -99,7 +95,7 @@ class UploadModel{
 				$dbCon->query($query);
 				// Uppladdning av fil
 				if($uploadfile && $query){
-					$data['template'] = 'indexOnline.html';
+					$data['template'] = 'index.html';
 				}elseif(!($uploadfile or $query)){
 					throw new Exception("Bilden laddades inte upp.");
 				}

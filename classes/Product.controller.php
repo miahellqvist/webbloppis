@@ -6,20 +6,22 @@ class Product{
   	public static function singleProduct($url_parts) {
   		require_once('Product.model.php');
       require_once('User.model.php');
+      require_once('Upload.model.php');
   		
   		if (count($url_parts) > 0) {
   			$id = $url_parts[0];
 
   			$result = ProductModel::getProductData($id);
   			if($result) {
-          if(isset($_SESSION['user'])){
-            $data['template'] = 'singleProductOnline.html';
+          
+            $data['template'] = 'singleProduct.html';
             $data['product'] = $result;
-          }else
-  				  $data['template'] = 'singleProduct.html';
-  				  $data['product'] = $result;
-  			} else {
-  				  $data['template'] = 'registerError.html';
+            $data['states'] = UserModel::getStates();
+            $data['categories'] = UploadModel::getCategories();
+          } else {
+  				  $data['template'] = 'error.html';
+            $data['states'] = UserModel::getStates();
+            $data['categories'] = UploadModel::getCategories();
   			}
 
   		} else {
@@ -31,6 +33,8 @@ class Product{
 //Om användaren klickar på en kategori i annonsen visas alla produkter i den kategorin
   	public static function productCategory($url_parts){
   		require_once('Product.model.php');
+      require_once('User.model.php');
+      require_once('Upload.model.php');
 
   		if (count($url_parts) > 0) {
   			$category_id=$url_parts[0];
@@ -38,6 +42,8 @@ class Product{
   			$result=ProductModel::getProductsCategory($category_id);
   			if ($result) {
   				$data['template'] = 'index.html';
+          $data['states'] = UserModel::getStates();
+          $data['categories'] = UploadModel::getCategories();
   				$data['products'] = $result;
   				if(count($result)>0) {
   					$data['title'] = $result[0]['category_name'];
@@ -50,6 +56,8 @@ class Product{
 //Om användaren klickar på en underkategori i annonsen visas alla produkter i den underkategorin
   	public static function productSubcategory($url_parts){
   		require_once('Product.model.php');
+      require_once('User.model.php');
+      require_once('Upload.model.php');
 
   		if (count($url_parts) > 0) {
   			$subcategory_id=$url_parts[0];
@@ -57,6 +65,8 @@ class Product{
   			$result=ProductModel::getProductsSubcategory($subcategory_id);
   			if ($result) {
   				$data['template'] = 'index.html';
+          $data['states'] = UserModel::getStates();
+          $data['categories'] = UploadModel::getCategories();
   				$data['products'] = $result;
   				if(count($result)>0) {
   					$data['title'] = $result[0]['subcategory_name'];
@@ -69,6 +79,8 @@ class Product{
 //Om användaren klickar på ett län i annonsen visas alla produkter i det länet
   	public static function productState($url_parts){
   		require_once('Product.model.php');
+      require_once('User.model.php');
+      require_once('Upload.model.php');
 
   		if (count($url_parts) > 0) {
   			$state_id=$url_parts[0];
@@ -76,6 +88,8 @@ class Product{
   			$result=ProductModel::getProductsState($state_id);
   			if ($result) {
   				$data['template'] = 'index.html';
+          $data['states'] = UserModel::getStates();
+          $data['categories'] = UploadModel::getCategories();
   				$data['products'] = $result;
   				if(count($result)>0) {
   					$data['title'] = $result[0]['state_name'];
@@ -88,6 +102,9 @@ class Product{
 //Om användaren klickar på säljarnamnet i annonsen visas alla produkter från den säljaren
   	public static function productUser($url_parts){
   		require_once('Product.model.php');
+      require_once('User.model.php');
+      require_once('Upload.model.php');
+      $data=array();
 
   		if (count($url_parts) > 0) {
   			$user_id=$url_parts[0];
@@ -95,6 +112,8 @@ class Product{
   			$result=ProductModel::getProductsUser($user_id);
   			if ($result) {
   				$data['template'] = 'userProfile.html';
+          $data['states'] = UserModel::getStates();
+          $data['categories'] = UploadModel::getCategories();
           $data['user_id']=$user_id;
   				$data['products'] = $result;
   				if(count($result)>0) {
@@ -120,7 +139,7 @@ class Product{
       }
       catch(Exception $e){
         $data['error']= $e->getMessage();
-        $data['template']='errorloggedin.html';
+        $data['template']='error.html';
       }
      
       return $data;
@@ -165,18 +184,18 @@ class Product{
           $subcategory = $_POST['subcategory'];
           $id = $_POST['product_id'];
         
-          $result=ProductModel::updatePersonalProduct($title,$text,$price,$category,$subcategory,$state,$id);
-        
-          if($result) {
-            $data['redirect'] = '?/User/home';
-          } 
-          else{
-            $data['template'] = 'registerError.html';
+          try{
+            $result=ProductModel::updatePersonalProduct($title,$text,$price,$category,$subcategory,$state,$id);
+            $data['redirect'] = '?/Product/myProducts';
           }
-      }
-      else {
-        $data['redirect'] = '?/User/personalProduct';
-      }
+          catch(Exception $e){
+            $data['error']= $e->getMessage();
+            $data['template']='error.html';
+          }
+        }
+        else {
+          $data['redirect'] = '?/User/personalProduct';
+        }
       return $data;
     }
 
@@ -187,16 +206,18 @@ class Product{
       if (isset($_POST['deleteProduct'])) {
         $id = $_POST['product_id'];
 
-        $result=ProductModel::deleteProduct($id);
-        if($result) {
+        try{
+          $result=ProductModel::deleteProduct($id);
           $data['products']=ProductModel::getMyProducts();
           $data['redirect'] = '?/Product/myProducts';
-        } 
-        else{
-          $data['template'] = 'registerError.html';
+        }
+        catch(Exception $e){
+          $data['error']= $e->getMessage();
+          $data['template']='error.html';
         }
       }
-       else {
+      
+      else {
         $data['redirect'] = '?/User/home';
       }
       return $data;

@@ -64,7 +64,7 @@ class SearchModel {
 		//Annars sorteras alla annonser på den senaste inlagda annonsen
 		else{
 		$query .="GROUP BY product.product_id DESC ";
-		$data['template'] = 'uploadError.html';
+		$data['template'] = 'error.html';
 		} 
 	
 		return $query;
@@ -74,46 +74,19 @@ class SearchModel {
 
 		$dbCon= Connection::connect();
 		$query=self::searchQuery($searchProduct,$category,$state,$sort);
-		//$query=("SELECT * FROM product WHERE product.title LIKE 'test'");
+
 		$products = array();
-		if($result = $dbCon->query($query)){
-			if(mysqli_num_rows($result)>0){
-				while ($product = $result->fetch_assoc()) {
-					$products[]=$product;
-					
-				}
-				return $products;
-			} 	
-		}else {
-			echo "Ingen annons funnen.";
+		$result = $dbCon->query($query);
+
+		if ($result->num_rows>0)
+		{	
+			while ($product = $result->fetch_assoc()) {
+					$products[]=$product;}
+					return $products;
+		}
+		else {
+			throw new Exception ('Inga annonser funna.');
 		}
 		
 	}
 }
-
-/*
-	if($result = $dbCon->query($query)){
-
-			while ($item = $result->fetch_assoc()) {
-				$items[]=$item;
-			}
-		} else {
-			die("Ingen annons funnen.");
-		}
-		return $items;
-
-
-
-		$dbCon= Connection::connect();
-		$query = "SELECT * FROM subcategory";
-		$subcategories = array();
-		if($result = $dbCon->query($query)){
-
-			while ($subcategory = $result->fetch_assoc()) {
-				$subcategories[]=$subcategory;
-			}
-		} else {
-			die($dbCon->error);
-		}
-		return $subcategories;
-		*/

@@ -31,8 +31,7 @@ if(count($url_parts)>=2) {
 			$twig = startTwig();
 			$template = $data['template'];
 	    }
-		
-		//$data['user'] = $_SESSION['user']; 
+		 
 		echo $twig->render($template, $data);
     }
 																																						
@@ -48,7 +47,6 @@ function getUrlParts($get) {
 		$get_params = array_keys($get);
 		$url = $get_params[0];
 		$url_parts = explode("/",$url);
-		//$array = array();
 		foreach($url_parts as $k => $v){
 			if($v) $array[] = $v;
 		}
