@@ -108,15 +108,11 @@ class ReviewModel {
 		$cleanComment = $dbCon->real_escape_string($comment);
 		$cleanSeller_id = $dbCon->real_escape_string($seller_id);
 
-<<<<<<< HEAD
 
-=======
->>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 		$query = ("INSERT INTO review 
 					(buyer_id, buyer_name, seller_id, rate_id, comment, date_comment)
 					VALUES ('$buyer_id', '$buyer_name', '$cleanSeller_id', '$cleanRate', '$cleanComment', CURRENT_TIMESTAMP)");
 		
-<<<<<<< HEAD
 		$result = $dbCon->query($query);
 
 		if (!$result) {
@@ -125,14 +121,5 @@ class ReviewModel {
 		else {
 			return true;
 		}
-=======
-		$dbCon->query($query);
-		if($query){
-			return true;
-		}elseif(!($query)){
-			throw new Exception("Ditt omdöme registrerades inte.");
-		}
-		
->>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 	}
 }
