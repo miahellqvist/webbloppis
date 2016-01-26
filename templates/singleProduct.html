@@ -5,6 +5,7 @@
 		{% include 'headOffline.html' %}
 {% endif %}
 {% include 'searchForm.html' %}
+<<<<<<< HEAD
 <div class="big_ads">
 	<h3 class="title">{{product.title}}</h3> 
 	<div class='image' id="{{product.product_id}}">
@@ -28,6 +29,22 @@
 	</div>
 </div> 
 
+=======
+<div class="ads">
+		<div id="{{product.product_id}}">
+			<img src="upload/{{product.image_name}}" class="big-ad img-responsive"><br>
+			{{product.title}} Pris: {{product.price}}kr <br>
+			<a href="?/Product/productCategory/{{product.category_id}}">{{product.category_name}}</a>
+			<a href="?/Product/productSubcategory/{{product.subcategory_id}}">{{product.subcategory_name}}</a>
+			{{product.date_added}}
+			<a href="?/Product/productState/{{product.state_id}}">{{product.state_name}}</a><br>
+			<a href="?/Product/productUser/{{product.user_id}}">{{product.username}}</a><br>
+			{{product.text}}<br>
+			<a href='?/Contact/emailForm/{{product.product_id}}'>Skicka meddelande</a><br> 
+			<a href='Index.php#{{product.product_id}}'>Gå tillbaka till Galleriet</a>
+		</div>
+</div>
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 <div class="row">
 	<div class="col-xs-12 wrapper">
 {% include 'footer.html' %}

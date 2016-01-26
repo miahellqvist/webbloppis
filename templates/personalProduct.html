@@ -1,5 +1,14 @@
 <!--Uppdatera annons-->
+<<<<<<< HEAD
 {% include 'headOnline.html' %}
+=======
+
+{% if session.user %}
+		{% include 'headOnline.html' %}
+	{% else %}
+		{% include 'headOffline.html' %}
+{% endif %}
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 <form method=post action="?/Product/completePersonalProductUpdate">
 	<h3>Här kan du uppdatera din annons uppgifter</h3>
 	<input type='hidden' name='product_id' value='{{product.product_id}}'/>
@@ -36,5 +45,9 @@
 	<input type='submit'  name='updateProduct' value='Spara'>						 
 </form>
 <div class="row">
+<<<<<<< HEAD
 	<div class="col-xs-12 wrapper">
+=======
+<div class="col-xs-12 wrapper">
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 {% include 'footer.html' %}

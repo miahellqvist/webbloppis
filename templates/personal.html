@@ -1,5 +1,14 @@
 	<!--Uppdatera personliga uppgifter-->
+<<<<<<< HEAD
 	{% include 'headOnline.html' %}
+=======
+
+	{% if session.user %}
+		{% include 'headOnline.html' %}
+	{% else %}
+		{% include 'headOffline.html' %}
+	{% endif %}
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 	{% include 'updatePersonalForm.html' %}
 	<div class="row">
 	<div class="col-xs-12 wrapper">

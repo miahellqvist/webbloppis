@@ -1,6 +1,17 @@
+<<<<<<< HEAD
 {% include 'headOnline.html' %}
 <div>
 	<form action='?Review/postReview' method='post'>
+=======
+<!-- recensionformulär -->
+{% if session.user %}
+	{% include 'headOnline.html' %}
+{% else %}
+	{% include 'headOffline.html' %}
+{% endif %}
+<div>
+	<form action='?/Review/postReview' method='post'>
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 		<h3>Skriv din recension</h3>
 		<p>Betyg: 
 		<select name='rate'>
@@ -15,7 +26,11 @@
 		<input type='submit' name='sendreview' value='Skicka din recension'>
 	</form>
 </div>
+<<<<<<< HEAD
 
 <div class="row">
+=======
+	<div class="row">
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 	<div class="col-xs-12 wrapper">
 {% include 'footer.html' %}

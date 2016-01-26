@@ -11,6 +11,7 @@ body{
 	margin-bottom: 100px;
 }
 li{
+<<<<<<< HEAD
 	/*list-style: none;*/
 	display: inline;
 	margin-right: 20px;
@@ -19,6 +20,12 @@ li{
 	display: block;
 	margin: 5px;
 }
+=======
+	list-style: none;
+	display: inline;
+	margin-right: 20px;
+}
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 a.footerLink{
 	color: #cccccc;
 }
@@ -157,6 +164,7 @@ a.btn-default{
 	width: 100%;
 	margin-left: 45%;
 	margin-bottom: 20px;
+<<<<<<< HEAD
 }
 h3.welcome {
 	font-family: 'Ubuntu', sans-serif;
@@ -168,6 +176,19 @@ h3.welcome {
 	font-size: 14px;
 	padding-top: 10px;
 }
+=======
+}
+h3.welcome {
+	font-family: 'Ubuntu', sans-serif;
+	text-align: center;
+	font-size: 24px;
+}
+/*Recensioner*/
+.reviews p{
+	font-size: 14px;
+	padding-top: 10px;
+}
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 /*footer*/
 .footer{
 	background-color: #404040;
@@ -176,6 +197,7 @@ h3.welcome {
 	height: 70px;
 	padding-top: 25px;
 	text-align: center;
+<<<<<<< HEAD
 }
 /*Registreringsformulär*/
 .registerform {
@@ -211,6 +233,8 @@ th {
 	border-bottom: 2px solid black;
 	background: #993366;
 	color: black;
+=======
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 }
 
 /*laptop-size*/

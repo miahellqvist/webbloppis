@@ -1,4 +1,5 @@
 <!--Visar en säljares alla annonser och omdömen-->
+<<<<<<< HEAD
 {% if session.user %}
 	{% include 'headOnline.html' %}
 	<h3 class="welcome">Välkommen till {{title}}s Loppis</h3><br>
@@ -22,6 +23,12 @@
 <div class="reviewLink">
 	<a href='?/Review/sellerReviews/{{user_id}}'>Visa Recensioner</a><br>
 </div>
+=======
+{% include 'headOnline.html' %}
+<h4>Välkommen till {{title}}s Loppis</h4>
+<a href='?/Review/sellerReviews/{{user_id}}'>Visa Recensioner</a><br>
+<a href="?/Review/reviewForm/{{user_id}}">Skriv en recension</a><br>
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 <div class="ads">
 	{% for product in products %}
 		<div id="{{product.product_id}}">
@@ -31,8 +38,11 @@
 		</div>
 	{% endfor %}
 </div>
+<<<<<<< HEAD
 {% endif %}
 
+=======
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 <div class="row">
 	<div class="col-xs-12 wrapper">
 {% include 'footer.html' %}

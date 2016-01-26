@@ -5,6 +5,7 @@
 		{% include 'headOffline.html' %}
 		{% include 'searchForm.html' %}
 	{% endif %}
+<<<<<<< HEAD
 	<div class="reviews">
 	{% for review in reviews %}
 		<p>{{review.buyer_name}}</p>
@@ -14,6 +15,16 @@
 	{% endfor %}
 	</div>
 
+=======
+	<div>
+	{% for review in reviews %}
+		{{review.buyer_name}}<br>
+		{{review.date_comment}}<br>
+		Säljares betyg: {{review.rate_name}}<br>
+		{{review.comment}}<br><br>
+	{% endfor %}
+	</div>
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 	<div class="row">
 	<div class="col-xs-12 wrapper">
 	{% include 'footer.html' %}

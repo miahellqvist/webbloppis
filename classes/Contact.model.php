@@ -32,7 +32,11 @@ class ContactModel {
 		$headers= "From: $cleanName";
 	  	$sendIt=mail($cleanSellerEmail, $cleanSubject, $text, $headers);
 	
+<<<<<<< HEAD
 	//if mejlet skickades returnerar det true. Annars skriver ut error meddelande		
+=======
+	//om mejlet skickades returnerar det true. Annars skriver ut error meddelande		
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 	  	if(isset($sendIt)) {
 	  		return true;
 	  	} else {

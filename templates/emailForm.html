@@ -3,7 +3,10 @@
 	{% include 'headOnline.html' %}
 {% else %}
 	{% include 'headOffline.html' %}
+<<<<<<< HEAD
 	{% include 'searchForm.html' %}
+=======
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 {% endif %}
 <form action='?/Contact/emailSent' method='post'>
 	Ditt namn: 
@@ -17,8 +20,13 @@
 	<input type='hidden' name='sellerEmail' value="{{product.email}}"><br>
 	<input type='submit' name='send' value='Skicka'>
 </form>
+<<<<<<< HEAD
 
 <div class="row">
 	<div class="col-xs-12 wrapper">
 
+=======
+<div class="row">
+<div class="col-xs-12 wrapper">
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 {% include 'footer.html' %}

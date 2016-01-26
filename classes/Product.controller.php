@@ -33,8 +33,15 @@ class Product{
 //Om användaren klickar på en kategori i annonsen visas alla produkter i den kategorin
   	public static function productCategory($url_parts){
   		require_once('Product.model.php');
+<<<<<<< HEAD
       require_once('User.model.php');
       require_once('Upload.model.php');
+=======
+      require_once('Upload.model.php');
+      require_once('User.model.php');
+      $data['states'] = UserModel::getStates();
+      $data['categories'] = UploadModel::getCategories();
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
 
   		if (count($url_parts) > 0) {
   			$category_id=$url_parts[0];
@@ -184,9 +191,19 @@ class Product{
           $subcategory = $_POST['subcategory'];
           $id = $_POST['product_id'];
         
+<<<<<<< HEAD
           try{
             $result=ProductModel::updatePersonalProduct($title,$text,$price,$category,$subcategory,$state,$id);
             $data['redirect'] = '?/Product/myProducts';
+=======
+          $result=ProductModel::updatePersonalProduct($title,$text,$price,$category,$subcategory,$state,$id);
+        
+          if($result) {
+            $data['redirect'] = '?/Product/myProducts';
+          } 
+          else{
+            $data['template'] = 'error.html';
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
           }
           catch(Exception $e){
             $data['error']= $e->getMessage();
@@ -199,7 +216,7 @@ class Product{
       return $data;
     }
 
-    public static function completeDeleteProduct() {
+    /*public static function completeDeleteProduct() {
       require_once('Product.model.php');
       $data=array();
 
@@ -210,14 +227,45 @@ class Product{
           $result=ProductModel::deleteProduct($id);
           $data['products']=ProductModel::getMyProducts();
           $data['redirect'] = '?/Product/myProducts';
+<<<<<<< HEAD
         }
         catch(Exception $e){
           $data['error']= $e->getMessage();
           $data['template']='error.html';
+=======
+        } 
+        else{
+          $data['template'] = 'error.html';
+>>>>>>> ba25d166856fee68a4e27bdecb0ef8d93c80fcb4
         }
       }
       
       else {
+        $data['redirect'] = '?/User/home';
+      }
+      return $data;
+    }*/
+
+    public static function completeDeleteProduct() {
+      require_once('Product.model.php');
+      $data=array();
+
+      if (isset($_POST['deleteProduct'])) {
+        $id = $_POST['product_id'];
+
+        try{
+        $result=ProductModel::deleteProduct($id);
+        if($result) {
+          $data['products']=ProductModel::getMyProducts();
+          $data['redirect'] = '?/Product/myProducts';
+        } 
+      }
+       catch(Exception $e){
+        $data['error']= $e->getMessage();
+        $data['template']='error.html';
+      }
+      }
+       else {
         $data['redirect'] = '?/User/home';
       }
       return $data;
