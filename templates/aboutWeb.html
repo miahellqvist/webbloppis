@@ -1,0 +1,15 @@
+	{% if session.user %}
+		{% include 'headOnline.html' %}
+	{% else %}
+		{% include 'headOffline.html' %}
+	{% endif %}
+	{% include 'searchForm.html' %}
+
+<div>
+<h3>Om Webbloppis.com</h3>
+<p>Webbloppis är en site som föddes ur idén att det borde finnas ett enkelt sätt att sälja flera saker på nätet utan att man ska behöva betala för varje annons, vilket innebär att det inte är ekonomiskt att sälja småsaker som leksaker och mjukisdjur. Efter att ha kollat de ledande siterna för att sälja begagnade prylar konstaterade vi att man fick köpa flera annonsplatser för sig om man har flera föremål att sälja. Vi utvecklade då vårt eget koncept, att månadsprenumerera på ett visst antal annonsplatser.</p>
+<p>Vi som äger siten heter Anna, Carin, Helene, Mia och Natalia och vi hoppas att du är nöjd med den. Om inte vill vi gärna att du skickar dina synpunkter till oss på webbloppis.sverige@gmail.com och skriver Synpunkt i ärenderaden.</p>
+</div>
+<div class="row">
+<div class="col-xs-12 wrapper">
+{% include 'footer.html' %}

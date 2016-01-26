@@ -4,7 +4,7 @@
 	{% for product in products %}
 		<div id="{{product.product_id}}">
 			{{product.title}} Pris: {{product.price}} kr <br>
-			<a href='?/Product/singleProduct/{{product.product_id}}'><img src='upload/{{product.image_name}}' class="gallery thumbnail" alt=''></a><br>
+			<a href='?/Product/singleProduct/{{product.product_id}}'><img src='upload/{{product.image_name}}' class="gallery thumbnail"></a><br>
 		</div>
 	{% endfor %}
 </div>

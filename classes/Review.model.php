@@ -42,7 +42,7 @@ class ReviewModel {
 
 		$result = $dbCon->query($query);
 
-		if ($result->num_rows>0)
+		if ($result->num_rows > 0)
 		{	
 			$reviews = array();
 			while ($review = $result->fetch_assoc())
@@ -99,11 +99,25 @@ class ReviewModel {
 		}
 	}
 
-	/*public static function reviewPosted() {
+	public static function reviewPosted($rate, $comment, $seller_id) {
 		$dbCon= Connection::connect();
-		$user_id=$_SESSION['user']['user_id'];
-		$user_name=$_SESSION['user']['user_name'];
+		$buyer_id=$_SESSION['user']['user_id'];
+		$buyer_name=$_SESSION['user']['name'];
 
+		$cleanRate = $dbCon->real_escape_string($rate);
+		$cleanComment = $dbCon->real_escape_string($comment);
+		$cleanSeller_id = $dbCon->real_escape_string($seller_id);
 
-	}*/
+		$query = ("INSERT INTO review 
+					(buyer_id, buyer_name, seller_id, rate_id, comment, date_comment)
+					VALUES ('$buyer_id', '$buyer_name', '$cleanSeller_id', '$cleanRate', '$cleanComment', CURRENT_TIMESTAMP)");
+		
+		$dbCon->query($query);
+		if($query){
+			return true;
+		}elseif(!($query)){
+			throw new Exception("Ditt omdöme registrerades inte.");
+		}
+		
+	}
 }

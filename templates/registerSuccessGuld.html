@@ -1,0 +1,19 @@
+<!--Meddelande för lyckad registrering-->
+	{% include 'headOffline.html' %}
+    <h3>Betala ditt medlemskap:</h3>	
+    <form action="?/User/completePayment" method="POST">
+      <script
+        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+        data-key="pk_test_WkNnXh7EUU2Efw45ARR6U1HQ"
+        data-image="/img/documentation/checkout/marketplace.png"
+        data-name="Webbloppis"
+        data-description="Medlemskap GULD"
+        data-email=""
+        data-currency="sek"
+        data-amount="49900"
+        data-locale="auto">
+      </script>
+    </form>
+    <div class="row">
+    <div class="col-xs-12 wrapper">
+	{% include 'footer.html' %}

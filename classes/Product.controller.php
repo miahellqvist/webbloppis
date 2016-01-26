@@ -33,6 +33,10 @@ class Product{
 //Om användaren klickar på en kategori i annonsen visas alla produkter i den kategorin
   	public static function productCategory($url_parts){
   		require_once('Product.model.php');
+      require_once('Upload.model.php');
+      require_once('User.model.php');
+      $data['states'] = UserModel::getStates();
+      $data['categories'] = UploadModel::getCategories();
 
   		if (count($url_parts) > 0) {
   			$category_id=$url_parts[0];

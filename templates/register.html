@@ -18,7 +18,7 @@
 	<select name='membership' required>
 		<option value='0'>-- Välj medlemskap --</option>
 		{% for membership in memberships %}
-			<option value='{{ membership.membership_name }}'> {{ membership.membership_name }} </option>
+			<option value='{{ membership.id }}'> {{ membership.membership_name }} </option>
 		{% endfor %}
 	</select></p>
 	<p><label>Adress:</label><br>
@@ -63,4 +63,7 @@
 <h4>Telefon</h4>
 <p>Telefon är en frivillig uppgift som inte kommer att synas för andra, utan är endast till för kontakten mellan dig och Webbloppis.com</p><br>
 </div>
-	{% include 'footer.html' %}
+
+<div class="row">
+<div class="col-xs-12 wrapper">
+{% include 'footer.html' %}

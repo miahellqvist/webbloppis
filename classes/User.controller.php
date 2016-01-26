@@ -2,36 +2,53 @@
 
 class User{
 
-//Skickar inloggningsuppgifter till checkLogin
+//Skickar inloggningsuppgifter till checkLogin och kollar om användaren har betalt sin prenumenation 
+//Om ej betalt, skickas användaren till betalningssidan
 	public static function login() {
 
-		require_once('User.model.php');
+    require_once('User.model.php');
     require_once('Product.model.php');
-		$data = array();
-		if (isset($_POST['login'])) {
-			
-			$username = $_POST['username'];
-			$password = $_POST['password'];
-			try {
-				$result = UserModel::checkLogin($username, $password);
-        if ($result) {
+    $data = array();
+    if (isset($_POST['login'])) {
+      
+      $username = $_POST['username'];
+      $password = $_POST['password'];
+      try {
+        $user = UserModel::checkLogin($username, $password);
+        $paidMembership=UserModel::checkIfMembershipPaid();
+        if ($user && $paidMembership) {
+          
           $data['template'] = 'myProfile.html';
-          $data['user']=$result;
+          $data['user']=$user;
           $data['products']=ProductModel::getMyProducts();
+          return $data;
         }
-				
-			}
+        elseif(!$paidMembership){
+          $type_membership=UserModel::getUserMembership();
+          if($type_membership == 1){
+            $data['template'] = 'registerSuccessBrons.html';
+          return $data;
+          }
+          elseif($type_membership == 2){
+            $data['template'] = 'registerSuccessSilver.html';
+          return $data;
+          }
+          elseif($type_membership == 3){
+            $data['template'] = 'registerSuccessGuld.html';
+          return $data;
+          }
+        }
+      }
       catch(Exception $e) {
-				$data['error'] = $e->getMessage();
-				$data['template'] = 'error.html';
-			}
-
-		} 
+        $data['error'] = $e->getMessage();
+        $data['template'] = 'error.html';
+      }
+    } 
     else {
-			$data['redirect'] = '?/User/home';
-		}
-		return $data;
-	}
+       $data['redirect'] = '?/User/home';
+    }
+    return $data;
+  }
 
 //Om säljaren tryck på "logga ut" avslutas sessionen username
 	public static function logout() {
@@ -132,4 +149,19 @@ class User{
       return $data;
   	}
 
+     //Hämtar uppgifter från användarregistreringsformuläret
+    public static function completePayment() {
+        require_once('User.model.php');
+        require_once('Product.model.php');
+        try {
+          $result = UserModel::updatePaidMembership();
+          $data['template'] = 'myProfile.html';
+            $data['user']=$result;
+          $data['products']=ProductModel::getMyProducts();
+        } catch (Exception $e) {
+          $data['template'] = 'error.html';
+          $data['error'] = $e->getMessage();
+        }
+      return $data;
+    }
 }

@@ -2,7 +2,7 @@
 
 class UserModel {
 
-//Verifierar lösenord och användarnamn och skapar en Session ifall de stämmer med databasen
+	//Verifierar lösenord och användarnamn och skapar en Session ifall de stämmer med databasen
 	public static function checkLogin($username, $password) {
 		$dbCon= Connection::connect();
 
@@ -10,11 +10,9 @@ class UserModel {
 		$cleanPassword=$dbCon->real_escape_string($password);
 
 		//hämtar ut användarinfo
-		$query = "
-			SELECT user_id, name, username, password
+		$query = "SELECT user_id, name, username, password
 			FROM user 
-			WHERE username = '$cleanUsername' 
-		";
+			WHERE username = '$cleanUsername'";
 		
 		$result = $dbCon->query($query);
 		$user = $result->fetch_assoc();
@@ -29,12 +27,11 @@ class UserModel {
 			return $user;
 		} 
 		else {
-
 		   throw new Exception('Fel användarnamn eller lösenord.');
 		}
 	}
 
-//Hämtar alla medlemsskapsnivåer från databas 
+	//Hämtar alla medlemsskapsnivåer från databas 
 	public static function getMemberships() {		
 		$dbCon= Connection::connect();
 		$query = "SELECT * FROM membership";
@@ -109,13 +106,11 @@ class UserModel {
 		$dbCon=Connection::connect();
 		$user_id=$_SESSION['user']['user_id'];
 
-		$query = ("
-			SELECT name, user_id, adress, zip_code, 
+		$query = ("SELECT name, user_id, adress, zip_code, 
 			city, email, phone, state, state_name
 			FROM user, state
 			WHERE user_id='$user_id'
-			AND user.state=state.state_id
-			");
+			AND user.state=state.state_id");
 
 		if ($result = $dbCon->query($query)) {
   			$user = $result->fetch_assoc();
@@ -142,5 +137,47 @@ class UserModel {
 			");
 		$result=$dbCon->query($query);
 		return true;
+	}
+//När betalningen är gjord uppdateras databasen med 'true' på membership_paid
+	public static function updatePaidMembership(){
+		$dbCon= Connection::connect();
+		$user_id=$_SESSION['user']['user_id'];
+		$query = "UPDATE user
+					SET membership_paid = 'true'
+					WHERE user.user_id='$user_id'";
+		$result=$dbCon->query($query);
+		return true;
+	}
+//Kollar om medlemskapet är betalt
+	public static function checkIfMembershipPaid(){
+		$dbCon=Connection::connect();
+		$user_id=$_SESSION['user']['user_id'];
+		$query = "SELECT user_id, membership_paid  FROM user
+					WHERE user.user_id='$user_id'
+					AND membership_paid = 'true'";
+
+		$result=$dbCon->query($query);
+
+		if ($result=$dbCon->query($query)) {
+  			$pay = $result->fetch_assoc();
+  			return $pay;
+  		}
+	}
+//Hämtar användarens medlemskapsnivå
+	public static function getUserMembership(){
+		$dbCon=Connection::connect();
+		$user_id=$_SESSION['user']['user_id'];
+		$query = "SELECT type_membership FROM user
+					WHERE user.user_id='$user_id'";
+
+		$result=$dbCon->query($query);
+
+		if ($result=$dbCon->query($query)) {
+  			$type_memberships = $result->fetch_assoc();
+  			foreach ($type_memberships as $type_membership) {
+  				$type_membership;
+  			}	
+  		}
+  		return $type_membership;
 	}
 }

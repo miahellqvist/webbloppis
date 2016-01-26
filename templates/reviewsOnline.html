@@ -1,5 +1,9 @@
 	<!--Visar säljarens egna omdömen-->
-	{% include 'userLoggedIn.html' %}
+	{% if session.user %}
+		{% include 'headOnline.html' %}
+	{% else %}
+		{% include 'headOffline.html' %}
+	{% endif %}
 	<div>
 	{% for review in reviews %}
 		{{review.buyer_name}}<br>
@@ -8,4 +12,6 @@
 		{{review.comment}}<br><br>
 	{% endfor %}
 	</div>
+	<div class="row">
+	<div class="col-xs-12 wrapper">
 	{% include 'footer.html' %}
