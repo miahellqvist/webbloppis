@@ -1,0 +1,13 @@
+	<!--Visar säljarens omdömen-->
+	{% include 'headOffline.html' %}
+	<div>
+	{% for review in reviews %}
+		{{review.buyer_name}}<br>
+		{{review.date_comment}}<br>
+		Säljares betyg: {{review.rate_name}}<br>
+		{{review.comment}}<br><br>
+	{% endfor %}
+	</div>
+	<div class="row">
+	<div class="col-xs-12 wrapper">
+	{% include 'footer.html' %}
