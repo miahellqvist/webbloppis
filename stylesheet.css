@@ -1,14 +1,39 @@
 .container-fluid {
-	width: 100%;	
+	width: 100%;
 }
 body{
 	background-color: #e1d2dd;
+	height: 100%;
 }
-
+.wrapper {
+	min-height: 100%;
+	height: 100%;
+	margin-bottom: 100px;
+}
+li{
+	/*list-style: none;*/
+	display: inline;
+	margin-right: 20px;
+}
+.list {
+	display: block;
+	margin: 5px;
+}
+a.footerLink{
+	color: #cccccc;
+}
+a.footerLink:hover {
+	color: white;
+	text-decoration: none;
+}
+a.footerLink:visited {
+	color: #cccccc;
+	text-decoration: none;
+}
 /*Raden för logotypen*/
 .logo {
 	padding: 3%;
-	background-color: #730553;
+	background-color: #993366;
 }
 /*Logotypen*/
 .logo img{
@@ -26,40 +51,159 @@ body{
 }
 /*Login/logout-raden*/
 .login{
-	background-color: #730553;
+	background-color: #404040;
+	color: #cccccc;
 	padding-left: 5%;
 	padding-right: 5%;
+}
+.btn{
+	background-color: #404040;
+}
+.btn:hover{
+	color: white;
 }
 .no-padding {
 	padding-right: 0px;
 	padding-left: 0px;
 }
+#search.navbar-default{
+	margin-top: -15px;
+}
 /*Galleribilderna*/
 .gallery{
-	width: 220px;
+	height: 220px;
 	display: inline-block;
 }
 /*Hela annonsen*/
 .big-ad{
-	width: 600px;
+	width: 350px;
 }
-.inline{
-	display: inline-block;
+.text-beside{
+	margin-top: 60px;
 }
-/*Privata annonser som inloggad*/
-.private-ads{
-	background-color: #c9b6c3;
+.singleProduct {
+	margin: 0px auto;
+}
+.description {
+	font-weight: bold;
+	font-size: 16px;
+}
+p.product_text {
+	margin-top: 10px;
+	width: 350px;
+}
+.title {
+	font-weight: bold;
+}
+span.price {
+	font-size: 18px;
+}
+.seller {
+	text-align: center;
+	font-weight: bold;
+	padding-top: 5px
+}
+.user_info {
+	width: 200px;
+	margin-top: 20px;
+	border: 2px dashed #989898;
+	padding: 0 10px 10px 10px;
+}
+hr{
+	margin-top: -1px;
+	margin-bottom: 8px;
+	border-top: 1px solid #989898;
+}
+.user_username{
+	padding-left: 10px;
+}
+.user_mail {
+	padding-left: 10px;
 }
 .padding-left{
 	padding-left: 1%;
 }
 /*Annonser*/
 .ads div{
-	float: left;
 	margin: 10px;
+	padding: 10px;
+	/*width: 240px;*/
+	overflow: hidden;
+	display: inline-block;
+	background-color: #c9b6c3;
 }
-.ads{
-	overflow: auto;
+/*Privata annonser som inloggad*/
+.private-ads{
+	background-color: #c9b6c3;
+	overflow: hidden;
+	float: left;
+}
+.private-ads div{
+	padding: 0px;
+	margin-left: 1px;
+}
+a.btn-default{
+	margin-bottom: 5px;
+}
+/*Säljarens loppis*/
+.reviewLink{
+	width: 100%;
+	margin-left: 45%;
+	margin-bottom: 20px;
+}
+h3.welcome {
+	font-family: 'Ubuntu', sans-serif;
+	text-align: center;
+	font-size: 24px;
+}
+/*Recensioner*/
+.reviews p{
+	font-size: 14px;
+	padding-top: 10px;
+}
+/*footer*/
+.footer{
+	background-color: #404040;
+	margin-top: 50px;
+	margin-bottom: -300px;
+	height: 70px;
+	padding-top: 25px;
+	text-align: center;
+}
+/*Registreringsformulär*/
+.registerform {
+	padding-left: 20px;
+	width: 50%;
+	float: left;
+}
+/*Registreringsinfo*/
+.registerinfo {
+	width: 50%;
+	float: right;
+}
+table, tr, td {
+	border: 1px solid black;
+}
+table {
+	width: 50%;
+	margin-bottom: 20px;
+}
+td {
+	text-align: center;
+	padding: 5px;
+}
+.back {
+	font-size: 16px;
+	font-weight: bold;
+}
+th {
+	text-align: center;
+	padding: 5px;
+	font-weight: bold;
+	font-size: 14px;
+	border-bottom: 2px solid black;
+	background: #993366;
+	color: black;
 }
 
 /*laptop-size*/

@@ -1,0 +1,39 @@
+{% if session.user %}
+	{% include 'headOnline.html' %}
+{% else %}
+	{% include 'headOffline.html' %}
+	{% include 'searchForm.html' %}
+{% endif %}
+<div class = 'info'>
+	<h3>Medlemsskap</h3>
+	<p>Det finns tre olika annonspaket som man kan prenumerera på. Den lägsta nivån är brons som innehåller 10 annonsplatser. Nästa nivå är silver som innehåller 50 annonsplatser, och till sist finns guld som innehåller 150 annonsplatser. I tabellen nedan finns information om vad som ingår i varje paket.</p>
+
+	<table>
+	  <tr>
+	  	<th>Paket</th>
+	    <th>Brons</th>		
+	    <th>Silver</th>
+	    <th>Guld</th>
+	  </tr>
+	  <tr>
+	    <td>Pris</td>
+	    <td>99 kr</td>		
+	    <td>299 kr</td>
+	    <td>499 kr</td>
+	  </tr>
+	  <tr>
+	    <td>Annonsplatser</td>
+	    <td>10</td>		
+	    <td>50</td>
+	    <td>150</td>
+	  </tr>
+	  <tr>
+	    <td>Sökoptimering (Kommer inom kort)</td>
+	    <td>-</td>		
+	    <td>X</td>
+	    <td>X</td>
+	  </tr>
+	</table>
+<div class="row">
+<div class="col-xs-12 wrapper">
+{% include 'footer.html' %}

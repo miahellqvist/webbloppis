@@ -2,30 +2,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Webbloppis</title>
+  <title>Webbloppis</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-  
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  <link href='https://fonts.googleapis.com/css?family=Ubuntu:700' rel='stylesheet' type='text/css'>
 
-  </head>
+</head>
 <body>
-<div class="container-fluid">
-	<div class="row">
-    	<div class="col-xs-12 login">
-			{% include 'logoutForm.html' %}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-12 logo"><a href='?/User/home'><img src="links/webbloppis_logo.png" class="center-block" alt="Webbloppis logo"></a>
-		</div>
-	</div>
+  <div class="container-fluid">
+  	<div class="row">
+      	<div class="col-xs-12 login">
+  			{% include 'logoutForm.html' %}
+  		</div>
+  	</div>
+  	<div class="row">
+  		<div class="col-xs-12 logo"><a href='?/User/home'><img src="links/webbloppis_logo.png" class="center-block" alt="Webbloppis logo"></a>
+  		</div>
+      <div class="col-lg-6"></div>
+      <div class="col-lg-6"></div>
+  	</div>
+
+  <!--Navbar för inloggad användare-->
+  <div class="row">
+    <div class="col-xs-12 no-padding">
+      <nav class="navbar navbar-default">
+        <form class="navbar-form navbar-left"
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <div class="form-group">
+                <ul class="nav navbar-nav">
+                  <li class="nav-item">
+                    <span class="navbar-brand">Välkommen {{session.user.name}}</span>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="?/Product/myProducts">Mina annonser <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="?/UploadController/upload">Lägg upp annons <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="?/User/personal">Mina uppgifter</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="?/Review/myReviews">Mina omdömen</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </form>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 wrapper">
+</div>

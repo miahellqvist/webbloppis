@@ -1,0 +1,18 @@
+<!--Visar säljarens egna omdömen-->
+	{% if session.user %}
+		{% include 'headOnline.html' %}
+	{% else %}
+		{% include 'headOffline.html' %}
+		{% include 'searchForm.html' %}
+	{% endif %}
+	<div class="reviews">
+	{% for review in reviews %}
+		<p>{{review.buyer_name}}</p>
+		<h6>Publicerad: {{review.date_comment}}<h6>
+		<span><b>Betyg: {{review.rate_name}}</b></span><br>
+		<p>{{review.comment}}</p><br><br><hr>
+	{% endfor %}
+	</div>
+	<div class="row">
+	<div class="col-xs-12 wrapper">
+	{% include 'footer.html' %}

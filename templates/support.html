@@ -1,0 +1,23 @@
+{% if session.user %}
+	{% include 'headOnline.html' %}
+{% else %}
+	{% include 'headOffline.html' %}
+	{% include 'searchForm.html' %}
+{% endif %}
+<div class="info">
+	<div>
+		<h3>Kontakt</h3>
+		<p>Har du frågor eller synpunkter är du välkommen att kontakta oss på webbloppis.sverige@gmail.com. Glöm inte att skicka med dina kontaktuppgifter om du vill att vi ska svara dig.</p>
+	</div>
+	<div>
+	<h3>Vanliga frågor</h3>
+	<p><b>Fråga</b>: Hur registrerar jag mig?</p>
+	<p><b>Svar</b>: För att registrera dig behöver du först klicka på knappen Skapa konto. Då kommer du till ett registreringsformulär där du behöver fylla i ditt namn och välja användarnamn och lösenord. Du behöver även fylla i uppgifter om var du bor och vad man har för e-post adress. Dessa uppgifter är ämnade för kontakt mellan dig som användare av tjänsten och Webbloppis.com och kommer inte att vara tillgängliga för köpare eller andra användare. Telefonnummer är en frivillig uppgift som heller inte kommer att vara tillgänglig för köpare eller andra användare, utan är endast till för att Webbloppis.com ska kunna nå dig utifall det uppstår problem med ditt konto.</p><br>
+	<p><b>Fråga</b>: Hur väljer jag prenumerationspaket?</p>
+	<p><b>Svar</b>: Genom att gå in på länken Prenumerationspaket i menyn till vänster kan du se vad som ingår i de olika paketen. Sedan väljer du det paket du vill ha när du registrerar ditt konto.</p>
+	</div>
+</div>
+
+<div class="row">
+<div class="col-xs-12 wrapper">
+{% include 'footer.html' %}

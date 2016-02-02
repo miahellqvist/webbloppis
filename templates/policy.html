@@ -1,10 +1,16 @@
 <!--Policy för hantering av cookies-->
 
-{% include 'head.html' %}
+{% if session.user %}
+		{% include 'headOnline.html' %}
+	{% else %}
+		{% include 'headOffline.html' %}
+{% endif %}
 <h1>Cookiepolicy</h1>
 
 <p>Webbloppis webbplats innehåller kakor. En kaka (cookie) är en textfil som sparas på besökarens dator när man besöker webbplatsen. Textfilen används bland annat för att underlätta besökarens användning av webbplatsen.</p>
  
 <p>På Webbloppis webbplats finns så kallade sessions kakor som lagras endast temporärt under besöket på webbplatsen. För att kunna använda Webbloppis tjänster måste besökaren tillåta användningen av sessions kakor. Sessions kakor används för att besökaren ska kunna utföra sina ärenden och försvinner när man loggar ut eller stänger webbläsaren.</p>
 
+<div class="row">
+<div class="col-xs-12 wrapper">
 {% include 'footer.html' %}

@@ -210,7 +210,12 @@ class ProductModel {
 			");
 
 		$result=$dbCon->query($query);
-		return true;
+		if ($result) {
+			return true;
+		}
+		else {
+			throw new Exception ('Ett fel har inträffat. Försök igen vid ett senare tillfälle.');
+		}
 	}
 
 	public static function deleteProduct($id) {
@@ -220,6 +225,12 @@ class ProductModel {
 
 		$query = "DELETE FROM product WHERE product_id='$cleanId'";
 		$result=$dbCon->query($query);
-		return true;
+		
+		if($result){
+			return true;
+		}
+		else {
+			throw new Exception ('Ett fel har inträffat. Försök igen vid ett senare tillfälle.');
+		}
 	}
 }

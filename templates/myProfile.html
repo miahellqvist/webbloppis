@@ -1,5 +1,5 @@
 <!--Visar säljarens alla annonser när den är inloggad, man kan ändra och ta bort annonsen-->
-{% include 'userLoggedIn.html' %}
+{% include 'headOnline.html' %}
 <h1>Mina Annonser</h1>
 <div class="ads">
 	{% for product in products %}
@@ -19,4 +19,7 @@
 		</div>
 	{% endfor %}
 </div>
+
+<div class="row">
+<div class="col-xs-12 wrapper">
 {% include 'footer.html' %}
